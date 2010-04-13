@@ -1,5 +1,25 @@
 // !$*UTF8*$!
 {
+	D00D2C29117502340094D223 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088841174DF0C00DA5FDE /* Display.cpp */;
+		name = "Display.cpp: 24";
+		rLen = 0;
+		rLoc = 412;
+		rType = 0;
+		vrLen = 849;
+		vrLoc = 150;
+	};
+	D00D2C31117502710094D223 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088841174DF0C00DA5FDE /* Display.cpp */;
+		name = "Display.cpp: 24";
+		rLen = 0;
+		rLoc = 412;
+		rType = 0;
+		vrLen = 849;
+		vrLoc = 150;
+	};
 	D05086811174B0A800DA5FDE /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = E4B69E1D0A3A1BDC003C02F2 /* main.cpp */;
@@ -415,7 +435,7 @@
 		isSCMEnabled = 0;
 		scmConfiguration = {
 			repositoryNamesForRoots = {
-				"" = "";
+				"" = ShadowFighter;
 			};
 		};
 	};
@@ -482,10 +502,12 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 292879560;
-			PBXWorkspaceStateSaveDate = 292879560;
+			PBXPerProjectTemplateStateSaveDate = 292880942;
+			PBXWorkspaceStateSaveDate = 292880942;
 		};
 		perUserProjectItems = {
+			D00D2C29117502340094D223 /* PBXTextBookmark */ = D00D2C29117502340094D223 /* PBXTextBookmark */;
+			D00D2C31117502710094D223 /* PBXTextBookmark */ = D00D2C31117502710094D223 /* PBXTextBookmark */;
 			D05086811174B0A800DA5FDE = D05086811174B0A800DA5FDE /* PBXTextBookmark */;
 			D05087421174B35500DA5FDE = D05087421174B35500DA5FDE /* PBXTextBookmark */;
 			D05087441174B35500DA5FDE = D05087441174B35500DA5FDE /* PBXTextBookmark */;
@@ -509,7 +531,7 @@
 			D05089181174F7F400DA5FDE = D05089181174F7F400DA5FDE /* PBXTextBookmark */;
 			D05089191174F7F400DA5FDE = D05089191174F7F400DA5FDE /* PBXTextBookmark */;
 			D050891B1174F7F400DA5FDE = D050891B1174F7F400DA5FDE /* PBXTextBookmark */;
-			D0692C6D1174FCD40058F745 /* PBXTextBookmark */ = D0692C6D1174FCD40058F745 /* PBXTextBookmark */;
+			D0692C6D1174FCD40058F745 = D0692C6D1174FCD40058F745 /* PBXTextBookmark */;
 		};
 		sourceControlManager = D097D0C81174AD6800E959CC /* Source Control */;
 		userBuildSettings = {

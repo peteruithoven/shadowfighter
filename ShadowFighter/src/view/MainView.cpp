@@ -12,7 +12,7 @@
 
 MainView::MainView()
 {
-	ofBackground(0,0,0);
+	//ofBackground(0,0,0);
 }
 
 void MainView::setModel(Model * model)

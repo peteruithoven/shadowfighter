@@ -56,6 +56,8 @@
 		D05088A01174DF0C00DA5FDE /* SettingsView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D050888E1174DF0C00DA5FDE /* SettingsView.cpp */; };
 		D05088A11174DF0C00DA5FDE /* VideoInputView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D05088901174DF0C00DA5FDE /* VideoInputView.cpp */; };
 		D05088B71174DF5A00DA5FDE /* ofxMSAInteractiveObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D05088B31174DF5A00DA5FDE /* ofxMSAInteractiveObject.cpp */; };
+		D069493C11751CFB0023D731 /* KeyboardController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D069493A11751CFB0023D731 /* KeyboardController.cpp */; };
+		D069493F11751E300023D731 /* KeyboardView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D069493D11751E300023D731 /* KeyboardView.cpp */; };
 		E45BE0AA0E8CC67C009D7055 /* GLee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE0A90E8CC67C009D7055 /* GLee.a */; };
 		E45BE2E40E8CC69C009D7055 /* rtAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE2E30E8CC69C009D7055 /* rtAudio.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -248,6 +250,10 @@
 		D05088911174DF0C00DA5FDE /* VideoInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VideoInputView.h; path = src/view/VideoInputView.h; sourceTree = SOURCE_ROOT; };
 		D05088B31174DF5A00DA5FDE /* ofxMSAInteractiveObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxMSAInteractiveObject.cpp; path = ../../openFrameworks/addons/ofxMSAInteractiveObject/src/ofxMSAInteractiveObject.cpp; sourceTree = SDKROOT; };
 		D05088B41174DF5A00DA5FDE /* ofxMSAInteractiveObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxMSAInteractiveObject.h; path = ../../openFrameworks/addons/ofxMSAInteractiveObject/src/ofxMSAInteractiveObject.h; sourceTree = SDKROOT; };
+		D069493A11751CFB0023D731 /* KeyboardController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = KeyboardController.cpp; path = src/controller/KeyboardController.cpp; sourceTree = SOURCE_ROOT; };
+		D069493B11751CFB0023D731 /* KeyboardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyboardController.h; path = src/controller/KeyboardController.h; sourceTree = SOURCE_ROOT; };
+		D069493D11751E300023D731 /* KeyboardView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = KeyboardView.cpp; path = src/view/KeyboardView.cpp; sourceTree = SOURCE_ROOT; };
+		D069493E11751E300023D731 /* KeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyboardView.h; path = src/view/KeyboardView.h; sourceTree = SOURCE_ROOT; };
 		E45BE0390E8CC647009D7055 /* FreeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FreeImage.h; path = ../../../libs/freeimage/include/FreeImage.h; sourceTree = SOURCE_ROOT; };
 		E45BE03F0E8CC650009D7055 /* fmod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fmod.h; path = ../../../libs/fmodex/include/fmod.h; sourceTree = SOURCE_ROOT; };
 		E45BE0400E8CC650009D7055 /* fmod.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = fmod.hpp; path = ../../../libs/fmodex/include/fmod.hpp; sourceTree = SOURCE_ROOT; };
@@ -611,6 +617,8 @@
 		D050886D1174DF0C00DA5FDE /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				D069493A11751CFB0023D731 /* KeyboardController.cpp */,
+				D069493B11751CFB0023D731 /* KeyboardController.h */,
 				D05088701174DF0C00DA5FDE /* VideoInputController.cpp */,
 				D05088711174DF0C00DA5FDE /* VideoInputController.h */,
 			);
@@ -656,7 +664,6 @@
 		D05088821174DF0C00DA5FDE /* view */ = {
 			isa = PBXGroup;
 			children = (
-				D05088831174DF0C00DA5FDE /* components */,
 				D050888A1174DF0C00DA5FDE /* DisplayView.cpp */,
 				D050888B1174DF0C00DA5FDE /* DisplayView.h */,
 				D050888C1174DF0C00DA5FDE /* MainView.cpp */,
@@ -665,6 +672,9 @@
 				D050888F1174DF0C00DA5FDE /* SettingsView.h */,
 				D05088901174DF0C00DA5FDE /* VideoInputView.cpp */,
 				D05088911174DF0C00DA5FDE /* VideoInputView.h */,
+				D069493D11751E300023D731 /* KeyboardView.cpp */,
+				D069493E11751E300023D731 /* KeyboardView.h */,
+				D05088831174DF0C00DA5FDE /* components */,
 			);
 			name = view;
 			path = src/view;
@@ -1100,6 +1110,8 @@
 				D05088A01174DF0C00DA5FDE /* SettingsView.cpp in Sources */,
 				D05088A11174DF0C00DA5FDE /* VideoInputView.cpp in Sources */,
 				D05088B71174DF5A00DA5FDE /* ofxMSAInteractiveObject.cpp in Sources */,
+				D069493C11751CFB0023D731 /* KeyboardController.cpp in Sources */,
+				D069493F11751E300023D731 /* KeyboardView.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

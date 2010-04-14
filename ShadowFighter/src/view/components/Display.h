@@ -22,10 +22,6 @@ class Display : public DisplayObject
 	public:
 		Display();
 		int threshold;
-		int interval;
-		float flowValue;
-		float flowIntervalRatio;
-		int baseInterval;
 	
 	private:
 		ofTrueTypeFont ttf;

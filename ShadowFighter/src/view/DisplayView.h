@@ -22,9 +22,11 @@ class DisplayView : public BaseView
 	public:
 		DisplayView();
 		void setModel(Model * model);
+	
 	private:
 
 		Display display;
+		void update();
 		void onValuesUpdated(int & arg);
 };
 

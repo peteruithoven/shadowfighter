@@ -3,22 +3,24 @@
 
 
 #include "ofMain.h"
-#include "model/Model.h"
-#include "view/MainView.h"
-#include "view/DisplayView.h"
-#include "view/SettingsView.h"
-#include "view/VideoInputView.h"
+#include "Model.h"
+#include "MainView.h"
+#include "DisplayView.h"
+#include "SettingsView.h"
+#include "VideoInputView.h"
+#include "keyboardView.h"
 
 class testApp : public ofBaseApp{
 
 	public:
 	
 		Model model;
+		VideoInputView videoInputView;
 		MainView mainView;
 		DisplayView displayView;
-		SettingsView settingsView;
-		VideoInputView videoInputView;
-	
+		//SettingsView settingsView;
+		KeyboardView keyboardView;
+		
 		void setup();
 		void update();
 		void draw();

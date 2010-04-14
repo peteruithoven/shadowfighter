@@ -10,6 +10,7 @@
 
 VideoInputView::VideoInputView()
 {
+	cout << "VideoInputView::VideoInputView\n";
 	ofAddListener(videoInput.NEW_PIXELS,this,&VideoInputView::onNewPixels);
 }
 
@@ -20,6 +21,5 @@ void VideoInputView::setModel(Model * model)
 }
 void VideoInputView::onNewPixels(int & nothing)
 {
-	
 	controller.newPixels(videoInput.videoPlayer.pixels);
 }

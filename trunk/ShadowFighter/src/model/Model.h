@@ -13,23 +13,34 @@
 #include "ofEvents.h"
 #include "ofxXmlSettings.h"
 #include "Timer.h"
+#include "ofxCvGrayscaleImage.h"
 
 class Model{
 
 	public:
 		ofxXmlSettings		xml;
+		int					videoW;
+		int					videoH;
 		bool				debug;
 		int					threshold;
-		bool				autoThreshold;
+		bool				willLearnBackground;
+		int					minBlobSize;
+		int					maxBlobSize;
+	
+		ofxCvGrayscaleImage* grayImg;
+		ofxCvGrayscaleImage* grayEmptyImg;
+		ofxCvGrayscaleImage* grayDiffImg;
+	
 		Model();
-		
-		bool getDebug();
+		void learnBackground();
+		void setThreshold(int newValue);
 		void setDebug(bool debug);
 		
 		ofEvent< int > VALUES_UPDATED;
 		
 	protected:
-		Timer timer;
+		Timer				timer;
+	
 		void update(ofEventArgs & args);
 		void onTick(int  & count);
 };

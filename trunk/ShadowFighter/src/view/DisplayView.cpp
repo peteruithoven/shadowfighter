@@ -3,7 +3,6 @@
  *  openFrameworks
  *
  *  Created by Peter Uithoven on 5/30/09.
- *  Copyright 2009 __MyCompanyName__. All rights reserved.
  *
  */
 
@@ -17,14 +16,16 @@ DisplayView::DisplayView()
 void DisplayView::setModel(Model * model)
 {
 	this->model = model;
-	//ofAddListener(model->VALUES_UPDATED,this,&DisplayView::onValuesUpdated);
+	ofAddListener(model->VALUES_UPDATED,this,&DisplayView::onValuesUpdated);
+	update();
 }
 
-/*void DisplayView::onValuesUpdated(int & arg)
+void DisplayView::onValuesUpdated(int & arg)
 {
-	display.threshold = model->getThreshold();
-	display.flowValue = model->flowValue();
-	display.flowIntervalRatio = model->flowIntervalRatio;
-	display.baseInterval = model->baseInterval;
-	display.interval = model->getInterval();
-}*/
+	update();
+}
+void DisplayView::update()
+{
+	cout << "DisplayView::update\n";
+	display.threshold = model->threshold;
+}

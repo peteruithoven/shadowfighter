@@ -12,14 +12,21 @@
 
 #include <ofUtils.h>
 #include "BaseController.h"
+#include "ofxCvGrayscaleImage.h"
+#include "ofxCvContourFinder.h"
 
 class VideoInputController : public BaseController
 {
 	public:
+	
 		VideoInputController();
 		void newPixels(unsigned char * pixels);
 	
 	protected:
+		
+        ofxCvContourFinder	contourFinder;	
+	
+		float getAutoThreshold(ofxCvGrayscaleImage * image);
 };
 
 #endif

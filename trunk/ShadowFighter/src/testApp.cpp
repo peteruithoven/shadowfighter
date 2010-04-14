@@ -2,14 +2,17 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
-	mainView.setModel(&model);
-	settingsView.setModel(&model);
-	//displayView.setModel(&model);
-	videoInputView.setModel(&model);
-
-	//model.start();
 	
 	ofSetFrameRate(31);
+	ofBackground(0,0,0);
+	
+	model;
+	videoInputView.setModel(&model);
+	mainView.setModel(&model);
+	displayView.setModel(&model);
+	//settingsView.setModel(&model);
+	keyboardView.setModel(&model);
+	//model.start();
 }
 
 //--------------------------------------------------------------

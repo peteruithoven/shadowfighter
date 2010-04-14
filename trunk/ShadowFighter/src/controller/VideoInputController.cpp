@@ -57,7 +57,28 @@ void VideoInputController::newPixels(unsigned char * pixels)
 	model->grayDiffImg->threshold(model->threshold);
 	model->grayDiffImg->draw(videoW, videoH);
 	
-	//contourFinder.findContours(grayDiffImg, model->minBlobSize, model->maxBlobSize, 10, true);	
+	contourFinder.findContours(*model->grayDiffImg, model->minBlobSize, model->maxBlobSize, model->maxNumBlobs, true);
+	
+	float blobDisplayX = videoW;
+	float blobDisplayY = videoH;
+	int numBlobs = contourFinder.nBlobs;
+    for (int i = 0; i < numBlobs; i++)
+	{
+		ofxCvBlob blob = contourFinder.blobs[i];
+		
+		float blobX = blob.boundingRect.x;
+		float blobY = blob.boundingRect.y;
+		float blobWidth = blob.boundingRect.width;
+		float blobHeight = blob.boundingRect.height;
+		
+		/*if(!(blobX > activeAreaX &&
+			 blobY > activeAreaY &&
+			 blobX+blobWidth < activeAreaX+activeAreaWidth &&
+			 blobY+blobHeight < activeAreaY+activeAreaHeight))
+			continue;*/
+		
+		blob.draw(blobDisplayX,blobDisplayY);
+	}			
 }
 
 /*float VideoInputController::getAutoThreshold(ofxCvGrayscaleImage * image)

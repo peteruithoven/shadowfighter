@@ -16,8 +16,9 @@ Model::Model()
 	videoH				= 460;
 	threshold			= 30;
 	willLearnBackground = false;
-	minBlobSize			= 100;
-	maxBlobSize			= videoH;
+	minBlobSize			= 100*100;
+	maxBlobSize			= videoH*videoH;
+	maxNumBlobs			= 5;
 	
 	grayImg = new ofxCvGrayscaleImage();
 	grayEmptyImg = new ofxCvGrayscaleImage();

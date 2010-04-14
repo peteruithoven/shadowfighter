@@ -26,6 +26,7 @@ class Model{
 		bool				willLearnBackground;
 		int					minBlobSize;
 		int					maxBlobSize;
+		int					maxNumBlobs;
 	
 		ofxCvGrayscaleImage* grayImg;
 		ofxCvGrayscaleImage* grayEmptyImg;

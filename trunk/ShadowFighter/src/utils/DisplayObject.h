@@ -13,14 +13,15 @@
 #include <ofUtils.h>
 #include <ofMain.h>
 
-class DisplayObject{
-
+class DisplayObject
+{
 	public:
-		int x;
-		int y;
-		int width;
-		int height;	
-		int rotation;
+		float x;
+		float y;
+		float width;
+		float height;	
+		float alpha;
+		float rotation;
 		
 		DisplayObject();
 		virtual void draw(ofEventArgs & args);

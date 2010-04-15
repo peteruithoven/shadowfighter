@@ -14,6 +14,7 @@
 #include "ofxXmlSettings.h"
 #include "Timer.h"
 #include "ofxCvGrayscaleImage.h"
+#include "ofImage.h"
 
 class Model{
 
@@ -23,21 +24,36 @@ class Model{
 		int					videoH;
 		bool				debug;
 		int					threshold;
+		int					hitThreshold;
 		bool				willLearnBackground;
 		int					minBlobSize;
 		int					maxBlobSize;
 		int					maxNumBlobs;
-	
+		
 		ofxCvGrayscaleImage* grayImg;
 		ofxCvGrayscaleImage* grayEmptyImg;
 		ofxCvGrayscaleImage* grayDiffImg;
+		
+		ofImage*			imgLoader;
+		
+		vector<ofxCvBlob*>*	blobs;
+		ofxCvGrayscaleImage*prevGrayDiffImg;
+		bool				hitting;
+		int					hitCounter;
+		ofRectangle*		hitRect;
+		
+		int					cameraIndex;
 	
 		Model();
 		void learnBackground();
 		void setThreshold(int newValue);
+		void setHitThreshold(int newValue);
+		void setCameraIndex(int newValue);
 		void setDebug(bool debug);
-		
+		void hit();
 		ofEvent< int > VALUES_UPDATED;
+		ofEvent< int > CAMERA_INDEX_CHANGED;
+		ofEvent< int > HIT;
 		
 	protected:
 		Timer				timer;

@@ -9,6 +9,7 @@
 #include "SettingsView.h"
 #include "VideoInputView.h"
 #include "keyboardView.h"
+#include "VisualFeedbackView.h"
 
 class testApp : public ofBaseApp{
 
@@ -20,7 +21,8 @@ class testApp : public ofBaseApp{
 		DisplayView displayView;
 		//SettingsView settingsView;
 		KeyboardView keyboardView;
-		
+		VisualFeedbackView visualFeedbackView;
+	
 		void setup();
 		void update();
 		void draw();

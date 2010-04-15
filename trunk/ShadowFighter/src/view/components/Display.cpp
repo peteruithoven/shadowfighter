@@ -11,13 +11,14 @@
 Display::Display()
 {
 	threshold = 0;
+	hitThreshold = 0;
 	ttf.loadFont("mono.ttf", 10);
 	ofAddListener(ofEvents.draw, this, &Display::draw);
 }
 void Display::draw(ofEventArgs & args)
 { 
 	//ofSetColor(200, 200, 200);
-	ofSetColor(200, 200, 200);
+	ofSetColor(220, 220, 220);
 	
 	int x = 20;
 	int y = 20;
@@ -25,6 +26,9 @@ void Display::draw(ofEventArgs & args)
 	std:string displayStr = "";
 	displayStr += "Threshold: ";
 	displayStr += ofToString(threshold);
+	displayStr += "\n";	
+	displayStr += "Hit threshold: ";
+	displayStr += ofToString(hitThreshold);
 	displayStr += "\n";	
 	//cout << "displayStr: " << displayStr << endl;
 	

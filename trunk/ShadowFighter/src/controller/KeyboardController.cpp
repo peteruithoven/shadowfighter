@@ -28,6 +28,29 @@ void KeyboardController::keyPressed(int keyCode)
 		case '_':
 			model->setThreshold(model->threshold-1);
 			break;
+		case '[':
+			model->setThreshold(model->hitThreshold+1);
+			break;
+		case ']':
+			model->setThreshold(model->hitThreshold-1);
+			break;
+		case '0':
+			model->setCameraIndex(0);
+			break;
+		case '1':
+			model->setCameraIndex(1);
+			break;
+		case '2':
+			model->setCameraIndex(2);
+			break;
+		case '3':
+			model->setCameraIndex(3);
+			break;
+		case '4':
+			model->setCameraIndex(4);
+			break;
+			
+			
 		/*case 'i':
 			model->setInvert(!model->getInvert());
 			break;

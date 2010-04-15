@@ -28,4 +28,5 @@ void DisplayView::update()
 {
 	cout << "DisplayView::update\n";
 	display.threshold = model->threshold;
+	display.hitThreshold = model->hitThreshold;
 }

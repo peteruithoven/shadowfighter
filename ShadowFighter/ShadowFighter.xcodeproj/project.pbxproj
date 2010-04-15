@@ -58,6 +58,9 @@
 		D05088B71174DF5A00DA5FDE /* ofxMSAInteractiveObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D05088B31174DF5A00DA5FDE /* ofxMSAInteractiveObject.cpp */; };
 		D0694B1D117541660023D731 /* KeyboardView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0694B1B117541660023D731 /* KeyboardView.cpp */; };
 		D0694B201175418D0023D731 /* KeyboardController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0694B1F1175418D0023D731 /* KeyboardController.cpp */; };
+		D0815C7C11775E4100DFE2D4 /* VisualFeedbackView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0815C7A11775E4100DFE2D4 /* VisualFeedbackView.cpp */; };
+		D0815CA21177682A00DFE2D4 /* HitIndicator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0815CA01177682A00DFE2D4 /* HitIndicator.cpp */; };
+		D0815D2B11776DFA00DFE2D4 /* VisualFeedback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0815D2911776DFA00DFE2D4 /* VisualFeedback.cpp */; };
 		E45BE0AA0E8CC67C009D7055 /* GLee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE0A90E8CC67C009D7055 /* GLee.a */; };
 		E45BE2E40E8CC69C009D7055 /* rtAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE2E30E8CC69C009D7055 /* rtAudio.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -254,6 +257,12 @@
 		D0694B1C117541660023D731 /* KeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyboardView.h; path = src/view/KeyboardView.h; sourceTree = SOURCE_ROOT; };
 		D0694B1E1175418D0023D731 /* KeyboardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeyboardController.h; path = src/controller/KeyboardController.h; sourceTree = SOURCE_ROOT; };
 		D0694B1F1175418D0023D731 /* KeyboardController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = KeyboardController.cpp; path = src/controller/KeyboardController.cpp; sourceTree = SOURCE_ROOT; };
+		D0815C7A11775E4100DFE2D4 /* VisualFeedbackView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VisualFeedbackView.cpp; path = openFrameworks/apps/projects/ShadowFighter/src/view/VisualFeedbackView.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		D0815C7B11775E4100DFE2D4 /* VisualFeedbackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VisualFeedbackView.h; path = openFrameworks/apps/projects/ShadowFighter/src/view/VisualFeedbackView.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		D0815CA01177682A00DFE2D4 /* HitIndicator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HitIndicator.cpp; path = openFrameworks/apps/projects/ShadowFighter/src/view/components/HitIndicator.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		D0815CA11177682A00DFE2D4 /* HitIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HitIndicator.h; path = openFrameworks/apps/projects/ShadowFighter/src/view/components/HitIndicator.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		D0815D2911776DFA00DFE2D4 /* VisualFeedback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VisualFeedback.cpp; path = openFrameworks/apps/projects/ShadowFighter/src/view/components/VisualFeedback.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		D0815D2A11776DFA00DFE2D4 /* VisualFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VisualFeedback.h; path = openFrameworks/apps/projects/ShadowFighter/src/view/components/VisualFeedback.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		E45BE0390E8CC647009D7055 /* FreeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FreeImage.h; path = ../../../libs/freeimage/include/FreeImage.h; sourceTree = SOURCE_ROOT; };
 		E45BE03F0E8CC650009D7055 /* fmod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fmod.h; path = ../../../libs/fmodex/include/fmod.h; sourceTree = SOURCE_ROOT; };
 		E45BE0400E8CC650009D7055 /* fmod.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = fmod.hpp; path = ../../../libs/fmodex/include/fmod.hpp; sourceTree = SOURCE_ROOT; };
@@ -617,8 +626,8 @@
 		D050886D1174DF0C00DA5FDE /* controller */ = {
 			isa = PBXGroup;
 			children = (
-				D0694B1E1175418D0023D731 /* KeyboardController.h */,
 				D0694B1F1175418D0023D731 /* KeyboardController.cpp */,
+				D0694B1E1175418D0023D731 /* KeyboardController.h */,
 				D05088701174DF0C00DA5FDE /* VideoInputController.cpp */,
 				D05088711174DF0C00DA5FDE /* VideoInputController.h */,
 			);
@@ -674,6 +683,8 @@
 				D05088911174DF0C00DA5FDE /* VideoInputView.h */,
 				D0694B1B117541660023D731 /* KeyboardView.cpp */,
 				D0694B1C117541660023D731 /* KeyboardView.h */,
+				D0815C7A11775E4100DFE2D4 /* VisualFeedbackView.cpp */,
+				D0815C7B11775E4100DFE2D4 /* VisualFeedbackView.h */,
 				D05088831174DF0C00DA5FDE /* components */,
 			);
 			name = view;
@@ -689,6 +700,10 @@
 				D05088871174DF0C00DA5FDE /* Settings.h */,
 				D05088881174DF0C00DA5FDE /* VideoInput.cpp */,
 				D05088891174DF0C00DA5FDE /* VideoInput.h */,
+				D0815D2911776DFA00DFE2D4 /* VisualFeedback.cpp */,
+				D0815D2A11776DFA00DFE2D4 /* VisualFeedback.h */,
+				D0815CA01177682A00DFE2D4 /* HitIndicator.cpp */,
+				D0815CA11177682A00DFE2D4 /* HitIndicator.h */,
 			);
 			name = components;
 			path = src/view/components;
@@ -1112,6 +1127,9 @@
 				D05088B71174DF5A00DA5FDE /* ofxMSAInteractiveObject.cpp in Sources */,
 				D0694B1D117541660023D731 /* KeyboardView.cpp in Sources */,
 				D0694B201175418D0023D731 /* KeyboardController.cpp in Sources */,
+				D0815C7C11775E4100DFE2D4 /* VisualFeedbackView.cpp in Sources */,
+				D0815CA21177682A00DFE2D4 /* HitIndicator.cpp in Sources */,
+				D0815D2B11776DFA00DFE2D4 /* VisualFeedback.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

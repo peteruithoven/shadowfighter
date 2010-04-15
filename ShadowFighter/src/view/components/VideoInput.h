@@ -13,12 +13,16 @@
 #include <ofUtils.h>
 #include <ofVideoPlayer.h>
 #include "ofEvents.h"
+#include "DisplayObject.h"
+#include "ofxCvColorImage.h"
 
-class VideoInput{
+
+class VideoInput : public DisplayObject{
 
 	public:
-		ofVideoPlayer videoPlayer; // public for performance increase of direct calls
-	
+		ofVideoPlayer	videoPlayer; // public for performance increase of direct calls
+		ofVideoGrabber	camera;
+		bool			useCamera;
 		VideoInput();
 		void start();
 		void stop();
@@ -27,6 +31,7 @@ class VideoInput{
 	
 	protected:
 		
+		ofxCvColorImage colorImg;
 		void draw(ofEventArgs & args);
 };
 

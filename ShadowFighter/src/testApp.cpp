@@ -7,11 +7,12 @@ void testApp::setup(){
 	ofBackground(0,0,0);
 	
 	model;
-	videoInputView.setModel(&model);
 	mainView.setModel(&model);
+	videoInputView.setModel(&model);
 	displayView.setModel(&model);
 	//settingsView.setModel(&model);
 	keyboardView.setModel(&model);
+	visualFeedbackView.setModel(&model);
 	//model.start();
 }
 

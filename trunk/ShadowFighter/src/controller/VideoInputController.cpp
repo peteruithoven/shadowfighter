@@ -21,6 +21,8 @@ void VideoInputController::analyze(unsigned char * pixels)
 	//cout << "VideoInputController::analyze\n";
 	// analyze pixels, using configuration stored in model
 	
+	
+	
 	int videoW = model->videoW;
 	int videoH = model->videoH;
 	
@@ -57,6 +59,8 @@ void VideoInputController::analyze(unsigned char * pixels)
 		model->willLearnBackground = false;
 	}
 	model->grayEmptyImg->draw(videoW, 0);
+	
+	delete [] grayPixels;
 	
 	// store pref grayimage
 	model->prevGrayDiffImg->setFromPixels(model->grayDiffImg->getPixels(), videoW, videoH);

@@ -7,6 +7,7 @@ void testApp::setup(){
 	ofBackground(0,0,0);
 	
 	model;
+	projectionView.setModel(&model);
 	mainView.setModel(&model);
 	videoInputView.setModel(&model);
 	displayView.setModel(&model);

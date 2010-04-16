@@ -29,7 +29,7 @@ class Model{
 		int					minBlobSize;
 		int					maxBlobSize;
 		int					maxNumBlobs;
-		
+		bool				debugDetection;
 		ofxCvGrayscaleImage* grayImg;
 		ofxCvGrayscaleImage* grayEmptyImg;
 		ofxCvGrayscaleImage* grayDiffImg;

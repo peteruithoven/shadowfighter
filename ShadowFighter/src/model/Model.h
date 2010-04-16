@@ -30,6 +30,9 @@ class Model{
 		int					maxBlobSize;
 		int					maxNumBlobs;
 		bool				debugDetection;
+		int					minDiffHitBlobsPos;
+	
+	
 		ofxCvGrayscaleImage* grayImg;
 		ofxCvGrayscaleImage* grayEmptyImg;
 		ofxCvGrayscaleImage* grayDiffImg;
@@ -37,7 +40,8 @@ class Model{
 		ofImage*			imgLoader;
 		
 		vector<ofxCvBlob*>*	blobs;
-		ofxCvGrayscaleImage*prevGrayDiffImg;
+		vector<ofxCvBlob*>*	prevHitBlobs;
+		ofxCvGrayscaleImage* prevGrayDiffImg;
 		bool				hitting;
 		int					hitCounter;
 		ofRectangle*		hitRect;

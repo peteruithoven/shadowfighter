@@ -27,12 +27,9 @@ void Display::draw(ofEventArgs & args)
 	int y = 20;
 	
 	std:string displayStr = "";
-	displayStr += "Threshold: ";
-	displayStr += ofToString(threshold);
-	displayStr += "\n";	
-	displayStr += "Hit threshold: ";
-	displayStr += ofToString(hitThreshold);
-	displayStr += "\n";	
+	displayStr += "Threshold: " + ofToString(threshold) + "\n";
+	displayStr += "Hit threshold: " + ofToString(hitThreshold) + "\n";	
+	//displayStr += "Framerate: " + ofToString(ofGetFrameRate(), 2) + "fps\n";	
 	//cout << "displayStr: " << displayStr << endl;
 	
 	ttf.drawString(displayStr, x, y);

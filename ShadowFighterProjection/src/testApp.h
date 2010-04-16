@@ -21,9 +21,26 @@ class testApp : public ofBaseApp{
 		void windowResized(int w, int h);
 	
 	private:
+	
+		int x;
+		int y;
+		float scale;
+	
 		ofxOscReceiver	receiver;
-		void addHit(int x,int y);
+		void addHit(int hitX,int hitY);
 		vector<DisplayObject*> children;
+	
+		bool ofKeyAlt() {
+			return (glutGetModifiers() & GLUT_ACTIVE_ALT);
+		}
+		
+		bool ofKeyShift() {
+			return (glutGetModifiers() & GLUT_ACTIVE_SHIFT);
+		}
+		
+		bool ofKeyControl() {
+			return (glutGetModifiers() & GLUT_ACTIVE_CTRL);
+		}
 };
 
 #endif

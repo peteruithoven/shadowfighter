@@ -22,6 +22,9 @@ Model::Model()
 	maxNumBlobs			= 5;
 	cameraIndex			= 0;
 	debugDetection		= true;
+	minDiffHitBlobsPos	= 50;
+	
+	
 	grayImg = new ofxCvGrayscaleImage();
 	grayEmptyImg = new ofxCvGrayscaleImage();
 	grayDiffImg = new ofxCvGrayscaleImage();
@@ -30,6 +33,7 @@ Model::Model()
 	grayDiffImg->allocate(videoW,videoH);
 	
 	blobs				= new vector<ofxCvBlob*>;
+	prevHitBlobs		= new vector<ofxCvBlob*>;
 	prevGrayDiffImg		= new ofxCvGrayscaleImage();
 	prevGrayDiffImg->allocate(videoW, videoH);
 	

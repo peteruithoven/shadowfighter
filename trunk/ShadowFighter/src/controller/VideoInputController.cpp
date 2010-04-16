@@ -79,7 +79,7 @@ void VideoInputController::analyze(unsigned char * pixels)
 	float blobDisplayX = videoW;
 	float blobDisplayY = videoH;
 	int numBlobs = contourFinder.blobs.size();
-	int numPrevBlobs = model->blobs->size();
+	//int numPrevBlobs = model->blobs->size();
 	
 	checkHit();
 	
@@ -109,10 +109,6 @@ void VideoInputController::analyze(unsigned char * pixels)
 	{
 		ofxCvBlob blob = contourFinder.blobs[i];
 		ofRectangle blobRect = blob.boundingRect;
-		float blobX = blob.boundingRect.x;
-		float blobY = blob.boundingRect.y;
-		float blobWidth = blob.boundingRect.width;
-		float blobHeight = blob.boundingRect.height;
 		
 		/*if(!(blobRect.x > activeAreaX &&
 			 blobRect.y > activeAreaY &&
@@ -260,8 +256,6 @@ void VideoInputController::checkHit()
 	contourFinder.findContours(*model->grayDiffImg, 100, 400*400, 5, true);
 	int numBlobs = contourFinder.blobs.size();
 	
-	
-		
 	for (int i = 0; i < numBlobs; i++)
 	{
 		ofxCvBlob blob = contourFinder.blobs[i];
@@ -272,11 +266,23 @@ void VideoInputController::checkHit()
 		 blobRect.y+blobRect.height < activeArea.y+activeArea.height))
 		 continue;
 		
+		bool toCloseToPrevHit = false;
+		for (int j = 0; j < model->prevHitBlobs->size(); j++)
+		{
+			ofxCvBlob* prevBlob = model->prevHitBlobs->at(j);
+			ofRectangle prevBlobRect = prevBlob->boundingRect;
+			
+			float dist = ofDist(prevBlobRect.x, prevBlobRect.y, 
+								blobRect.x, blobRect.y);
+			
+			if(dist < model->minDiffHitBlobsPos) 
+				toCloseToPrevHit = true;
+		}
+		if(toCloseToPrevHit)
+			continue;
 		//blob.draw(hitBlobDisplayX,hitBlobDisplayY);
 		if(model->debugDetection)
 			blob.draw(0,0);
-		
-		
 		
 		//model->hitRect = &blobRect;
 		model->hitRect->x = blobRect.x;
@@ -285,7 +291,6 @@ void VideoInputController::checkHit()
 		model->hitRect->height = blobRect.height;	
 		
 		model->hit();
-		
 	}
 	
 	if (numBlobs > 0) // && !model->hitting) 
@@ -298,7 +303,22 @@ void VideoInputController::checkHit()
 		model->hitting = false;
 	}
 	
-	
+	// store copy of hit blobs
+	if(model->prevHitBlobs->size() > 0)
+		model->prevHitBlobs->clear();
+    for (int i = 0; i < numBlobs; i++)
+	{
+		ofxCvBlob blob = contourFinder.blobs[i];
+		ofRectangle blobRect = blob.boundingRect;
+		
+		ofxCvBlob * blobCopy = new ofxCvBlob();
+		blobCopy->boundingRect.x = blobRect.x;
+		blobCopy->boundingRect.y = blobRect.y;
+		blobCopy->boundingRect.width = blobRect.width;
+		blobCopy->boundingRect.height = blobRect.height;
+		//cout << "  new blob copy: " << blobCopy << "\n";
+		model->prevHitBlobs->push_back(blobCopy);
+	}
 	
 	/*// get prev blobs
 	cout << "  get prev blobs\n";

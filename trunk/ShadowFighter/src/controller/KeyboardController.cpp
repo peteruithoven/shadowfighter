@@ -34,20 +34,8 @@ void KeyboardController::keyPressed(int keyCode)
 		case ']':
 			model->setThreshold(model->hitThreshold-1);
 			break;
-		case '0':
-			model->setCameraIndex(0);
-			break;
-		case '1':
-			model->setCameraIndex(1);
-			break;
-		case '2':
-			model->setCameraIndex(2);
-			break;
-		case '3':
-			model->setCameraIndex(3);
-			break;
-		case '4':
-			model->setCameraIndex(4);
+		case 'd':
+			model->debugDetection = !model->debugDetection;
 			break;
 			
 			
@@ -60,9 +48,7 @@ void KeyboardController::keyPressed(int keyCode)
 		case '.':
 			model->setObjectsScale(model->getObjectsScale()+0.1);
 			break;
-		case 'd':
-			model->setDebug(!model->getDebug());
-			break;*/
+		*/
 	};
 }
 void KeyboardController::keyReleased(int keyCode)

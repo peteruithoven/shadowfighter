@@ -19,10 +19,11 @@ class DisplayObject
 		float x;
 		float y;
 		float width;
-		float height;	
+		float height;
 		float alpha;
 		float rotation;
-		
+		float scale;
+	
 		DisplayObject();
 		virtual void draw(ofEventArgs & args);
 };

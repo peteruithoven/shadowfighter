@@ -17,6 +17,7 @@ DisplayObject::DisplayObject()
 	width = 0;
 	height = 0;
 	rotation = 0;
+	scale = 1;
 	ofAddListener(ofEvents.draw, this, &DisplayObject::draw);
 }
 

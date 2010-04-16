@@ -9,17 +9,21 @@ void testApp::setup()
 {
 	ofSetFrameRate(31);
 	ofBackground(0,0,0);
+	ofSetCircleResolution(100);
+	children = *new vector<DisplayObject*>;
+	x = 0;
+	y = 0;
+	scale = 1;
 	
 	receiver.setup(PORT);
-	
-	children = *new vector<DisplayObject*>;
 }
 
-void testApp::addHit(int x,int y)
+void testApp::addHit(int hitX,int hitY)
 {
 	HitIndicator *hitIndicator = new HitIndicator();
-	hitIndicator->x = x;
-	hitIndicator->y = y;
+	hitIndicator->x = x+hitX*scale;
+	hitIndicator->y = y+hitY*scale;
+	hitIndicator->scale = scale;
 	hitIndicator->start();
 	children.push_back(hitIndicator);
 }
@@ -66,16 +70,47 @@ void testApp::draw(){
 }
 
 //--------------------------------------------------------------
-void testApp::keyPressed(int key)
+void testApp::keyPressed(int keyCode)
 {
-	
 }
 
 //--------------------------------------------------------------
-void testApp::keyReleased(int key)
+void testApp::keyReleased(int keyCode)
 {
-	ofToggleFullscreen();
+	float step;
+	if(ofKeyShift()) step = 10;
+	else if(ofKeyControl()) step = 1;
+	else step = 5;
+	
+	switch (keyCode){
+		case ' ':
+			ofToggleFullscreen();
+			break;
+		case '+':
+		case '=':
+			scale += step/100;
+			break;
+		case '-':
+		case '_':
+			scale -= step/100;
+			break;
+		case OF_KEY_UP:
+			y -= step;
+			break;
+		case OF_KEY_DOWN:
+			y += step;
+			break;
+		case OF_KEY_LEFT:
+			x -= step;
+			break;
+		case OF_KEY_RIGHT:
+			x += step;
+			break;
+	}
+	
 }
+
+
 
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y )

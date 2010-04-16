@@ -21,8 +21,6 @@ void VideoInputController::analyze(unsigned char * pixels)
 	//cout << "VideoInputController::analyze\n";
 	// analyze pixels, using configuration stored in model
 	
-	
-	
 	int videoW = model->videoW;
 	int videoH = model->videoH;
 	
@@ -58,20 +56,23 @@ void VideoInputController::analyze(unsigned char * pixels)
 		
 		model->willLearnBackground = false;
 	}
-	model->grayEmptyImg->draw(videoW, 0);
+	if(model->debugDetection)
+		model->grayEmptyImg->draw(videoW, 0);
 	
 	delete [] grayPixels;
 	
 	// store pref grayimage
 	model->prevGrayDiffImg->setFromPixels(model->grayDiffImg->getPixels(), videoW, videoH);
-	model->prevGrayDiffImg->draw(0, videoH);
+	if(model->debugDetection)
+		model->prevGrayDiffImg->draw(0, videoH);
 	
 	// take the abs value of the difference between background and incoming and then threshold:
 	model->grayDiffImg->absDiff(*model->grayEmptyImg, *model->grayImg);
 	//model->grayDiffImg->draw(0, videoH);
 
 	model->grayDiffImg->threshold(model->threshold);
-	model->grayDiffImg->draw(videoW, videoH);
+	if(model->debugDetection)
+		model->grayDiffImg->draw(videoW, videoH);
 	
 	contourFinder.findContours(*model->grayDiffImg, model->minBlobSize, model->maxBlobSize, model->maxNumBlobs, true);
 	
@@ -126,7 +127,8 @@ void VideoInputController::analyze(unsigned char * pixels)
 		cout << "    blobRect.height: " << blobRect.height << "\n";*/
 
 		//blob.draw(0,0);
-		blob.draw(blobDisplayX,blobDisplayY);
+		if(model->debugDetection)
+			blob.draw(blobDisplayX,blobDisplayY);
 		
 		// store copy of blobs
 		ofxCvBlob * blobCopy = new ofxCvBlob();
@@ -271,7 +273,8 @@ void VideoInputController::checkHit()
 		 continue;
 		
 		//blob.draw(hitBlobDisplayX,hitBlobDisplayY);
-		blob.draw(0,0);
+		if(model->debugDetection)
+			blob.draw(0,0);
 		
 		
 		

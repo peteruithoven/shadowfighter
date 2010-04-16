@@ -10,18 +10,22 @@
 #include "VideoInputView.h"
 #include "keyboardView.h"
 #include "VisualFeedbackView.h"
+#include "ProjectionView.h"
 
 class testApp : public ofBaseApp{
 
 	public:
 	
 		Model model;
+		ProjectionView projectionView;
 		VideoInputView videoInputView;
 		MainView mainView;
 		DisplayView displayView;
 		//SettingsView settingsView;
 		KeyboardView keyboardView;
 		VisualFeedbackView visualFeedbackView;
+		
+		
 	
 		void setup();
 		void update();

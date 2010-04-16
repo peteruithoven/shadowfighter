@@ -12,7 +12,7 @@
 VideoInput::VideoInput()
 {
 	//cout << "VideoInput::VideoInput\n";
-	useCamera = false;
+	useCamera = true;
 	
 	width = 640;
 	height = 460;

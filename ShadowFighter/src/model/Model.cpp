@@ -21,7 +21,7 @@ Model::Model()
 	maxBlobSize			= videoH*videoH;
 	maxNumBlobs			= 5;
 	cameraIndex			= 0;
-	
+	debugDetection		= true;
 	grayImg = new ofxCvGrayscaleImage();
 	grayEmptyImg = new ofxCvGrayscaleImage();
 	grayDiffImg = new ofxCvGrayscaleImage();

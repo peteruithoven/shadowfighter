@@ -12,11 +12,15 @@
 #include "ofMain.h"
 #include "ofxOsc.h"
 #include "DisplayObject.h"
+#include "Model.h"
 
 class Projection : public DisplayObject 
 {
 
 	public:
+	
+		Model * model;
+	
 		Projection();
 		void addHit(int x,int y);
 	

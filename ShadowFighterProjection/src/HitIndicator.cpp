@@ -14,7 +14,6 @@ HitIndicator::HitIndicator()
 }
 void HitIndicator::start()
 {
-	alpha = 200;
 	width = 0;
 	running = true;
 }
@@ -34,7 +33,7 @@ void HitIndicator::draw()
 		ofDisableAlphaBlending();
 		
 		
-		width += 5;
+		width += 8;
 		alpha -= 20;
 		if(alpha < 0)
 			running = false;

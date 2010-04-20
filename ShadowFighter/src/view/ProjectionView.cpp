@@ -18,7 +18,8 @@ void ProjectionView::setModel(Model * model)
 {
 	cout << "ProjectionView::setModel\n";
 	this->model = model;
-	//ofAddListener(model->HIT,this,&ProjectionView::onHit);
+	ofAddListener(model->HIT,this,&ProjectionView::onHit);
+	projection.model = model;
 }
 void ProjectionView::onHit(int & arg)
 {

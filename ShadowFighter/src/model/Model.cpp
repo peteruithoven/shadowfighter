@@ -14,10 +14,10 @@ Model::Model()
 	cout << "Model::Model\n";
 	videoW				= 640;
 	videoH				= 460;
-	threshold			= 35;
+	threshold			= 24; //35;
 	hitThreshold		= 42; // is added to normal threshold
 	willLearnBackground = false;
-	minBlobSize			= 150*150;
+	minBlobSize			= 140*140;
 	maxBlobSize			= videoH*videoH;
 	maxNumBlobs			= 5;
 	cameraIndex			= 0;

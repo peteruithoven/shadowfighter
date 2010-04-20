@@ -10,11 +10,12 @@
 #define HOST "localhost"
 #define PORT 12345
 #define HIT_ADDRESS 0
+#define BOUNDING_BOX 1
 
 Projection::Projection()
 {
-	//sender.setup( HOST, PORT );
-	//ofAddListener(ofEvents.update, this, &Projection::update);
+	sender.setup( HOST, PORT );
+	ofAddListener(ofEvents.update, this, &Projection::update);
 }
 void Projection::addHit(int x,int y)
 {
@@ -27,16 +28,24 @@ void Projection::addHit(int x,int y)
 	messagesBundle.addMessage(*message);
 }
 void Projection::update(ofEventArgs & args)
-{	if(messagesBundle.getMessageCount() > 0)
+{
+	//if(model == NULL) return;
+	for (int i = 0; i < model->blobs->size(); i++)
 	{
-		for(int i = 0;i<messagesBundle.getMessageCount();i++)
-		{
-			ofxOscMessage message = messagesBundle.getMessageAt(i);
-			
-			message.getArgAsInt32(0);
-			message.getArgAsInt32(1);
-		}
+		ofxCvBlob * blob = model->blobs->at(i);
+		ofRectangle blobRect = blob->boundingRect;
 		
+		ofxOscMessage * message = new ofxOscMessage();
+		message->setAddress(ofToString(BOUNDING_BOX));
+		message->addIntArg(blobRect.x);
+		message->addIntArg(blobRect.y);
+		message->addIntArg(blobRect.width);
+		message->addIntArg(blobRect.height);
+		messagesBundle.addMessage(*message);
+	}
+	
+	if(messagesBundle.getMessageCount() > 0)
+	{
 		sender.sendBundle(messagesBundle);
 		messagesBundle.clear();
 	}

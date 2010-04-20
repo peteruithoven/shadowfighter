@@ -4,6 +4,7 @@
 #include "ofMain.h"
 #include "HitIndicator.h"
 #include "ofxOsc.h"
+#include "ofxXmlSettings.h"
 
 class testApp : public ofBaseApp{
 
@@ -25,10 +26,19 @@ class testApp : public ofBaseApp{
 		int x;
 		int y;
 		float scale;
+		int alpha;
+		bool debug;
+	
+		int videoW;
+		int videoH;
+		int screenW;
+		int screenH;
 	
 		ofxOscReceiver	receiver;
-		void addHit(int hitX,int hitY);
+		void addHit(float hitX,float hitY);
 		vector<DisplayObject*> children;
+		vector<ofRectangle*> boundingBoxes;
+		ofxXmlSettings xml;
 	
 		bool ofKeyAlt() {
 			return (glutGetModifiers() & GLUT_ACTIVE_ALT);
@@ -41,6 +51,10 @@ class testApp : public ofBaseApp{
 		bool ofKeyControl() {
 			return (glutGetModifiers() & GLUT_ACTIVE_CTRL);
 		}
+	
+		void loadData();
+		void parseXML();
+		void storeValues();
 };
 
 #endif

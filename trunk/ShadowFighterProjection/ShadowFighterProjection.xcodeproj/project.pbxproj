@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D0672C2F117D9F7C006B0C1F /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0672C28117D9F7C006B0C1F /* tinyxml.cpp */; };
+		D0672C30117D9F7C006B0C1F /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0672C2A117D9F7C006B0C1F /* tinyxmlerror.cpp */; };
+		D0672C31117D9F7C006B0C1F /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0672C2B117D9F7C006B0C1F /* tinyxmlparser.cpp */; };
+		D0672C32117D9F7C006B0C1F /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0672C2D117D9F7C006B0C1F /* ofxXmlSettings.cpp */; };
 		D0CB794D1178E60E006933F8 /* HitIndicator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0CB794B1178E60E006933F8 /* HitIndicator.cpp */; };
 		D0CB79751178E6D9006933F8 /* DisplayObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0CB79731178E6D9006933F8 /* DisplayObject.cpp */; };
 		D0CB79D81178E9B4006933F8 /* liboscpack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CB79C31178E9B4006933F8 /* liboscpack.a */; };
@@ -90,6 +94,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D0672C26117D9F7C006B0C1F /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = install.xml; path = ../../openFrameworks/addons/ofxXmlSettings/install.xml; sourceTree = SDKROOT; };
+		D0672C28117D9F7C006B0C1F /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxml.cpp; path = ../../openFrameworks/addons/ofxXmlSettings/libs/tinyxml.cpp; sourceTree = SDKROOT; };
+		D0672C29117D9F7C006B0C1F /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tinyxml.h; path = ../../openFrameworks/addons/ofxXmlSettings/libs/tinyxml.h; sourceTree = SDKROOT; };
+		D0672C2A117D9F7C006B0C1F /* tinyxmlerror.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxmlerror.cpp; path = ../../openFrameworks/addons/ofxXmlSettings/libs/tinyxmlerror.cpp; sourceTree = SDKROOT; };
+		D0672C2B117D9F7C006B0C1F /* tinyxmlparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxmlparser.cpp; path = ../../openFrameworks/addons/ofxXmlSettings/libs/tinyxmlparser.cpp; sourceTree = SDKROOT; };
+		D0672C2D117D9F7C006B0C1F /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxXmlSettings.cpp; path = ../../openFrameworks/addons/ofxXmlSettings/src/ofxXmlSettings.cpp; sourceTree = SDKROOT; };
+		D0672C2E117D9F7C006B0C1F /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxXmlSettings.h; path = ../../openFrameworks/addons/ofxXmlSettings/src/ofxXmlSettings.h; sourceTree = SDKROOT; };
 		D0CB794B1178E60E006933F8 /* HitIndicator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HitIndicator.cpp; path = src/HitIndicator.cpp; sourceTree = SOURCE_ROOT; };
 		D0CB794C1178E60E006933F8 /* HitIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HitIndicator.h; path = src/HitIndicator.h; sourceTree = SOURCE_ROOT; };
 		D0CB79731178E6D9006933F8 /* DisplayObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DisplayObject.cpp; path = src/DisplayObject.cpp; sourceTree = SOURCE_ROOT; };
@@ -209,10 +220,44 @@
 		BB4B018C10F6955C006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				D0672C25117D9F7C006B0C1F /* ofxXmlSettings */,
 				D0CB79AD1178E9B4006933F8 /* ofxOsc */,
 			);
 			name = addons;
 			sourceTree = "<group>";
+		};
+		D0672C25117D9F7C006B0C1F /* ofxXmlSettings */ = {
+			isa = PBXGroup;
+			children = (
+				D0672C26117D9F7C006B0C1F /* install.xml */,
+				D0672C27117D9F7C006B0C1F /* libs */,
+				D0672C2C117D9F7C006B0C1F /* src */,
+			);
+			name = ofxXmlSettings;
+			path = ../../openFrameworks/addons/ofxXmlSettings;
+			sourceTree = SDKROOT;
+		};
+		D0672C27117D9F7C006B0C1F /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				D0672C28117D9F7C006B0C1F /* tinyxml.cpp */,
+				D0672C29117D9F7C006B0C1F /* tinyxml.h */,
+				D0672C2A117D9F7C006B0C1F /* tinyxmlerror.cpp */,
+				D0672C2B117D9F7C006B0C1F /* tinyxmlparser.cpp */,
+			);
+			name = libs;
+			path = ../../openFrameworks/addons/ofxXmlSettings/libs;
+			sourceTree = SDKROOT;
+		};
+		D0672C2C117D9F7C006B0C1F /* src */ = {
+			isa = PBXGroup;
+			children = (
+				D0672C2D117D9F7C006B0C1F /* ofxXmlSettings.cpp */,
+				D0672C2E117D9F7C006B0C1F /* ofxXmlSettings.h */,
+			);
+			name = src;
+			path = ../../openFrameworks/addons/ofxXmlSettings/src;
+			sourceTree = SDKROOT;
 		};
 		D0CB79AD1178E9B4006933F8 /* ofxOsc */ = {
 			isa = PBXGroup;
@@ -732,6 +777,10 @@
 				D0CB79DF1178E9B4006933F8 /* ofxOscMessage.cpp in Sources */,
 				D0CB79E01178E9B4006933F8 /* ofxOscReceiver.cpp in Sources */,
 				D0CB79E11178E9B4006933F8 /* ofxOscSender.cpp in Sources */,
+				D0672C2F117D9F7C006B0C1F /* tinyxml.cpp in Sources */,
+				D0672C30117D9F7C006B0C1F /* tinyxmlerror.cpp in Sources */,
+				D0672C31117D9F7C006B0C1F /* tinyxmlparser.cpp in Sources */,
+				D0672C32117D9F7C006B0C1F /* ofxXmlSettings.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

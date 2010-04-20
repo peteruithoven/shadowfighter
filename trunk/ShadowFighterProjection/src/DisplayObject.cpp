@@ -13,7 +13,7 @@ DisplayObject::DisplayObject()
 {
 	x = 0;
 	y = 0;
-	alpha = 1;
+	alpha = 255;
 	width = 0;
 	height = 0;
 	rotation = 0;

@@ -27,6 +27,7 @@ class DisplayView : public BaseView
 
 		Display display;
 		void update();
+		void onDataLoaded(int & nothing);
 		void onValuesUpdated(int & arg);
 };
 

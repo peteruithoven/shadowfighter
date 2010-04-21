@@ -16,12 +16,14 @@ DisplayView::DisplayView()
 void DisplayView::setModel(Model * model)
 {
 	this->model = model;
-	if(model->debugDetection)
-	{
-		ofAddListener(model->VALUES_UPDATED,this,&DisplayView::onValuesUpdated);
-		display.start();
-		update();
-	}
+	
+	ofAddListener(model->DATA_LOADED,this,&DisplayView::onDataLoaded);
+}
+void DisplayView::onDataLoaded(int & nothing)
+{
+	ofAddListener(model->VALUES_UPDATED,this,&DisplayView::onValuesUpdated);
+	display.start();
+	update();
 }
 
 void DisplayView::onValuesUpdated(int & arg)

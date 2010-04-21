@@ -7,11 +7,17 @@
  *
  */
 
-#include "Model.h"s
+#include "Model.h"
+
+int Model::CAMERA = 0;
+int Model::CLIP1_DEMO = 1;
 
 Model::Model()
 {
 	cout << "Model::Model\n";
+	
+	pixelsSource		= CAMERA;
+	
 	videoW				= 640;
 	videoH				= 480;
 	willLearnBackground = false;
@@ -19,6 +25,7 @@ Model::Model()
 	cameraIndex			= 0;
 	debugDetection		= true;
 	minDiffHitBlobsPos	= 50;
+	movieURL			= "";
 	
 	grayImg = new ofxCvGrayscaleImage();
 	grayEmptyImg = new ofxCvGrayscaleImage();
@@ -35,6 +42,7 @@ Model::Model()
 	hitting				= false;
 	hitCounter			= 0;
 	hitRect				= new ofRectangle();
+	
 }
 void Model::loadData()
 {
@@ -57,6 +65,7 @@ void Model::loadData()
 	grayEmptyImg->setFromPixels(imgLoader->getPixels(), videoW,videoH);
 	
 	int emptyArg = 0;
+	ofNotifyEvent(DATA_LOADED,emptyArg,this);
 	ofNotifyEvent(VALUES_UPDATED,emptyArg,this);
 }
 
@@ -80,7 +89,18 @@ void Model::parseXML()
 	detectionZone.width		=  xml.getValue("detectionZoneWidth", 1);	
 	detectionZone.height	=  xml.getValue("detectionZoneHeight", 1);	
 	
-	detectionZone.height = videoH;
+	hitDetectionZone.x		=  xml.getValue("hitDetectionZoneX", 1);	
+	hitDetectionZone.y		=  xml.getValue("hitDetectionZoneY", 1);	
+	hitDetectionZone.width	=  xml.getValue("hitDetectionZoneWidth", 1);	
+	hitDetectionZone.height	=  xml.getValue("hitDetectionZoneHeight", 1);	
+	
+	if(pixelsSource == CLIP1_DEMO)
+	{
+		threshold = 35;
+		hitThreshold = 47;
+		backgroundImageURL = "empty clip1.png";
+		movieURL = "movies/clip1.mov";
+	}
 	
 	cout << "backgroundImageURL: " << backgroundImageURL << "\n";
 	cout << "threshold: " << threshold << "\n";
@@ -97,10 +117,15 @@ void Model::parseXML()
 	cout << "detectionZone.y: " << detectionZone.y << "\n";
 	cout << "detectionZone.width: " << detectionZone.width << "\n";
 	cout << "detectionZone.height: " << detectionZone.height << "\n";
+	cout << "hitDetectionZone.x: " << hitDetectionZone.x << "\n";
+	cout << "hitDetectionZone.y: " << hitDetectionZone.y << "\n";
+	cout << "hitDetectionZone.width: " << hitDetectionZone.width << "\n";
+	cout << "hitDetectionZone.height: " << hitDetectionZone.height << "\n";
 }
 void Model::storeValues()
 {	
 	cout << "Model::storeValues\n";
+	//if(demoMovie != NO_DEMO) return;
 	
 	xml.setValue("backgroundImage", backgroundImageURL);
 	xml.setValue("threshold", threshold);
@@ -117,6 +142,10 @@ void Model::storeValues()
 	xml.setValue("detectionZoneY", detectionZone.y);
 	xml.setValue("detectionZoneWidth", detectionZone.width);
 	xml.setValue("detectionZoneHeight", detectionZone.height);
+	xml.setValue("hitDetectionZoneX", hitDetectionZone.x);
+	xml.setValue("hitDetectionZoneY", hitDetectionZone.y);
+	xml.setValue("hitDetectionZoneWidth", hitDetectionZone.width);
+	xml.setValue("hitDetectionZoneHeight", hitDetectionZone.height);
 	
 	xml.saveFile("config.xml");
 }

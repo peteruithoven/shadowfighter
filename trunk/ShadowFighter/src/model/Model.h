@@ -17,8 +17,11 @@
 #include "ofImage.h"
 
 class Model{
-
 	public:
+		
+		static int					CAMERA;
+		static int					CLIP1_DEMO;
+	
 		ofxXmlSettings		xml;
 		int					videoW;
 		int					videoH;
@@ -34,10 +37,12 @@ class Model{
 		int					maxNumHitBlobs;
 		bool				debugDetection;
 		int					minDiffHitBlobsPos;
-	
 		string				backgroundImageURL;
 		ofRectangle			detectionZone;
-	
+		ofRectangle			hitDetectionZone;
+		
+		int					pixelsSource;
+		string				movieURL;
 		ofxCvGrayscaleImage* grayImg;
 		ofxCvGrayscaleImage* grayEmptyImg;
 		ofxCvGrayscaleImage* grayDiffImg;
@@ -50,7 +55,6 @@ class Model{
 		bool				hitting;
 		int					hitCounter;
 		ofRectangle*		hitRect;
-		
 		int					cameraIndex;
 	
 		Model();
@@ -64,7 +68,7 @@ class Model{
 		void hit();
 		
 
-	
+		ofEvent< int > DATA_LOADED;
 		ofEvent< int > VALUES_UPDATED;
 		ofEvent< int > CAMERA_INDEX_CHANGED;
 		ofEvent< int > HIT;

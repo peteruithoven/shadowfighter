@@ -110,6 +110,7 @@ void VideoInputController::analyze(unsigned char * pixels)
 		ofNoFill();
 		ofSetColor(0x00cc00);
 		ofRect(detectionZone->x, detectionZone->y, detectionZone->width, detectionZone->height);
+		ofRect(blobDisplayX+detectionZone->x, blobDisplayY+detectionZone->y, detectionZone->width, detectionZone->height);
 	}
 	// store and draw blobs
 	model->blobs->clear();
@@ -239,9 +240,6 @@ void VideoInputController::checkHit()
 	int hitBlobDisplayX = 0;
 	int hitBlobDisplayY = model->videoH;
 	
-	//ofRectangle activeArea = newBlob->boundingRect;
-	ofRectangle activeArea = *new ofRectangle();
-	
 	model->grayDiffImg->absDiff(*model->grayEmptyImg, *model->grayImg);
 	//model->grayDiffImg->draw(0, videoH);
 	
@@ -249,13 +247,36 @@ void VideoInputController::checkHit()
 	if(model->debugDetection)
 		model->grayDiffImg->draw(hitBlobDisplayX, hitBlobDisplayY);
 	
+	ofRectangle * detectionZone = &model->hitDetectionZone;
+	if(model->debugDetection)
+	{
+		ofNoFill();
+		ofSetColor(0xcc0000);
+		ofRect(detectionZone->x, detectionZone->y, detectionZone->width, detectionZone->height);
+		ofRect(hitBlobDisplayX+detectionZone->x, hitBlobDisplayY+detectionZone->y, detectionZone->width, detectionZone->height);
+	}
+	
 	hitContourFinder.findContours(*model->grayDiffImg, model->minHitBlobArea, model->maxHitBlobArea, model->maxNumHitBlobs, true);
 	int numBlobs = hitContourFinder.blobs.size();
-	
 	for (int i = 0; i < numBlobs; i++)
 	{
 		ofxCvBlob blob = hitContourFinder.blobs[i];
 		ofRectangle blobRect = blob.boundingRect;
+		
+		if(!(blobRect.x >= detectionZone->x &&
+			 blobRect.y >= detectionZone->y &&
+			 blobRect.x+blobRect.width <= detectionZone->x+detectionZone->width &&
+			 blobRect.y+blobRect.height <= detectionZone->y+detectionZone->height))
+			continue;
+		
+		/*if(blobRect.x == detectionZone.x || 
+		   blobRect.y == detectionZone.y || 
+		   blobRect.x+blobRect.width == detectionZone.x+detectionZone.width ||
+		   blobRect.y+blobRect.height == detectionZone.y+detectionZone.height)
+			continue;*/
+		
+		
+		   
 		
 		bool toCloseToPrevHit = false;
 		for (int j = 0; j < model->prevHitBlobs->size(); j++)

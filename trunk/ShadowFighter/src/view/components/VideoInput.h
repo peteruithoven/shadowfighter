@@ -24,10 +24,13 @@ class VideoInput : public DisplayObject{
 		ofVideoGrabber	camera;
 		bool			useCamera;
 		VideoInput();
+		void init(bool useCamera,string movieURL);
 		void start();
 		void stop();
 	
 		ofEvent< int > NEW_PIXELS;
+	
+
 	
 	protected:
 		

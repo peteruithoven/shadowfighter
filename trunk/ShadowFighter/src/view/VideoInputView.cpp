@@ -10,19 +10,35 @@
 
 VideoInputView::VideoInputView()
 {
-	cout << "VideoInputView::VideoInputView\n";
-	
+	cout << "VideoInputView::VideoInputView\n";	
 	ofAddListener(videoInput.NEW_PIXELS,this,&VideoInputView::onNewPixels);
 }
 void VideoInputView::setModel(Model * model)
 {
+	cout << "VideoInputView::setModel\n";
 	this->model = model;
 	controller.setModel(model);
+	
+	ofAddListener(model->DATA_LOADED,this,&VideoInputView::onDataLoaded);
 	ofAddListener(model->CAMERA_INDEX_CHANGED,this,&VideoInputView::onCameraIndexChanged);
+}
+void VideoInputView::onDataLoaded(int & nothing)
+{
+	videoInput.width = model->videoW;
+	videoInput.height = model->videoH;
+	
+	cout << "  model->pixelsSource: " << model->pixelsSource << "\n";
+	cout << "  Model::CAMERA: " << Model::CAMERA << "\n";
+	cout << "  model->movieURL: " << model->movieURL << "\n";
+	
+	bool useCamera = (model->pixelsSource == Model::CAMERA);
+	cout << "  useCamera: " << useCamera << "\n";
+	
+	videoInput.init(useCamera,model->movieURL);
 }
 void VideoInputView::onNewPixels(int & nothing)
 {
-	if(videoInput.useCamera)
+	if(model->pixelsSource == Model::CAMERA)
 		controller.newPixels(videoInput.camera.getPixels());
 	else
 		controller.newPixels(videoInput.videoPlayer.pixels);

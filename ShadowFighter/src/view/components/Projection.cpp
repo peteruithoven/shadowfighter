@@ -15,7 +15,7 @@
 Projection::Projection()
 {
 	sender.setup( HOST, PORT );
-	//ofAddListener(ofEvents.update, this, &Projection::update);
+	ofAddListener(ofEvents.update, this, &Projection::update);
 }
 void Projection::addHit(int x,int y)
 {
@@ -32,7 +32,7 @@ void Projection::update(ofEventArgs & args)
 	//cout << "  model: " << &model << "\n";
 	//cout << "  model->blobs->size(): " << model->blobs->size() << "\n";
 	//if(model == NULL) return;
-	for (int i = 0; i < model->blobs->size(); i++)
+	/*for (int i = 0; i < model->blobs->size(); i++)
 	{
 		ofxCvBlob * blob = model->blobs->at(i);
 		ofRectangle blobRect = blob->boundingRect;
@@ -44,7 +44,7 @@ void Projection::update(ofEventArgs & args)
 		message->addIntArg(blobRect.width);
 		message->addIntArg(blobRect.height);
 		messagesBundle.addMessage(*message);
-	}
+	}*/
 	
 	if(messagesBundle.getMessageCount() > 0)
 	{

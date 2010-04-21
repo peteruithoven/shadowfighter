@@ -12,13 +12,15 @@
 VideoInput::VideoInput()
 {
 	//cout << "VideoInput::VideoInput\n";
+	running = false;
+	ofAddListener(ofEvents.draw, this, &VideoInput::draw);
 }
 void VideoInput::init(bool bUseCamera,string movieURL)
 {
 	cout << "VideoInput::init\n";
 	cout << "  bUseCamera: " << bUseCamera << "\n";
 	cout << "  movieURL: " << movieURL << "\n";
-	ofAddListener(ofEvents.draw, this, &VideoInput::draw);
+	
 	useCamera = bUseCamera;
 	if(useCamera)
 	{
@@ -35,6 +37,7 @@ void VideoInput::init(bool bUseCamera,string movieURL)
 		videoPlayer.loadMovie(movieURL);
 		start();
 	}
+	running = true;
 }
 void VideoInput::start()
 {
@@ -49,6 +52,7 @@ void VideoInput::stop()
 void VideoInput::draw(ofEventArgs & args)
 { 
 	//cout << "VideoInput::draw\n";
+	if(!running) return;
 	ofSetColor(255, 255, 255);
 	if(useCamera)
 	{

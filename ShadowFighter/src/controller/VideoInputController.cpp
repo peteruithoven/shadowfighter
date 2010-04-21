@@ -45,8 +45,9 @@ void VideoInputController::analyze(unsigned char * pixels)
 	
 	model->grayImg->setFromPixels(grayPixels, videoW,videoH);
 	
+	
 	// Optionally store empty frame image
-	if (model->willLearnBackground)
+	if (model->willLearnBackground && model->pixelsSource == Model::CAMERA)
 	{
 		model->grayEmptyImg->setFromPixels(grayPixels,videoW,videoH);
 		
@@ -61,6 +62,7 @@ void VideoInputController::analyze(unsigned char * pixels)
 	
 	delete [] grayPixels;
 	
+	filterProjection();
 	
 	//if(model->debugDetection)
 	//	model->prevGrayDiffImg->draw(0, videoH);
@@ -137,6 +139,36 @@ void VideoInputController::analyze(unsigned char * pixels)
 		//cout << "  new blob copy: " << blobCopy << "\n";
 		model->blobs->push_back(blobCopy);
 	}
+}
+
+void VideoInputController::filterProjection()
+{
+	int videoW = model->videoW;
+	int videoH = model->videoH;
+	
+	unsigned char * backgroundPixels = model->grayEmptyImg->getPixels();
+	
+	// check for projection
+	unsigned char * pixels = model->grayImg->getPixels();
+	for (int i = 0; i < videoH; i++) {
+		for (int j = 0; j < videoW; j++) {
+			
+			int pixelIndex = (i*videoW) + j;
+			if(pixelsSource == CLIP5_DEMO)
+				pixels[pixelIndex] -= 30;
+			if(pixels[pixelIndex] > 180)
+			{
+				pixels[pixelIndex] = backgroundPixels[pixelIndex];
+			}
+		}
+	}
+	model->grayImg->setFromPixels(pixels, videoW, videoH);
+	
+	if(model->debugDetection)
+		model->grayImg->draw(0,0);
+	
+	delete [] pixels;
+	delete [] backgroundPixels;
 }
 
 /*float VideoInputController::getAutoThreshold(ofxCvGrayscaleImage * image)

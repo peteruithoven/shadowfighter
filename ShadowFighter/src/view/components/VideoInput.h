@@ -33,7 +33,7 @@ class VideoInput : public DisplayObject{
 
 	
 	protected:
-		
+		bool	running;
 		ofxCvColorImage colorImg;
 		void draw(ofEventArgs & args);
 };

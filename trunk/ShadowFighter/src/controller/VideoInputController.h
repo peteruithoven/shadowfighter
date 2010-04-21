@@ -25,6 +25,7 @@ class VideoInputController : public BaseController
 	protected:
 		
         ofxCvContourFinder	contourFinder;	
+		ofxCvContourFinder	hitContourFinder;	
 		void analyze(unsigned char * pixels);
 		float getAutoThreshold(ofxCvGrayscaleImage * image);
 	

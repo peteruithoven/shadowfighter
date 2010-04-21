@@ -14,7 +14,8 @@ void testApp::setup(){
 	//settingsView.setModel(&model);
 	keyboardView.setModel(&model);
 	visualFeedbackView.setModel(&model);
-	//model.start();
+	model.loadData();
+	model.start();
 	
 	cout << "testApp::setup finished\n";
 }

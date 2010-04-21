@@ -28,10 +28,10 @@ void KeyboardController::keyPressed(int keyCode)
 		case '_':
 			model->setThreshold(model->threshold-1);
 			break;
-		case '[':
+		case ']':
 			model->setHitThreshold(model->hitThreshold+1);
 			break;
-		case ']':
+		case '[':
 			model->setHitThreshold(model->hitThreshold-1);
 			break;
 		case 'd':

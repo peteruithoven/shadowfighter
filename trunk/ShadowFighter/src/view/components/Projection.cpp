@@ -21,7 +21,6 @@ void Projection::addHit(int x,int y)
 {
 	//cout << "Projection::addHit: "<<x<<"x"<<y<<"\n";
 	ofxOscMessage * message = new ofxOscMessage();
-	//message->setAddress(ofToString(HIT_ADDRESS)+ofToString(counter));
 	message->setAddress(ofToString(HIT_ADDRESS));
 	message->addIntArg(x);
 	message->addIntArg(y);
@@ -29,6 +28,9 @@ void Projection::addHit(int x,int y)
 }
 void Projection::update(ofEventArgs & args)
 {
+	//cout << "Projection::update\n";
+	//cout << "  model: " << &model << "\n";
+	//cout << "  model->blobs->size(): " << model->blobs->size() << "\n";
 	//if(model == NULL) return;
 	for (int i = 0; i < model->blobs->size(); i++)
 	{

@@ -1,0 +1,15 @@
+<backgroundImage>empty.png</backgroundImage>
+<threshold>35</threshold>
+<hitThreshold>47</hitThreshold>
+<minBlobArea>19600</minBlobArea>
+<maxBlobArea>211600</maxBlobArea>
+<minHitBlobArea>100</minHitBlobArea>
+<maxHitBlobArea>160000</maxHitBlobArea>
+<detectionZoneX>0.000000</detectionZoneX>
+<detectionZoneY>0.000000</detectionZoneY>
+<detectionZoneWidth>640.000000</detectionZoneWidth>
+<detectionZoneHeight>460.000000</detectionZoneHeight>
+<maxNumBlobs>5</maxNumBlobs>
+<maxNumHitBlobs>5</maxNumHitBlobs>
+<minDiffHitBlobsPos>50</minDiffHitBlobsPos>
+<debugDetection>1</debugDetection>

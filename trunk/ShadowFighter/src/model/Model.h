@@ -26,12 +26,17 @@ class Model{
 		int					threshold;
 		int					hitThreshold;
 		bool				willLearnBackground;
-		int					minBlobSize;
-		int					maxBlobSize;
+		int					minBlobArea;
+		int					maxHitBlobArea;
+		int					minHitBlobArea;
+		int					maxBlobArea;
 		int					maxNumBlobs;
+		int					maxNumHitBlobs;
 		bool				debugDetection;
 		int					minDiffHitBlobsPos;
 	
+		string				backgroundImageURL;
+		ofRectangle			detectionZone;
 	
 		ofxCvGrayscaleImage* grayImg;
 		ofxCvGrayscaleImage* grayEmptyImg;
@@ -49,12 +54,17 @@ class Model{
 		int					cameraIndex;
 	
 		Model();
+		void loadData();
+		void start();
 		void learnBackground();
 		void setThreshold(int newValue);
 		void setHitThreshold(int newValue);
 		void setCameraIndex(int newValue);
 		void setDebug(bool debug);
 		void hit();
+		
+
+	
 		ofEvent< int > VALUES_UPDATED;
 		ofEvent< int > CAMERA_INDEX_CHANGED;
 		ofEvent< int > HIT;
@@ -62,6 +72,8 @@ class Model{
 	protected:
 		Timer				timer;
 	
+		void parseXML();
+		void storeValues();
 		void update(ofEventArgs & args);
 		void onTick(int  & count);
 };

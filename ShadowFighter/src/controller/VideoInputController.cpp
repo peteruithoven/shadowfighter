@@ -74,7 +74,7 @@ void VideoInputController::analyze(unsigned char * pixels)
 	if(model->debugDetection)
 		model->grayDiffImg->draw(videoW, videoH);
 	
-	contourFinder.findContours(*model->grayDiffImg, model->minBlobSize, model->maxBlobSize, model->maxNumBlobs, true);
+	contourFinder.findContours(*model->grayDiffImg, model->minBlobArea, model->maxBlobArea, model->maxNumBlobs, true);
 	
 	float blobDisplayX = videoW;
 	float blobDisplayY = videoH;
@@ -102,26 +102,32 @@ void VideoInputController::analyze(unsigned char * pixels)
 		}
 	}*/
 	
+	ofRectangle *detectionZone = &model->detectionZone;
 	
+	
+	cout << "detectionZone.x: " << detectionZone->x << "\n";
+	cout << "detectionZone.y: " << detectionZone->y << "\n";
+	cout << "detectionZone.width: " << detectionZone->width << "\n";
+	cout << "detectionZone.height: " << detectionZone->height << "\n";
+	
+	if(model->debugDetection)
+	{
+		ofNoFill();
+		ofSetColor(0x00cc00);
+		ofRect(detectionZone->x, detectionZone->y, detectionZone->width, detectionZone->height);
+	}
 	// store and draw blobs
 	model->blobs->clear();
     for (int i = 0; i < numBlobs; i++)
 	{
 		ofxCvBlob blob = contourFinder.blobs[i];
 		ofRectangle blobRect = blob.boundingRect;
+		if(!(blobRect.x >= detectionZone->x &&
+			 blobRect.y >= detectionZone->y &&
+			 blobRect.x+blobRect.width <= detectionZone->x+detectionZone->width &&
+			 blobRect.y+blobRect.height <= detectionZone->y+detectionZone->height))
+			continue;
 		
-		/*if(!(blobRect.x > activeAreaX &&
-			 blobRect.y > activeAreaY &&
-			 blobRect.x+blobRect.width < activeAreaX+activeAreaWidth &&
-			 blobRect.y+blobRect.height < activeAreaY+activeAreaHeight))
-			continue;*/
-		
-		/*cout << "  new blob: " << &blob << "\n";
-		cout << "    blobRect.x: " << blobRect.x << "\n";
-		cout << "    blobRect.y: " << blobRect.y << "\n";
-		cout << "    blobRect.width: " << blobRect.width << "\n";
-		cout << "    blobRect.height: " << blobRect.height << "\n";*/
-
 		//blob.draw(0,0);
 		if(model->debugDetection)
 			blob.draw(blobDisplayX,blobDisplayY);
@@ -241,30 +247,19 @@ void VideoInputController::checkHit()
 	//ofRectangle activeArea = newBlob->boundingRect;
 	ofRectangle activeArea = *new ofRectangle();
 	
-	int marginX = 150;
-	
-	activeArea.x = marginX;
-	activeArea.y = 0;
-	activeArea.width = model->videoW-marginX*2; 
-	activeArea.height = model->videoH;
 	model->grayDiffImg->absDiff(*model->grayEmptyImg, *model->grayImg);
 	//model->grayDiffImg->draw(0, videoH);
 	
 	model->grayDiffImg->threshold(model->threshold+model->hitThreshold);
 	//model->grayDiffImg->draw(hitBlobDisplayX, hitBlobDisplayY);
 	
-	contourFinder.findContours(*model->grayDiffImg, 100, 400*400, 5, true);
-	int numBlobs = contourFinder.blobs.size();
+	hitContourFinder.findContours(*model->grayDiffImg, model->minHitBlobArea, model->maxHitBlobArea, model->maxNumHitBlobs, true);
+	int numBlobs = hitContourFinder.blobs.size();
 	
 	for (int i = 0; i < numBlobs; i++)
 	{
-		ofxCvBlob blob = contourFinder.blobs[i];
+		ofxCvBlob blob = hitContourFinder.blobs[i];
 		ofRectangle blobRect = blob.boundingRect;
-		if(!(blobRect.x > activeArea.x &&
-		 blobRect.y > activeArea.y &&
-		 blobRect.x+blobRect.width < activeArea.x+activeArea.width &&
-		 blobRect.y+blobRect.height < activeArea.y+activeArea.height))
-		 continue;
 		
 		bool toCloseToPrevHit = false;
 		for (int j = 0; j < model->prevHitBlobs->size(); j++)
@@ -308,7 +303,7 @@ void VideoInputController::checkHit()
 		model->prevHitBlobs->clear();
     for (int i = 0; i < numBlobs; i++)
 	{
-		ofxCvBlob blob = contourFinder.blobs[i];
+		ofxCvBlob blob = hitContourFinder.blobs[i];
 		ofRectangle blobRect = blob.boundingRect;
 		
 		ofxCvBlob * blobCopy = new ofxCvBlob();

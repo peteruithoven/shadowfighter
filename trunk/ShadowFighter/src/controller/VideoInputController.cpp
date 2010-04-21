@@ -45,7 +45,6 @@ void VideoInputController::analyze(unsigned char * pixels)
 	
 	model->grayImg->setFromPixels(grayPixels, videoW,videoH);
 	
-	
 	// Optionally store empty frame image
 	if (model->willLearnBackground && model->pixelsSource == Model::CAMERA)
 	{
@@ -115,7 +114,7 @@ void VideoInputController::analyze(unsigned char * pixels)
 		ofRect(blobDisplayX+detectionZone->x, blobDisplayY+detectionZone->y, detectionZone->width, detectionZone->height);
 	}
 	// store and draw blobs
-	model->blobs->clear();
+	vector<ofxCvBlob*> * prevBlobs = new vector<ofxCvBlob*>;
     for (int i = 0; i < numBlobs; i++)
 	{
 		ofxCvBlob blob = contourFinder.blobs[i];
@@ -137,8 +136,11 @@ void VideoInputController::analyze(unsigned char * pixels)
 		blobCopy->boundingRect.width = blobRect.width;
 		blobCopy->boundingRect.height = blobRect.height;
 		//cout << "  new blob copy: " << blobCopy << "\n";
-		model->blobs->push_back(blobCopy);
+		prevBlobs->push_back(blobCopy);
 	}
+	model->blobsHistory->push_back(prevBlobs);
+	if(model->blobsHistory->size() > model->maxBlobsHistoryLength)
+		model->blobsHistory->erase(model->blobsHistory->begin());
 }
 
 void VideoInputController::filterProjection()
@@ -154,7 +156,7 @@ void VideoInputController::filterProjection()
 		for (int j = 0; j < videoW; j++) {
 			
 			int pixelIndex = (i*videoW) + j;
-			if(pixelsSource == CLIP5_DEMO)
+			if(model->pixelsSource == Model::CLIP5_DEMO)
 				pixels[pixelIndex] -= 30;
 			if(pixels[pixelIndex] > 180)
 			{
@@ -166,9 +168,6 @@ void VideoInputController::filterProjection()
 	
 	if(model->debugDetection)
 		model->grayImg->draw(0,0);
-	
-	delete [] pixels;
-	delete [] backgroundPixels;
 }
 
 /*float VideoInputController::getAutoThreshold(ofxCvGrayscaleImage * image)
@@ -257,17 +256,55 @@ void VideoInputController::filterProjection()
 	
 	return intersection;
 }*/
-/*void VideoInputController::drawRect(ofRectangle rect,int color, int x, int y)
+void VideoInputController::drawRect(ofRectangle rect,int x, int y, int color, int a)
 {
+	
+	ofEnableAlphaBlending();
 	ofNoFill();
-	ofSetColor(color);
+	int r = (color >> 16) & 0xff;
+	int g = (color >> 8) & 0xff;
+	int b = (color >> 0) & 0xff;
+	ofSetColor(r,g,b,a);	
 	ofRect(x+rect.x, 
 		   y+rect.y, 
 		   rect.width, 
 		   rect.height);
-}*/
+	ofDisableAlphaBlending();
+}
+void VideoInputController::drawRect(ofRectangle rect,int x, int y, int color)
+{
+	drawRect(rect, x, y, color, 255);
+}
 void VideoInputController::checkHit()
 {
+	int blobsHistoryDisplayX = model->videoW*2;
+	int blobsHistoryDisplayY = 0;
+	
+	if(model->debugDetection)
+		model->prevGrayDiffImg->draw(blobsHistoryDisplayX,blobsHistoryDisplayY);
+	
+
+	int historyLength = model->blobsHistory->size();
+	if(historyLength > 0)
+	{
+		int initAlpha = 50;
+		int alphaStep = (255-initAlpha)/historyLength;
+		for (int i = 0; i < historyLength; i++)
+		{
+			vector<ofxCvBlob*> * blobs = model->blobsHistory->at(i);
+			for (int j = 0; j < blobs->size(); j++)
+			{
+				int alpha = initAlpha + alphaStep*i;
+				ofxCvBlob * blob = blobs->at(j);
+				drawRect(blob->boundingRect,blobsHistoryDisplayX,blobsHistoryDisplayY,0x0000ff,alpha);
+			}
+		}
+	}
+	ofSetColor(0xffffff);
+	
+	
+	
+	
 	//cout << "VideoInputController::checkHit\n";
 	int hitBlobDisplayX = 0;
 	int hitBlobDisplayY = model->videoH;

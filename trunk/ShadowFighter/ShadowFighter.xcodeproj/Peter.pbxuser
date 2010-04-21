@@ -5,7 +5,7 @@
 		fRef = D05088711174DF0C00DA5FDE /* VideoInputController.h */;
 		name = "VideoInputController.h: 39";
 		rLen = 0;
-		rLoc = 1047;
+		rLoc = 1113;
 		rType = 0;
 		vrLen = 980;
 		vrLoc = 0;
@@ -146,40 +146,41 @@
 	};
 	D05088701174DF0C00DA5FDE /* VideoInputController.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1001, 7860}}";
-			sepNavSelRange = "{315, 0}";
-			sepNavVisRange = "{0, 1532}";
+			sepNavIntBoundsRect = "{{0, 0}, {988, 8205}}";
+			sepNavSelRange = "{4097, 0}";
+			sepNavVisRange = "{3740, 1378}";
 			sepNavWindowFrame = "{{597, 187}, {973, 936}}";
 		};
 	};
 	D05088711174DF0C00DA5FDE /* VideoInputController.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1036, 923}}";
-			sepNavSelRange = "{1011, 0}";
-			sepNavVisRange = "{0, 1047}";
+			sepNavIntBoundsRect = "{{0, 0}, {1036, 672}}";
+			sepNavSelRange = "{999, 0}";
+			sepNavVisRange = "{0, 1113}";
 		};
 	};
 	D05088721174DF0C00DA5FDE /* main.cpp */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1001, 923}}";
-			sepNavSelRange = "{225, 0}";
+			sepNavSelRange = "{417, 0}";
 			sepNavVisRange = "{0, 417}";
 			sepNavWindowFrame = "{{61, 195}, {973, 936}}";
 		};
 	};
 	D05088741174DF0C00DA5FDE /* Model.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1001, 3270}}";
-			sepNavSelRange = "{229, 10}";
-			sepNavVisRange = "{0, 1220}";
+			sepNavIntBoundsRect = "{{0, 0}, {914, 3570}}";
+			sepNavSelRange = "{958, 0}";
+			sepNavVisRange = "{17, 1153}";
 			sepNavWindowFrame = "{{84, 174}, {973, 936}}";
 		};
 	};
 	D05088751174DF0C00DA5FDE /* Model.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {649, 1260}}";
-			sepNavSelRange = "{382, 0}";
-			sepNavVisRange = "{659, 989}";
+			sepNavIntBoundsRect = "{{0, 0}, {1001, 1275}}";
+			sepNavSelRange = "{1044, 0}";
+			sepNavVisRange = "{199, 1424}";
+			sepNavWindowFrame = "{{38, 216}, {973, 936}}";
 		};
 	};
 	D05088761174DF0C00DA5FDE /* testApp.cpp */ = {
@@ -499,7 +500,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 315";
 		rLen = 12;
-		rLoc = 10147;
+		rLoc = 11273;
 		rType = 0;
 		vrLen = 1618;
 		vrLoc = 7588;
@@ -519,7 +520,7 @@
 		fRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */;
 		name = "ProjectionView.cpp: 22";
 		rLen = 0;
-		rLoc = 400;
+		rLoc = 402;
 		rType = 0;
 		vrLen = 613;
 		vrLoc = 0;
@@ -538,8 +539,8 @@
 		isa = PBXTextBookmark;
 		fRef = D05088751174DF0C00DA5FDE /* Model.h */;
 		name = "Model.h: 42";
-		rLen = 5;
-		rLoc = 1067;
+		rLen = 0;
+		rLoc = 1044;
 		rType = 0;
 		vrLen = 1223;
 		vrLoc = 15;
@@ -559,7 +560,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 20";
 		rLen = 0;
-		rLoc = 384;
+		rLoc = 391;
 		rType = 0;
 		vrLen = 1501;
 		vrLoc = 3;
@@ -626,7 +627,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 252";
 		rLen = 0;
-		rLoc = 7625;
+		rLoc = 8751;
 		rType = 0;
 		vrLen = 1772;
 		vrLoc = 6203;
@@ -667,7 +668,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 276;
+		rLoc = 313;
 		rType = 1;
 	};
 	D0672C7C117DA14A006B0C1F /* PBXTextBookmark */ = {
@@ -675,7 +676,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 248";
 		rLen = 0;
-		rLoc = 7516;
+		rLoc = 8642;
 		rType = 0;
 		vrLen = 1386;
 		vrLoc = 6422;
@@ -685,7 +686,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 248";
 		rLen = 0;
-		rLoc = 7516;
+		rLoc = 8642;
 		rType = 0;
 		vrLen = 1386;
 		vrLoc = 6422;
@@ -695,7 +696,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 248";
 		rLen = 0;
-		rLoc = 7516;
+		rLoc = 8642;
 		rType = 0;
 		vrLen = 1386;
 		vrLoc = 6422;
@@ -705,7 +706,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 248";
 		rLen = 0;
-		rLoc = 7516;
+		rLoc = 8642;
 		rType = 0;
 		vrLen = 1386;
 		vrLoc = 6422;
@@ -725,7 +726,7 @@
 		fRef = D05088751174DF0C00DA5FDE /* Model.h */;
 		name = "Model.h: 51";
 		rLen = 46;
-		rLoc = 1241;
+		rLoc = 1292;
 		rType = 0;
 		vrLen = 1253;
 		vrLoc = 3;
@@ -734,8 +735,8 @@
 		isa = PBXTextBookmark;
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 15";
-		rLen = 35;
-		rLoc = 319;
+		rLen = 37;
+		rLoc = 323;
 		rType = 0;
 		vrLen = 1504;
 		vrLoc = 0;
@@ -765,7 +766,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 436";
 		rLen = 0;
-		rLoc = 14648;
+		rLoc = 15774;
 		rType = 0;
 		vrLen = 1747;
 		vrLoc = 12220;
@@ -775,7 +776,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 436";
 		rLen = 0;
-		rLoc = 14648;
+		rLoc = 15774;
 		rType = 0;
 		vrLen = 1828;
 		vrLoc = 12139;
@@ -805,7 +806,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 55";
 		rLen = 0;
-		rLoc = 981;
+		rLoc = 1037;
 		rType = 0;
 		vrLen = 1639;
 		vrLoc = 327;
@@ -815,7 +816,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 64";
 		rLen = 0;
-		rLoc = 1527;
+		rLoc = 1583;
 		rType = 0;
 		vrLen = 1474;
 		vrLoc = 1052;
@@ -825,7 +826,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 109";
 		rLen = 0;
-		rLoc = 4232;
+		rLoc = 4288;
 		rType = 0;
 		vrLen = 1937;
 		vrLoc = 1744;
@@ -836,7 +837,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 0;
-		rLoc = 139;
+		rLoc = 140;
 		rType = 1;
 	};
 	D0672D26117E36EE006B0C1F /* PBXTextBookmark */ = {
@@ -844,7 +845,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 255";
 		rLen = 175;
-		rLoc = 8130;
+		rLoc = 9256;
 		rType = 0;
 		vrLen = 1721;
 		vrLoc = 6180;
@@ -854,7 +855,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 92";
 		rLen = 0;
-		rLoc = 4232;
+		rLoc = 4288;
 		rType = 0;
 		vrLen = 1865;
 		vrLoc = 2097;
@@ -884,7 +885,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 92";
 		rLen = 0;
-		rLoc = 4232;
+		rLoc = 4288;
 		rType = 0;
 		vrLen = 1724;
 		vrLoc = 2101;
@@ -904,7 +905,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 46";
 		rLen = 0;
-		rLoc = 1185;
+		rLoc = 1241;
 		rType = 0;
 		vrLen = 1799;
 		vrLoc = 249;
@@ -924,7 +925,7 @@
 		fRef = D05088751174DF0C00DA5FDE /* Model.h */;
 		name = "Model.h: 57";
 		rLen = 0;
-		rLoc = 1273;
+		rLoc = 1324;
 		rType = 0;
 		vrLen = 1218;
 		vrLoc = 301;
@@ -944,7 +945,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 52";
 		rLen = 0;
-		rLoc = 1314;
+		rLoc = 1370;
 		rType = 0;
 		vrLen = 2001;
 		vrLoc = 688;
@@ -954,7 +955,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 127";
 		rLen = 0;
-		rLoc = 5327;
+		rLoc = 5383;
 		rType = 0;
 		vrLen = 1671;
 		vrLoc = 2381;
@@ -964,7 +965,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 127";
 		rLen = 0;
-		rLoc = 5327;
+		rLoc = 5383;
 		rType = 0;
 		vrLen = 1570;
 		vrLoc = 2550;
@@ -974,7 +975,7 @@
 		fRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */;
 		name = "ProjectionView.cpp: 21";
 		rLen = 0;
-		rLoc = 319;
+		rLoc = 321;
 		rType = 0;
 		vrLen = 615;
 		vrLoc = 0;
@@ -1051,7 +1052,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 127";
 		rLen = 0;
-		rLoc = 5327;
+		rLoc = 5383;
 		rType = 0;
 		vrLen = 1669;
 		vrLoc = 2493;
@@ -1061,7 +1062,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 92";
 		rLen = 0;
-		rLoc = 4232;
+		rLoc = 4288;
 		rType = 0;
 		vrLen = 1862;
 		vrLoc = 1999;
@@ -1071,7 +1072,7 @@
 		fRef = D05088751174DF0C00DA5FDE /* Model.h */;
 		name = "Model.h: 55";
 		rLen = 11;
-		rLoc = 1241;
+		rLoc = 1292;
 		rType = 0;
 		vrLen = 1147;
 		vrLoc = 138;
@@ -1081,7 +1082,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 20";
 		rLen = 14;
-		rLoc = 426;
+		rLoc = 435;
 		rType = 0;
 		vrLen = 1381;
 		vrLoc = 0;
@@ -1091,7 +1092,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 15";
 		rLen = 0;
-		rLoc = 336;
+		rLoc = 341;
 		rType = 0;
 		vrLen = 1372;
 		vrLoc = 17;
@@ -1101,7 +1102,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 15";
 		rLen = 0;
-		rLoc = 335;
+		rLoc = 340;
 		rType = 0;
 		vrLen = 1446;
 		vrLoc = 36;
@@ -1111,7 +1112,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 55";
 		rLen = 0;
-		rLoc = 1305;
+		rLoc = 1361;
 		rType = 0;
 		vrLen = 2142;
 		vrLoc = 1387;
@@ -1121,7 +1122,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 96";
 		rLen = 0;
-		rLoc = 4232;
+		rLoc = 4288;
 		rType = 0;
 		vrLen = 2142;
 		vrLoc = 1387;
@@ -1151,7 +1152,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 65";
 		rLen = 0;
-		rLoc = 1566;
+		rLoc = 1622;
 		rType = 0;
 		vrLen = 2212;
 		vrLoc = 1313;
@@ -1161,7 +1162,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 121";
 		rLen = 0;
-		rLoc = 4864;
+		rLoc = 4920;
 		rType = 0;
 		vrLen = 2582;
 		vrLoc = 1526;
@@ -1181,7 +1182,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 74";
 		rLen = 14;
-		rLoc = 2012;
+		rLoc = 2068;
 		rType = 0;
 		vrLen = 2582;
 		vrLoc = 1526;
@@ -1191,7 +1192,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 107";
 		rLen = 0;
-		rLoc = 4232;
+		rLoc = 4288;
 		rType = 0;
 		vrLen = 2554;
 		vrLoc = 1526;
@@ -1201,7 +1202,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 104";
 		rLen = 0;
-		rLoc = 4232;
+		rLoc = 4288;
 		rType = 0;
 		vrLen = 2562;
 		vrLoc = 1526;
@@ -1211,7 +1212,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 99";
 		rLen = 13;
-		rLoc = 4183;
+		rLoc = 4239;
 		rType = 0;
 		vrLen = 2523;
 		vrLoc = 991;
@@ -1222,7 +1223,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		fallbackIsa = XCBuildMessageTextBookmark;
 		rLen = 1;
-		rLoc = 80;
+		rLoc = 79;
 		rType = 1;
 	};
 	D0672D7C117ED864006B0C1F /* PBXTextBookmark */ = {
@@ -1230,7 +1231,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 77";
 		rLen = 0;
-		rLoc = 2185;
+		rLoc = 2183;
 		rType = 0;
 		vrLen = 1144;
 		vrLoc = 2143;
@@ -1240,7 +1241,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 114";
 		rLen = 13;
-		rLoc = 4822;
+		rLoc = 4878;
 		rType = 0;
 		vrLen = 1702;
 		vrLoc = 3154;
@@ -1250,7 +1251,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 114";
 		rLen = 0;
-		rLoc = 3326;
+		rLoc = 3358;
 		rType = 0;
 		vrLen = 1821;
 		vrLoc = 2173;
@@ -1260,7 +1261,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 118";
 		rLen = 0;
-		rLoc = 3548;
+		rLoc = 3580;
 		rType = 0;
 		vrLen = 1813;
 		vrLoc = 2391;
@@ -1270,7 +1271,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 105";
 		rLen = 0;
-		rLoc = 2826;
+		rLoc = 2824;
 		rType = 0;
 		vrLen = 1711;
 		vrLoc = 2291;
@@ -1280,7 +1281,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 117";
 		rLen = 0;
-		rLoc = 3545;
+		rLoc = 3577;
 		rType = 0;
 		vrLen = 1711;
 		vrLoc = 2291;
@@ -1290,7 +1291,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 77";
 		rLen = 0;
-		rLoc = 2185;
+		rLoc = 2183;
 		rType = 0;
 		vrLen = 1143;
 		vrLoc = 2293;
@@ -1300,7 +1301,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 117";
 		rLen = 0;
-		rLoc = 3545;
+		rLoc = 3577;
 		rType = 0;
 		vrLen = 1736;
 		vrLoc = 2291;
@@ -1370,7 +1371,7 @@
 		fRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */;
 		name = "ProjectionView.cpp: 21";
 		rLen = 0;
-		rLoc = 319;
+		rLoc = 321;
 		rType = 0;
 		vrLen = 615;
 		vrLoc = 0;
@@ -1380,7 +1381,7 @@
 		fRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */;
 		name = "ProjectionView.cpp: 23";
 		rLen = 0;
-		rLoc = 402;
+		rLoc = 404;
 		rType = 0;
 		vrLen = 615;
 		vrLoc = 0;
@@ -1390,7 +1391,7 @@
 		fRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */;
 		name = "ProjectionView.cpp: 23";
 		rLen = 0;
-		rLoc = 402;
+		rLoc = 404;
 		rType = 0;
 		vrLen = 615;
 		vrLoc = 0;
@@ -1400,7 +1401,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 78";
 		rLen = 0;
-		rLoc = 2213;
+		rLoc = 2211;
 		rType = 0;
 		vrLen = 1867;
 		vrLoc = 1419;
@@ -1410,7 +1411,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 117";
 		rLen = 0;
-		rLoc = 3545;
+		rLoc = 3577;
 		rType = 0;
 		vrLen = 1667;
 		vrLoc = 2291;
@@ -1420,7 +1421,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 117";
 		rLen = 0;
-		rLoc = 3545;
+		rLoc = 3577;
 		rType = 0;
 		vrLen = 1667;
 		vrLoc = 2291;
@@ -1430,7 +1431,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 107";
 		rLen = 0;
-		rLoc = 2879;
+		rLoc = 2877;
 		rType = 0;
 		vrLen = 1712;
 		vrLoc = 2291;
@@ -1450,7 +1451,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 94";
 		rLen = 245;
-		rLoc = 3653;
+		rLoc = 3709;
 		rType = 0;
 		vrLen = 2684;
 		vrLoc = 1387;
@@ -1460,7 +1461,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 108";
 		rLen = 0;
-		rLoc = 2847;
+		rLoc = 2845;
 		rType = 0;
 		vrLen = 1511;
 		vrLoc = 0;
@@ -1470,7 +1471,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 111";
 		rLen = 0;
-		rLoc = 2847;
+		rLoc = 2845;
 		rType = 0;
 		vrLen = 1886;
 		vrLoc = 2395;
@@ -1480,7 +1481,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 111";
 		rLen = 0;
-		rLoc = 2847;
+		rLoc = 2845;
 		rType = 0;
 		vrLen = 1945;
 		vrLoc = 2395;
@@ -1490,7 +1491,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 94";
 		rLen = 245;
-		rLoc = 3653;
+		rLoc = 3709;
 		rType = 0;
 		vrLen = 2685;
 		vrLoc = 1385;
@@ -1500,7 +1501,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 85";
 		rLen = 0;
-		rLoc = 3063;
+		rLoc = 3119;
 		rType = 0;
 		vrLen = 2663;
 		vrLoc = 1359;
@@ -1510,7 +1511,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 120";
 		rLen = 0;
-		rLoc = 4919;
+		rLoc = 4975;
 		rType = 0;
 		vrLen = 2127;
 		vrLoc = 2381;
@@ -1520,7 +1521,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 107";
 		rLen = 0;
-		rLoc = 4381;
+		rLoc = 4437;
 		rType = 0;
 		vrLen = 2535;
 		vrLoc = 1629;
@@ -1540,7 +1541,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 77";
 		rLen = 0;
-		rLoc = 2183;
+		rLoc = 2239;
 		rType = 0;
 		vrLen = 2362;
 		vrLoc = 988;
@@ -1550,7 +1551,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 82";
 		rLen = 0;
-		rLoc = 3063;
+		rLoc = 3119;
 		rType = 0;
 		vrLen = 2362;
 		vrLoc = 988;
@@ -1560,7 +1561,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 115";
 		rLen = 0;
-		rLoc = 4889;
+		rLoc = 4945;
 		rType = 0;
 		vrLen = 2343;
 		vrLoc = 1842;
@@ -1570,7 +1571,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 102";
 		rLen = 0;
-		rLoc = 4263;
+		rLoc = 4319;
 		rType = 0;
 		vrLen = 1669;
 		vrLoc = 3163;
@@ -1580,7 +1581,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 111";
 		rLen = 0;
-		rLoc = 2847;
+		rLoc = 2845;
 		rType = 0;
 		vrLen = 1945;
 		vrLoc = 2395;
@@ -1590,7 +1591,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 116";
 		rLen = 0;
-		rLoc = 2913;
+		rLoc = 2911;
 		rType = 0;
 		vrLen = 1825;
 		vrLoc = 2490;
@@ -1600,7 +1601,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 124";
 		rLen = 0;
-		rLoc = 3304;
+		rLoc = 3336;
 		rType = 0;
 		vrLen = 1845;
 		vrLoc = 2490;
@@ -1610,7 +1611,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 112";
 		rLen = 0;
-		rLoc = 2847;
+		rLoc = 2845;
 		rType = 0;
 		vrLen = 1486;
 		vrLoc = 0;
@@ -1660,7 +1661,7 @@
 		fRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */;
 		name = "ProjectionView.cpp: 23";
 		rLen = 0;
-		rLoc = 402;
+		rLoc = 404;
 		rType = 0;
 		vrLen = 615;
 		vrLoc = 0;
@@ -1670,7 +1671,7 @@
 		fRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */;
 		name = "ProjectionView.cpp: 21";
 		rLen = 0;
-		rLoc = 319;
+		rLoc = 321;
 		rType = 0;
 		vrLen = 613;
 		vrLoc = 0;
@@ -1680,7 +1681,7 @@
 		fRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */;
 		name = "ProjectionView.cpp: 30";
 		rLen = 0;
-		rLoc = 613;
+		rLoc = 615;
 		rType = 0;
 		vrLen = 613;
 		vrLoc = 0;
@@ -1690,7 +1691,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 125";
 		rLen = 0;
-		rLoc = 5388;
+		rLoc = 5444;
 		rType = 0;
 		vrLen = 1747;
 		vrLoc = 2853;
@@ -1700,7 +1701,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 105";
 		rLen = 0;
-		rLoc = 4407;
+		rLoc = 4463;
 		rType = 0;
 		vrLen = 1653;
 		vrLoc = 3101;
@@ -1720,7 +1721,7 @@
 		fRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */;
 		name = "ProjectionView.cpp: 30";
 		rLen = 0;
-		rLoc = 613;
+		rLoc = 615;
 		rType = 0;
 		vrLen = 613;
 		vrLoc = 0;
@@ -1740,7 +1741,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 77";
 		rLen = 26;
-		rLoc = 2099;
+		rLoc = 2097;
 		rType = 0;
 		vrLen = 1754;
 		vrLoc = 1488;
@@ -1750,7 +1751,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 254";
 		rLen = 0;
-		rLoc = 7784;
+		rLoc = 8910;
 		rType = 0;
 		vrLen = 1751;
 		vrLoc = 6473;
@@ -1760,7 +1761,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 255";
 		rLen = 0;
-		rLoc = 8130;
+		rLoc = 9256;
 		rType = 0;
 		vrLen = 1767;
 		vrLoc = 6473;
@@ -1780,7 +1781,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 237";
 		rLen = 18;
-		rLoc = 7320;
+		rLoc = 7608;
 		rType = 0;
 		vrLen = 1767;
 		vrLoc = 6473;
@@ -1790,7 +1791,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 282";
 		rLen = 0;
-		rLoc = 9488;
+		rLoc = 10614;
 		rType = 0;
 		vrLen = 1693;
 		vrLoc = 6701;
@@ -1800,7 +1801,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 282";
 		rLen = 0;
-		rLoc = 9488;
+		rLoc = 10614;
 		rType = 0;
 		vrLen = 1486;
 		vrLoc = 0;
@@ -1810,7 +1811,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 105";
 		rLen = 0;
-		rLoc = 4407;
+		rLoc = 4463;
 		rType = 0;
 		vrLen = 1673;
 		vrLoc = 3099;
@@ -1820,7 +1821,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 16";
 		rLen = 0;
-		rLoc = 352;
+		rLoc = 358;
 		rType = 0;
 		vrLen = 1356;
 		vrLoc = 3;
@@ -1830,7 +1831,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 83";
 		rLen = 0;
-		rLoc = 3063;
+		rLoc = 3119;
 		rType = 0;
 		vrLen = 1873;
 		vrLoc = 530;
@@ -1840,7 +1841,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 16";
 		rLen = 0;
-		rLoc = 352;
+		rLoc = 358;
 		rType = 0;
 		vrLen = 1356;
 		vrLoc = 3;
@@ -1850,7 +1851,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 16";
 		rLen = 0;
-		rLoc = 352;
+		rLoc = 358;
 		rType = 0;
 		vrLen = 1358;
 		vrLoc = 3;
@@ -1900,7 +1901,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 16";
 		rLen = 0;
-		rLoc = 352;
+		rLoc = 358;
 		rType = 0;
 		vrLen = 1358;
 		vrLoc = 3;
@@ -1910,7 +1911,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 16";
 		rLen = 0;
-		rLoc = 352;
+		rLoc = 358;
 		rType = 0;
 		vrLen = 1344;
 		vrLoc = 17;
@@ -1920,7 +1921,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 16";
 		rLen = 3;
-		rLoc = 350;
+		rLoc = 356;
 		rType = 0;
 		vrLen = 1368;
 		vrLoc = 17;
@@ -1960,7 +1961,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 55";
 		rLen = 138;
-		rLoc = 1279;
+		rLoc = 1335;
 		rType = 0;
 		vrLen = 1345;
 		vrLoc = 17;
@@ -1970,7 +1971,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 282";
 		rLen = 0;
-		rLoc = 9488;
+		rLoc = 10614;
 		rType = 0;
 		vrLen = 1722;
 		vrLoc = 650;
@@ -1980,7 +1981,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 54";
 		rLen = 0;
-		rLoc = 1265;
+		rLoc = 1263;
 		rType = 0;
 		vrLen = 1638;
 		vrLoc = 481;
@@ -1990,7 +1991,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 52";
 		rLen = 0;
-		rLoc = 1265;
+		rLoc = 1263;
 		rType = 0;
 		vrLen = 1687;
 		vrLoc = 809;
@@ -2000,7 +2001,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 77";
 		rLen = 0;
-		rLoc = 2185;
+		rLoc = 2183;
 		rType = 0;
 		vrLen = 1514;
 		vrLoc = 2783;
@@ -2010,7 +2011,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 52";
 		rLen = 0;
-		rLoc = 1265;
+		rLoc = 1263;
 		rType = 0;
 		vrLen = 1703;
 		vrLoc = 809;
@@ -2020,7 +2021,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 78";
 		rLen = 0;
-		rLoc = 2097;
+		rLoc = 2095;
 		rType = 0;
 		vrLen = 1710;
 		vrLoc = 1261;
@@ -2030,7 +2031,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 249";
 		rLen = 0;
-		rLoc = 7722;
+		rLoc = 8848;
 		rType = 0;
 		vrLen = 1774;
 		vrLoc = 6283;
@@ -2040,7 +2041,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 249";
 		rLen = 0;
-		rLoc = 7722;
+		rLoc = 8848;
 		rType = 0;
 		vrLen = 1790;
 		vrLoc = 6283;
@@ -2050,7 +2051,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 264";
 		rLen = 0;
-		rLoc = 8906;
+		rLoc = 10032;
 		rType = 0;
 		vrLen = 1815;
 		vrLoc = 6561;
@@ -2060,7 +2061,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 261";
 		rLen = 0;
-		rLoc = 8722;
+		rLoc = 9848;
 		rType = 0;
 		vrLen = 1488;
 		vrLoc = 0;
@@ -2070,7 +2071,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 55";
 		rLen = 138;
-		rLoc = 1279;
+		rLoc = 1335;
 		rType = 0;
 		vrLen = 1359;
 		vrLoc = 3;
@@ -2080,7 +2081,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 83";
 		rLen = 0;
-		rLoc = 3063;
+		rLoc = 3119;
 		rType = 0;
 		vrLen = 2392;
 		vrLoc = 1076;
@@ -2090,7 +2091,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 83";
 		rLen = 0;
-		rLoc = 3063;
+		rLoc = 3119;
 		rType = 0;
 		vrLen = 2484;
 		vrLoc = 1076;
@@ -2100,7 +2101,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 261";
 		rLen = 0;
-		rLoc = 8722;
+		rLoc = 9848;
 		rType = 0;
 		vrLen = 1488;
 		vrLoc = 0;
@@ -2110,7 +2111,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 265";
 		rLen = 0;
-		rLoc = 8928;
+		rLoc = 10054;
 		rType = 0;
 		vrLen = 1824;
 		vrLoc = 6627;
@@ -2120,7 +2121,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 265";
 		rLen = 0;
-		rLoc = 8928;
+		rLoc = 10054;
 		rType = 0;
 		vrLen = 1488;
 		vrLoc = 0;
@@ -2140,7 +2141,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 83";
 		rLen = 0;
-		rLoc = 3063;
+		rLoc = 3119;
 		rType = 0;
 		vrLen = 2471;
 		vrLoc = 1094;
@@ -2150,7 +2151,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 82";
 		rLen = 0;
-		rLoc = 3063;
+		rLoc = 3119;
 		rType = 0;
 		vrLen = 2577;
 		vrLoc = 1094;
@@ -2160,7 +2161,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 265";
 		rLen = 0;
-		rLoc = 8928;
+		rLoc = 10054;
 		rType = 0;
 		vrLen = 1488;
 		vrLoc = 0;
@@ -2170,7 +2171,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 252";
 		rLen = 0;
-		rLoc = 8256;
+		rLoc = 9382;
 		rType = 0;
 		vrLen = 1802;
 		vrLoc = 6625;
@@ -2200,7 +2201,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 252";
 		rLen = 4;
-		rLoc = 8252;
+		rLoc = 9378;
 		rType = 0;
 		vrLen = 1839;
 		vrLoc = 6587;
@@ -2210,7 +2211,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 247";
 		rLen = 0;
-		rLoc = 7625;
+		rLoc = 8751;
 		rType = 0;
 		vrLen = 1865;
 		vrLoc = 6561;
@@ -2220,7 +2221,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 273";
 		rLen = 0;
-		rLoc = 9141;
+		rLoc = 10267;
 		rType = 0;
 		vrLen = 1865;
 		vrLoc = 6561;
@@ -2230,7 +2231,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 269";
 		rLen = 0;
-		rLoc = 9012;
+		rLoc = 10138;
 		rType = 0;
 		vrLen = 1865;
 		vrLoc = 6561;
@@ -2250,7 +2251,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 82";
 		rLen = 0;
-		rLoc = 3063;
+		rLoc = 3119;
 		rType = 0;
 		vrLen = 2519;
 		vrLoc = 1152;
@@ -2260,7 +2261,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 115";
 		rLen = 0;
-		rLoc = 4232;
+		rLoc = 4288;
 		rType = 0;
 		vrLen = 2775;
 		vrLoc = 2073;
@@ -2280,7 +2281,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 83";
 		rLen = 16;
-		rLoc = 2434;
+		rLoc = 2490;
 		rType = 0;
 		vrLen = 2776;
 		vrLoc = 1736;
@@ -2290,7 +2291,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 106";
 		rLen = 0;
-		rLoc = 4150;
+		rLoc = 4206;
 		rType = 0;
 		vrLen = 2780;
 		vrLoc = 1792;
@@ -2300,7 +2301,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 83";
 		rLen = 17;
-		rLoc = 2471;
+		rLoc = 2527;
 		rType = 0;
 		vrLen = 2787;
 		vrLoc = 1897;
@@ -2320,7 +2321,7 @@
 		fRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */;
 		name = "ProjectionView.cpp: 21";
 		rLen = 0;
-		rLoc = 319;
+		rLoc = 321;
 		rType = 0;
 		vrLen = 615;
 		vrLoc = 0;
@@ -2330,7 +2331,7 @@
 		fRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */;
 		name = "ProjectionView.cpp: 21";
 		rLen = 0;
-		rLoc = 319;
+		rLoc = 321;
 		rType = 0;
 		vrLen = 615;
 		vrLoc = 0;
@@ -2360,7 +2361,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 83";
 		rLen = 17;
-		rLoc = 2471;
+		rLoc = 2527;
 		rType = 0;
 		vrLen = 2906;
 		vrLoc = 1842;
@@ -2380,7 +2381,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 269";
 		rLen = 0;
-		rLoc = 9012;
+		rLoc = 10138;
 		rType = 0;
 		vrLen = 1862;
 		vrLoc = 6561;
@@ -2390,7 +2391,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 268";
 		rLen = 0;
-		rLoc = 8678;
+		rLoc = 9804;
 		rType = 0;
 		vrLen = 1887;
 		vrLoc = 6378;
@@ -2400,7 +2401,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 113";
 		rLen = 0;
-		rLoc = 3059;
+		rLoc = 3057;
 		rType = 0;
 		vrLen = 1772;
 		vrLoc = 1873;
@@ -2410,7 +2411,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 113";
 		rLen = 0;
-		rLoc = 3059;
+		rLoc = 3057;
 		rType = 0;
 		vrLen = 1854;
 		vrLoc = 1873;
@@ -2430,7 +2431,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 83";
 		rLen = 17;
-		rLoc = 2471;
+		rLoc = 2527;
 		rType = 0;
 		vrLen = 2842;
 		vrLoc = 1842;
@@ -2440,7 +2441,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 98";
 		rLen = 0;
-		rLoc = 3061;
+		rLoc = 3117;
 		rType = 0;
 		vrLen = 2543;
 		vrLoc = 1364;
@@ -2450,7 +2451,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 99";
 		rLen = 0;
-		rLoc = 2851;
+		rLoc = 2907;
 		rType = 0;
 		vrLen = 2550;
 		vrLoc = 1364;
@@ -2460,7 +2461,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 100";
 		rLen = 0;
-		rLoc = 2832;
+		rLoc = 2888;
 		rType = 0;
 		vrLen = 2488;
 		vrLoc = 1148;
@@ -2470,7 +2471,7 @@
 		fRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */;
 		name = "ProjectionView.cpp: 21";
 		rLen = 0;
-		rLoc = 319;
+		rLoc = 321;
 		rType = 0;
 		vrLen = 615;
 		vrLoc = 0;
@@ -2510,7 +2511,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 100";
 		rLen = 8;
-		rLoc = 2821;
+		rLoc = 2877;
 		rType = 0;
 		vrLen = 2523;
 		vrLoc = 1137;
@@ -2580,7 +2581,7 @@
 		fRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */;
 		name = "ProjectionView.cpp: 24";
 		rLen = 0;
-		rLoc = 400;
+		rLoc = 402;
 		rType = 0;
 		vrLen = 636;
 		vrLoc = 0;
@@ -2730,7 +2731,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 29";
 		rLen = 0;
-		rLoc = 495;
+		rLoc = 535;
 		rType = 0;
 		vrLen = 1297;
 		vrLoc = 167;
@@ -2740,7 +2741,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 29";
 		rLen = 0;
-		rLoc = 495;
+		rLoc = 535;
 		rType = 0;
 		vrLen = 1297;
 		vrLoc = 167;
@@ -2790,7 +2791,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 79";
 		rLen = 0;
-		rLoc = 2185;
+		rLoc = 2183;
 		rType = 0;
 		vrLen = 1406;
 		vrLoc = 3089;
@@ -2839,7 +2840,7 @@
 		fRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */;
 		name = "ProjectionView.cpp: 22";
 		rLen = 0;
-		rLoc = 400;
+		rLoc = 402;
 		rType = 0;
 		vrLen = 615;
 		vrLoc = 0;
@@ -2969,7 +2970,7 @@
 		fRef = D05088751174DF0C00DA5FDE /* Model.h */;
 		name = "Model.h: 71";
 		rLen = 0;
-		rLoc = 1498;
+		rLoc = 1549;
 		rType = 0;
 		vrLen = 1295;
 		vrLoc = 423;
@@ -2979,7 +2980,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 68";
 		rLen = 0;
-		rLoc = 1481;
+		rLoc = 1537;
 		rType = 0;
 		vrLen = 1879;
 		vrLoc = 836;
@@ -3029,7 +3030,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 68";
 		rLen = 0;
-		rLoc = 1481;
+		rLoc = 1537;
 		rType = 0;
 		vrLen = 1879;
 		vrLoc = 836;
@@ -3099,7 +3100,7 @@
 		fRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */;
 		name = "ProjectionView.cpp: 22";
 		rLen = 0;
-		rLoc = 400;
+		rLoc = 402;
 		rType = 0;
 		vrLen = 615;
 		vrLoc = 0;
@@ -3139,7 +3140,7 @@
 		fRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */;
 		name = "ProjectionView.cpp: 22";
 		rLen = 0;
-		rLoc = 400;
+		rLoc = 402;
 		rType = 0;
 		vrLen = 615;
 		vrLoc = 0;
@@ -3299,7 +3300,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 68";
 		rLen = 0;
-		rLoc = 1481;
+		rLoc = 1537;
 		rType = 0;
 		vrLen = 2021;
 		vrLoc = 712;
@@ -3309,7 +3310,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 19";
 		rLen = 0;
-		rLoc = 315;
+		rLoc = 319;
 		rType = 0;
 		vrLen = 1191;
 		vrLoc = 0;
@@ -3319,7 +3320,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 20";
 		rLen = 0;
-		rLoc = 318;
+		rLoc = 322;
 		rType = 0;
 		vrLen = 1251;
 		vrLoc = 0;
@@ -3329,7 +3330,7 @@
 		fRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */;
 		name = "ProjectionView.cpp: 22";
 		rLen = 0;
-		rLoc = 400;
+		rLoc = 402;
 		rType = 0;
 		vrLen = 615;
 		vrLoc = 0;
@@ -3368,7 +3369,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 163";
 		rLen = 0;
-		rLoc = 5443;
+		rLoc = 5499;
 		rType = 0;
 		vrLen = 1424;
 		vrLoc = 4607;
@@ -3378,7 +3379,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 163";
 		rLen = 0;
-		rLoc = 5443;
+		rLoc = 5499;
 		rType = 0;
 		vrLen = 1424;
 		vrLoc = 4607;
@@ -3398,7 +3399,7 @@
 		fRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */;
 		name = "ProjectionView.cpp: 22";
 		rLen = 0;
-		rLoc = 400;
+		rLoc = 402;
 		rType = 0;
 		vrLen = 615;
 		vrLoc = 0;
@@ -3408,7 +3409,7 @@
 		fRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */;
 		name = "ProjectionView.cpp: 21";
 		rLen = 0;
-		rLoc = 319;
+		rLoc = 321;
 		rType = 0;
 		vrLen = 613;
 		vrLoc = 0;
@@ -3418,7 +3419,7 @@
 		fRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */;
 		name = "ProjectionView.cpp: 21";
 		rLen = 0;
-		rLoc = 319;
+		rLoc = 321;
 		rType = 0;
 		vrLen = 613;
 		vrLoc = 0;
@@ -3428,7 +3429,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 133";
 		rLen = 0;
-		rLoc = 4233;
+		rLoc = 4289;
 		rType = 0;
 		vrLen = 2444;
 		vrLoc = 2676;
@@ -3438,7 +3439,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 133";
 		rLen = 0;
-		rLoc = 4233;
+		rLoc = 4289;
 		rType = 0;
 		vrLen = 2473;
 		vrLoc = 2676;
@@ -3468,7 +3469,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 133";
 		rLen = 0;
-		rLoc = 4233;
+		rLoc = 4289;
 		rType = 0;
 		vrLen = 2441;
 		vrLoc = 2708;
@@ -3478,7 +3479,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 133";
 		rLen = 0;
-		rLoc = 4233;
+		rLoc = 4289;
 		rType = 0;
 		vrLen = 1952;
 		vrLoc = 876;
@@ -3488,7 +3489,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 138";
 		rLen = 0;
-		rLoc = 4407;
+		rLoc = 4463;
 		rType = 0;
 		vrLen = 2413;
 		vrLoc = 2792;
@@ -3498,7 +3499,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 19";
 		rLen = 0;
-		rLoc = 315;
+		rLoc = 319;
 		rType = 0;
 		vrLen = 1195;
 		vrLoc = 0;
@@ -3528,7 +3529,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 27";
 		rLen = 0;
-		rLoc = 475;
+		rLoc = 486;
 		rType = 0;
 		vrLen = 1255;
 		vrLoc = 0;
@@ -3538,7 +3539,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 197";
 		rLen = 0;
-		rLoc = 6144;
+		rLoc = 6200;
 		rType = 0;
 		vrLen = 1448;
 		vrLoc = 4660;
@@ -3548,7 +3549,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 199";
 		rLen = 0;
-		rLoc = 6181;
+		rLoc = 6237;
 		rType = 0;
 		vrLen = 1400;
 		vrLoc = 4710;
@@ -3948,7 +3949,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 113";
 		rLen = 0;
-		rLoc = 3059;
+		rLoc = 3057;
 		rType = 0;
 		vrLen = 1930;
 		vrLoc = 1846;
@@ -3958,7 +3959,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 49";
 		rLen = 0;
-		rLoc = 1194;
+		rLoc = 1192;
 		rType = 0;
 		vrLen = 1690;
 		vrLoc = 294;
@@ -3988,7 +3989,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 19";
 		rLen = 0;
-		rLoc = 316;
+		rLoc = 320;
 		rType = 0;
 		vrLen = 1191;
 		vrLoc = 0;
@@ -3998,7 +3999,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 110";
 		rLen = 0;
-		rLoc = 3002;
+		rLoc = 3058;
 		rType = 0;
 		vrLen = 2347;
 		vrLoc = 1420;
@@ -4008,7 +4009,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 110";
 		rLen = 0;
-		rLoc = 3002;
+		rLoc = 3058;
 		rType = 0;
 		vrLen = 2347;
 		vrLoc = 1420;
@@ -4028,7 +4029,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 84";
 		rLen = 0;
-		rLoc = 2339;
+		rLoc = 2337;
 		rType = 0;
 		vrLen = 1998;
 		vrLoc = 1959;
@@ -4048,7 +4049,7 @@
 		fRef = D05088711174DF0C00DA5FDE /* VideoInputController.h */;
 		name = "VideoInputController.h: 37";
 		rLen = 0;
-		rLoc = 1011;
+		rLoc = 1077;
 		rType = 0;
 		vrLen = 1047;
 		vrLoc = 0;
@@ -4058,7 +4059,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 144";
 		rLen = 45;
-		rLoc = 3986;
+		rLoc = 4183;
 		rType = 0;
 		vrLen = 1840;
 		vrLoc = 3384;
@@ -4068,7 +4069,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 147";
 		rLen = 0;
-		rLoc = 4091;
+		rLoc = 4288;
 		rType = 0;
 		vrLen = 1769;
 		vrLoc = 3127;
@@ -4078,7 +4079,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 147";
 		rLen = 0;
-		rLoc = 4091;
+		rLoc = 4288;
 		rType = 0;
 		vrLen = 1794;
 		vrLoc = 3127;
@@ -4088,7 +4089,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 110";
 		rLen = 0;
-		rLoc = 3002;
+		rLoc = 3058;
 		rType = 0;
 		vrLen = 2290;
 		vrLoc = 1420;
@@ -4098,7 +4099,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 20";
 		rLen = 0;
-		rLoc = 315;
+		rLoc = 319;
 		rType = 0;
 		vrLen = 2393;
 		vrLoc = 2246;
@@ -4108,7 +4109,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 20";
 		rLen = 0;
-		rLoc = 315;
+		rLoc = 319;
 		rType = 0;
 		vrLen = 2615;
 		vrLoc = 1560;
@@ -4118,7 +4119,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 147";
 		rLen = 0;
-		rLoc = 4091;
+		rLoc = 4288;
 		rType = 0;
 		vrLen = 1794;
 		vrLoc = 3127;
@@ -4128,7 +4129,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 156";
 		rLen = 0;
-		rLoc = 4453;
+		rLoc = 4664;
 		rType = 0;
 		vrLen = 1775;
 		vrLoc = 3218;
@@ -4138,7 +4139,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 156";
 		rLen = 0;
-		rLoc = 4452;
+		rLoc = 4663;
 		rType = 0;
 		vrLen = 1775;
 		vrLoc = 3218;
@@ -4148,7 +4149,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 157";
 		rLen = 0;
-		rLoc = 4513;
+		rLoc = 4724;
 		rType = 0;
 		vrLen = 1773;
 		vrLoc = 3218;
@@ -4158,7 +4159,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 160";
 		rLen = 0;
-		rLoc = 4512;
+		rLoc = 4723;
 		rType = 0;
 		vrLen = 1774;
 		vrLoc = 3127;
@@ -4168,7 +4169,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 158";
 		rLen = 0;
-		rLoc = 4422;
+		rLoc = 4633;
 		rType = 0;
 		vrLen = 1739;
 		vrLoc = 3127;
@@ -4178,7 +4179,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 158";
 		rLen = 0;
-		rLoc = 4421;
+		rLoc = 4632;
 		rType = 0;
 		vrLen = 1740;
 		vrLoc = 3127;
@@ -4188,7 +4189,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 158";
 		rLen = 0;
-		rLoc = 4421;
+		rLoc = 4632;
 		rType = 0;
 		vrLen = 1740;
 		vrLoc = 3127;
@@ -4198,7 +4199,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 156";
 		rLen = 0;
-		rLoc = 4392;
+		rLoc = 4603;
 		rType = 0;
 		vrLen = 1771;
 		vrLoc = 3127;
@@ -4208,7 +4209,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 157";
 		rLen = 0;
-		rLoc = 4421;
+		rLoc = 4632;
 		rType = 0;
 		vrLen = 1771;
 		vrLoc = 3127;
@@ -4218,7 +4219,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 157";
 		rLen = 0;
-		rLoc = 4421;
+		rLoc = 4632;
 		rType = 0;
 		vrLen = 1843;
 		vrLoc = 2403;
@@ -4238,7 +4239,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 108";
 		rLen = 0;
-		rLoc = 2933;
+		rLoc = 2989;
 		rType = 0;
 		vrLen = 2469;
 		vrLoc = 1560;
@@ -4248,7 +4249,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 20";
 		rLen = 0;
-		rLoc = 315;
+		rLoc = 319;
 		rType = 0;
 		vrLen = 1220;
 		vrLoc = 0;
@@ -4277,7 +4278,7 @@
 		isa = PBXTextBookmark;
 		fRef = D05088751174DF0C00DA5FDE /* Model.h */;
 		rLen = 0;
-		rLoc = 9223372036854775834;
+		rLoc = 9223372036854775885;
 		rType = 0;
 	};
 	D0673043117F44C6006B0C1F /* PBXTextBookmark */ = {
@@ -4305,7 +4306,7 @@
 		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
 		name = "Model.cpp: 20";
 		rLen = 0;
-		rLoc = 315;
+		rLoc = 319;
 		rType = 0;
 		vrLen = 1220;
 		vrLoc = 0;
@@ -4335,7 +4336,7 @@
 		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
 		name = "VideoInputController.cpp: 157";
 		rLen = 0;
-		rLoc = 4392;
+		rLoc = 4603;
 		rType = 0;
 		vrLen = 1532;
 		vrLoc = 0;
@@ -4349,6 +4350,775 @@
 		rType = 0;
 		vrLen = 1532;
 		vrLoc = 0;
+	};
+	D067304E117F4C14006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 46";
+		rLen = 0;
+		rLoc = 1078;
+		rType = 0;
+		vrLen = 1532;
+		vrLoc = 0;
+	};
+	D0673057117F4D20006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 32";
+		rLen = 0;
+		rLoc = 747;
+		rType = 0;
+		vrLen = 1532;
+		vrLoc = 0;
+	};
+	D0673058117F4D20006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088761174DF0C00DA5FDE /* testApp.cpp */;
+		name = "testApp.cpp: 18";
+		rLen = 0;
+		rLoc = 416;
+		rType = 0;
+		vrLen = 1347;
+		vrLoc = 0;
+	};
+	D0673059117F4D20006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088721174DF0C00DA5FDE /* main.cpp */;
+		name = "main.cpp: 10";
+		rLen = 0;
+		rLoc = 219;
+		rType = 0;
+		vrLen = 417;
+		vrLoc = 0;
+	};
+	D067305D117F4D3D006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088721174DF0C00DA5FDE /* main.cpp */;
+		name = "main.cpp: 10";
+		rLen = 0;
+		rLoc = 219;
+		rType = 0;
+		vrLen = 417;
+		vrLoc = 0;
+	};
+	D067305F117F4D61006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088721174DF0C00DA5FDE /* main.cpp */;
+		name = "main.cpp: 16";
+		rLen = 0;
+		rLoc = 417;
+		rType = 0;
+		vrLen = 417;
+		vrLoc = 0;
+	};
+	D0673062117F4E08006B0C1F /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "'class Model' has no member named 'blobs'";
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 116;
+		rType = 1;
+	};
+	D0673065117F4E16006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088721174DF0C00DA5FDE /* main.cpp */;
+		name = "main.cpp: 16";
+		rLen = 0;
+		rLoc = 417;
+		rType = 0;
+		vrLen = 417;
+		vrLoc = 0;
+	};
+	D0673066117F4E16006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 84";
+		rLen = 5;
+		rLoc = 2304;
+		rType = 0;
+		vrLen = 1986;
+		vrLoc = 1654;
+	};
+	D0673067117F4E16006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088751174DF0C00DA5FDE /* Model.h */;
+		name = "Model.h: 52";
+		rLen = 0;
+		rLoc = 1044;
+		rType = 0;
+		vrLen = 1415;
+		vrLoc = 326;
+	};
+	D0673068117F4E16006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
+		name = "Model.cpp: 14";
+		rLen = 10;
+		rLoc = 229;
+		rType = 0;
+		vrLen = 1220;
+		vrLoc = 0;
+	};
+	D0673069117F4E16006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
+		name = "Model.cpp: 38";
+		rLen = 0;
+		rLoc = 774;
+		rType = 0;
+		vrLen = 1591;
+		vrLoc = 317;
+	};
+	D067306C117F4E16006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 120";
+		rLen = 0;
+		rLoc = 3288;
+		rType = 0;
+		vrLen = 1653;
+		vrLoc = 1654;
+	};
+	D0673070117F4FA8006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
+		name = "Model.cpp: 38";
+		rLen = 0;
+		rLoc = 774;
+		rType = 0;
+		vrLen = 2417;
+		vrLoc = 1485;
+	};
+	D0673071117F4FA8006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088711174DF0C00DA5FDE /* VideoInputController.h */;
+		name = "VideoInputController.h: 37";
+		rLen = 0;
+		rLoc = 1077;
+		rType = 0;
+		vrLen = 1047;
+		vrLoc = 0;
+	};
+	D0673072117F4FA8006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 168";
+		rLen = 0;
+		rLoc = 4851;
+		rType = 0;
+		vrLen = 1736;
+		vrLoc = 3710;
+	};
+	D0673074117F4FC7006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 63";
+		rLen = 0;
+		rLoc = 1554;
+		rType = 0;
+		vrLen = 1753;
+		vrLoc = 994;
+	};
+	D0673083117F5FE0006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 276";
+		rLen = 0;
+		rLoc = 8092;
+		rType = 0;
+		vrLen = 1836;
+		vrLoc = 7236;
+	};
+	D0673087117F6010006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 279";
+		rLen = 0;
+		rLoc = 8496;
+		rType = 0;
+		vrLen = 1820;
+		vrLoc = 7236;
+	};
+	D067308B117F601E006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 282";
+		rLen = 0;
+		rLoc = 8522;
+		rType = 0;
+		vrLen = 1857;
+		vrLoc = 7236;
+	};
+	D0673091117F6081006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 283";
+		rLen = 0;
+		rLoc = 8525;
+		rType = 0;
+		vrLen = 1833;
+		vrLoc = 7221;
+	};
+	D0673092117F6081006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
+		name = "Model.cpp: 38";
+		rLen = 0;
+		rLoc = 774;
+		rType = 0;
+		vrLen = 2350;
+		vrLoc = 1485;
+	};
+	D0673093117F6081006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
+		name = "Model.cpp: 20";
+		rLen = 0;
+		rLoc = 319;
+		rType = 0;
+		vrLen = 1209;
+		vrLoc = 0;
+	};
+	D067309B117F6395006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
+		name = "Model.cpp: 40";
+		rLen = 0;
+		rLoc = 914;
+		rType = 0;
+		vrLen = 1227;
+		vrLoc = 0;
+	};
+	D067309C117F6395006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088751174DF0C00DA5FDE /* Model.h */;
+		name = "Model.h: 54";
+		rLen = 0;
+		rLoc = 1127;
+		rType = 0;
+		vrLen = 1456;
+		vrLoc = 326;
+	};
+	D067309D117F6395006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 283";
+		rLen = 0;
+		rLoc = 8525;
+		rType = 0;
+		vrLen = 1833;
+		vrLoc = 7221;
+	};
+	D067309E117F6395006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 268";
+		rLen = 0;
+		rLoc = 7791;
+		rType = 0;
+		vrLen = 1532;
+		vrLoc = 6387;
+	};
+	D06730A4117F6823006B0C1F /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = D05088751174DF0C00DA5FDE /* Model.h */;
+	};
+	D06730B1117F6896006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 289";
+		rLen = 0;
+		rLoc = 8092;
+		rType = 0;
+		vrLen = 1613;
+		vrLoc = 6824;
+	};
+	D06730B2117F6896006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
+		name = "Model.cpp: 40";
+		rLen = 0;
+		rLoc = 914;
+		rType = 0;
+		vrLen = 1209;
+		vrLoc = 0;
+	};
+	D06730B3117F6896006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
+		name = "Model.cpp: 40";
+		rLen = 0;
+		rLoc = 914;
+		rType = 0;
+		vrLen = 1206;
+		vrLoc = 3;
+	};
+	D06730B6117F6896006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088751174DF0C00DA5FDE /* Model.h */;
+		name = "Model.h: 54";
+		rLen = 0;
+		rLoc = 1091;
+		rType = 0;
+		vrLen = 1249;
+		vrLoc = 506;
+	};
+	D06730B8117F798E006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088751174DF0C00DA5FDE /* Model.h */;
+		name = "Model.h: 24";
+		rLen = 0;
+		rLoc = 382;
+		rType = 0;
+		vrLen = 989;
+		vrLoc = 659;
+	};
+	D06730B9117F798E006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088711174DF0C00DA5FDE /* VideoInputController.h */;
+		name = "VideoInputController.h: 36";
+		rLen = 0;
+		rLoc = 999;
+		rType = 0;
+		vrLen = 1113;
+		vrLoc = 0;
+	};
+	D06730BA117F798E006B0C1F /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "Expected `;' before '}' token";
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 276;
+		rType = 1;
+	};
+	D06730BB117F798E006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 273";
+		rLen = 0;
+		rLoc = 7789;
+		rType = 0;
+		vrLen = 1205;
+		vrLoc = 6751;
+	};
+	D06730BC117F798F006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 273";
+		rLen = 0;
+		rLoc = 7789;
+		rType = 0;
+		vrLen = 1205;
+		vrLoc = 6751;
+	};
+	D06730BD117F7996006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
+		name = "Model.cpp: 40";
+		rLen = 0;
+		rLoc = 914;
+		rType = 0;
+		vrLen = 1224;
+		vrLoc = 3;
+	};
+	D06730C0117F79BF006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
+		name = "Model.cpp: 40";
+		rLen = 0;
+		rLoc = 864;
+		rType = 0;
+		vrLen = 1240;
+		vrLoc = 36;
+	};
+	D06730C3117F7A15006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
+		name = "Model.cpp: 27";
+		rLen = 0;
+		rLoc = 459;
+		rType = 0;
+		vrLen = 1240;
+		vrLoc = 36;
+	};
+	D06730C6117F7A2A006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
+		name = "Model.cpp: 27";
+		rLen = 0;
+		rLoc = 459;
+		rType = 0;
+		vrLen = 1240;
+		vrLoc = 36;
+	};
+	D06730C7117F7A2A006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088751174DF0C00DA5FDE /* Model.h */;
+		name = "Model.h: 54";
+		rLen = 0;
+		rLoc = 1127;
+		rType = 0;
+		vrLen = 1375;
+		vrLoc = 409;
+	};
+	D06730C8117F7A2A006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */;
+		name = "ProjectionView.cpp: 22";
+		rLen = 0;
+		rLoc = 321;
+		rType = 0;
+		vrLen = 617;
+		vrLoc = 0;
+	};
+	D06730D2117F7B47006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */;
+		name = "ProjectionView.cpp: 22";
+		rLen = 0;
+		rLoc = 321;
+		rType = 0;
+		vrLen = 617;
+		vrLoc = 0;
+	};
+	D06730D3117F7B47006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
+		name = "Model.cpp: 40";
+		rLen = 0;
+		rLoc = 864;
+		rType = 0;
+		vrLen = 1260;
+		vrLoc = 17;
+	};
+	D06730D4117F7B47006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088751174DF0C00DA5FDE /* Model.h */;
+		name = "Model.h: 54";
+		rLen = 0;
+		rLoc = 1110;
+		rType = 0;
+		vrLen = 1408;
+		vrLoc = 380;
+	};
+	D06730D5117F7B47006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 287";
+		rLen = 0;
+		rLoc = 8092;
+		rType = 0;
+		vrLen = 1836;
+		vrLoc = 7383;
+	};
+	D06730D6117F7B47006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 287";
+		rLen = 0;
+		rLoc = 8092;
+		rType = 0;
+		vrLen = 1817;
+		vrLoc = 7402;
+	};
+	D06730DA117F7C09006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 288";
+		rLen = 0;
+		rLoc = 8092;
+		rType = 0;
+		vrLen = 1910;
+		vrLoc = 7436;
+	};
+	D06730DE117F7C3F006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 290";
+		rLen = 0;
+		rLoc = 8092;
+		rType = 0;
+		vrLen = 1843;
+		vrLoc = 7455;
+	};
+	D06730E2117F7C69006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 300";
+		rLen = 0;
+		rLoc = 8494;
+		rType = 0;
+		vrLen = 1845;
+		vrLoc = 7484;
+	};
+	D06730E4117F7D1C006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 273";
+		rLen = 0;
+		rLoc = 7789;
+		rType = 0;
+		vrLen = 1380;
+		vrLoc = 7230;
+	};
+	D06730E7117F7DAB006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
+		name = "Model.cpp: 40";
+		rLen = 0;
+		rLoc = 864;
+		rType = 0;
+		vrLen = 1260;
+		vrLoc = 17;
+	};
+	D06730E8117F7DAB006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 139";
+		rLen = 9;
+		rLoc = 3977;
+		rType = 0;
+		vrLen = 1815;
+		vrLoc = 3125;
+	};
+	D06730E9117F7DAB006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 142";
+		rLen = 0;
+		rLoc = 4179;
+		rType = 0;
+		vrLen = 1884;
+		vrLoc = 2876;
+	};
+	D06730EB117F7E12006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
+		name = "Model.cpp: 31";
+		rLen = 0;
+		rLoc = 535;
+		rType = 0;
+		vrLen = 1280;
+		vrLoc = 17;
+	};
+	D06730EC117F7E12006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 143";
+		rLen = 21;
+		rLoc = 4097;
+		rType = 0;
+		vrLen = 1528;
+		vrLoc = 0;
+	};
+	D06730ED117F7E12006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 144";
+		rLen = 0;
+		rLoc = 4143;
+		rType = 0;
+		vrLen = 1942;
+		vrLoc = 2561;
+	};
+	D06730F4117F7EBD006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 146";
+		rLen = 21;
+		rLoc = 4097;
+		rType = 0;
+		vrLen = 2117;
+		vrLoc = 2561;
+	};
+	D06730F5117F7EBD006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088751174DF0C00DA5FDE /* Model.h */;
+		name = "Model.h: 54";
+		rLen = 0;
+		rLoc = 1110;
+		rType = 0;
+		vrLen = 1405;
+		vrLoc = 380;
+	};
+	D06730F6117F7EBD006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088751174DF0C00DA5FDE /* Model.h */;
+		name = "Model.h: 56";
+		rLen = 0;
+		rLoc = 1170;
+		rType = 0;
+		vrLen = 1390;
+		vrLoc = 323;
+	};
+	D06730F8117F7EBE006B0C1F /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "'maxBlobsHistoryLength' was not declared in this scope";
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 141;
+		rType = 1;
+	};
+	D06730F9117F7EBE006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 146";
+		rLen = 0;
+		rLoc = 4097;
+		rType = 0;
+		vrLen = 1418;
+		vrLoc = 3642;
+	};
+	D06730FD117F7ECB006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088751174DF0C00DA5FDE /* Model.h */;
+		name = "Model.h: 56";
+		rLen = 0;
+		rLoc = 1170;
+		rType = 0;
+		vrLen = 1381;
+		vrLoc = 351;
+	};
+	D0673102117F7EE2006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088751174DF0C00DA5FDE /* Model.h */;
+		name = "Model.h: 56";
+		rLen = 0;
+		rLoc = 1170;
+		rType = 0;
+		vrLen = 1381;
+		vrLoc = 351;
+	};
+	D0673103117F7EE2006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */;
+		name = "ProjectionView.cpp: 21";
+		rLen = 0;
+		rLoc = 321;
+		rType = 0;
+		vrLen = 615;
+		vrLoc = 0;
+	};
+	D0673107117F7F09006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */;
+		name = "ProjectionView.cpp: 21";
+		rLen = 0;
+		rLoc = 321;
+		rType = 0;
+		vrLen = 615;
+		vrLoc = 0;
+	};
+	D0673108117F7F09006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 296";
+		rLen = 0;
+		rLoc = 8111;
+		rType = 0;
+		vrLen = 1820;
+		vrLoc = 7968;
+	};
+	D067310C117F7F2E006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 309";
+		rLen = 0;
+		rLoc = 8519;
+		rType = 0;
+		vrLen = 1829;
+		vrLoc = 8112;
+	};
+	D0673110117F7FAC006B0C1F /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "'prevBlobs' was not declared in this scope";
+		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 38;
+		rType = 1;
+	};
+	D0673113117F7FB2006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 141";
+		rLen = 0;
+		rLoc = 4055;
+		rType = 0;
+		vrLen = 1953;
+		vrLoc = 2782;
+	};
+	D0673114117F7FB2006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
+		name = "Model.cpp: 31";
+		rLen = 0;
+		rLoc = 535;
+		rType = 0;
+		vrLen = 1280;
+		vrLoc = 17;
+	};
+	D0673115117F7FB2006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088751174DF0C00DA5FDE /* Model.h */;
+		name = "Model.h: 51";
+		rLen = 0;
+		rLoc = 1044;
+		rType = 0;
+		vrLen = 1352;
+		vrLoc = 199;
+	};
+	D0673118117F7FB2006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
+		name = "Model.cpp: 42";
+		rLen = 0;
+		rLoc = 958;
+		rType = 0;
+		vrLen = 1147;
+		vrLoc = 17;
+	};
+	D067311A117F7FC6006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088701174DF0C00DA5FDE /* VideoInputController.cpp */;
+		name = "VideoInputController.cpp: 142";
+		rLen = 0;
+		rLoc = 4097;
+		rType = 0;
+		vrLen = 1378;
+		vrLoc = 3740;
+	};
+	D067311B117F7FC6006B0C1F /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "'prevBlobs' was not declared in this scope";
+		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 38;
+		rType = 1;
+	};
+	D067311C117F7FC6006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088741174DF0C00DA5FDE /* Model.cpp */;
+		name = "Model.cpp: 38";
+		rLen = 2;
+		rLoc = 773;
+		rType = 0;
+		vrLen = 1025;
+		vrLoc = 36;
+	};
+	D067311D117F7FDC006B0C1F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = D05088751174DF0C00DA5FDE /* Model.h */;
+		name = "Model.h: 51";
+		rLen = 0;
+		rLoc = 1044;
+		rType = 0;
+		vrLen = 1424;
+		vrLoc = 199;
 	};
 	D0694952117522440023D731 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -4743,9 +5513,9 @@
 	};
 	D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1001, 923}}";
-			sepNavSelRange = "{319, 0}";
-			sepNavVisRange = "{0, 613}";
+			sepNavIntBoundsRect = "{{0, 0}, {1001, 898}}";
+			sepNavSelRange = "{321, 0}";
+			sepNavVisRange = "{0, 615}";
 		};
 	};
 	D0CB78EE1178C99B006933F8 /* ProjectionView.h */ = {
@@ -5312,6 +6082,84 @@
 			D0673048117F4B3C006B0C1F /* PBXTextBookmark */ = D0673048117F4B3C006B0C1F /* PBXTextBookmark */;
 			D0673049117F4B3C006B0C1F /* PBXTextBookmark */ = D0673049117F4B3C006B0C1F /* PBXTextBookmark */;
 			D067304A117F4B3C006B0C1F /* PBXTextBookmark */ = D067304A117F4B3C006B0C1F /* PBXTextBookmark */;
+			D067304E117F4C14006B0C1F /* PBXTextBookmark */ = D067304E117F4C14006B0C1F /* PBXTextBookmark */;
+			D0673057117F4D20006B0C1F /* PBXTextBookmark */ = D0673057117F4D20006B0C1F /* PBXTextBookmark */;
+			D0673058117F4D20006B0C1F /* PBXTextBookmark */ = D0673058117F4D20006B0C1F /* PBXTextBookmark */;
+			D0673059117F4D20006B0C1F /* PBXTextBookmark */ = D0673059117F4D20006B0C1F /* PBXTextBookmark */;
+			D067305D117F4D3D006B0C1F /* PBXTextBookmark */ = D067305D117F4D3D006B0C1F /* PBXTextBookmark */;
+			D067305F117F4D61006B0C1F /* PBXTextBookmark */ = D067305F117F4D61006B0C1F /* PBXTextBookmark */;
+			D0673062117F4E08006B0C1F /* XCBuildMessageTextBookmark */ = D0673062117F4E08006B0C1F /* XCBuildMessageTextBookmark */;
+			D0673065117F4E16006B0C1F /* PBXTextBookmark */ = D0673065117F4E16006B0C1F /* PBXTextBookmark */;
+			D0673066117F4E16006B0C1F /* PBXTextBookmark */ = D0673066117F4E16006B0C1F /* PBXTextBookmark */;
+			D0673067117F4E16006B0C1F /* PBXTextBookmark */ = D0673067117F4E16006B0C1F /* PBXTextBookmark */;
+			D0673068117F4E16006B0C1F /* PBXTextBookmark */ = D0673068117F4E16006B0C1F /* PBXTextBookmark */;
+			D0673069117F4E16006B0C1F /* PBXTextBookmark */ = D0673069117F4E16006B0C1F /* PBXTextBookmark */;
+			D067306C117F4E16006B0C1F /* PBXTextBookmark */ = D067306C117F4E16006B0C1F /* PBXTextBookmark */;
+			D0673070117F4FA8006B0C1F /* PBXTextBookmark */ = D0673070117F4FA8006B0C1F /* PBXTextBookmark */;
+			D0673071117F4FA8006B0C1F /* PBXTextBookmark */ = D0673071117F4FA8006B0C1F /* PBXTextBookmark */;
+			D0673072117F4FA8006B0C1F /* PBXTextBookmark */ = D0673072117F4FA8006B0C1F /* PBXTextBookmark */;
+			D0673074117F4FC7006B0C1F /* PBXTextBookmark */ = D0673074117F4FC7006B0C1F /* PBXTextBookmark */;
+			D0673083117F5FE0006B0C1F /* PBXTextBookmark */ = D0673083117F5FE0006B0C1F /* PBXTextBookmark */;
+			D0673087117F6010006B0C1F /* PBXTextBookmark */ = D0673087117F6010006B0C1F /* PBXTextBookmark */;
+			D067308B117F601E006B0C1F /* PBXTextBookmark */ = D067308B117F601E006B0C1F /* PBXTextBookmark */;
+			D0673091117F6081006B0C1F /* PBXTextBookmark */ = D0673091117F6081006B0C1F /* PBXTextBookmark */;
+			D0673092117F6081006B0C1F /* PBXTextBookmark */ = D0673092117F6081006B0C1F /* PBXTextBookmark */;
+			D0673093117F6081006B0C1F /* PBXTextBookmark */ = D0673093117F6081006B0C1F /* PBXTextBookmark */;
+			D067309B117F6395006B0C1F /* PBXTextBookmark */ = D067309B117F6395006B0C1F /* PBXTextBookmark */;
+			D067309C117F6395006B0C1F /* PBXTextBookmark */ = D067309C117F6395006B0C1F /* PBXTextBookmark */;
+			D067309D117F6395006B0C1F /* PBXTextBookmark */ = D067309D117F6395006B0C1F /* PBXTextBookmark */;
+			D067309E117F6395006B0C1F /* PBXTextBookmark */ = D067309E117F6395006B0C1F /* PBXTextBookmark */;
+			D06730A4117F6823006B0C1F /* PBXBookmark */ = D06730A4117F6823006B0C1F /* PBXBookmark */;
+			D06730B1117F6896006B0C1F /* PBXTextBookmark */ = D06730B1117F6896006B0C1F /* PBXTextBookmark */;
+			D06730B2117F6896006B0C1F /* PBXTextBookmark */ = D06730B2117F6896006B0C1F /* PBXTextBookmark */;
+			D06730B3117F6896006B0C1F /* PBXTextBookmark */ = D06730B3117F6896006B0C1F /* PBXTextBookmark */;
+			D06730B6117F6896006B0C1F /* PBXTextBookmark */ = D06730B6117F6896006B0C1F /* PBXTextBookmark */;
+			D06730B8117F798E006B0C1F /* PBXTextBookmark */ = D06730B8117F798E006B0C1F /* PBXTextBookmark */;
+			D06730B9117F798E006B0C1F /* PBXTextBookmark */ = D06730B9117F798E006B0C1F /* PBXTextBookmark */;
+			D06730BA117F798E006B0C1F /* XCBuildMessageTextBookmark */ = D06730BA117F798E006B0C1F /* XCBuildMessageTextBookmark */;
+			D06730BB117F798E006B0C1F /* PBXTextBookmark */ = D06730BB117F798E006B0C1F /* PBXTextBookmark */;
+			D06730BC117F798F006B0C1F /* PBXTextBookmark */ = D06730BC117F798F006B0C1F /* PBXTextBookmark */;
+			D06730BD117F7996006B0C1F /* PBXTextBookmark */ = D06730BD117F7996006B0C1F /* PBXTextBookmark */;
+			D06730C0117F79BF006B0C1F /* PBXTextBookmark */ = D06730C0117F79BF006B0C1F /* PBXTextBookmark */;
+			D06730C3117F7A15006B0C1F /* PBXTextBookmark */ = D06730C3117F7A15006B0C1F /* PBXTextBookmark */;
+			D06730C6117F7A2A006B0C1F /* PBXTextBookmark */ = D06730C6117F7A2A006B0C1F /* PBXTextBookmark */;
+			D06730C7117F7A2A006B0C1F /* PBXTextBookmark */ = D06730C7117F7A2A006B0C1F /* PBXTextBookmark */;
+			D06730C8117F7A2A006B0C1F /* PBXTextBookmark */ = D06730C8117F7A2A006B0C1F /* PBXTextBookmark */;
+			D06730D2117F7B47006B0C1F /* PBXTextBookmark */ = D06730D2117F7B47006B0C1F /* PBXTextBookmark */;
+			D06730D3117F7B47006B0C1F /* PBXTextBookmark */ = D06730D3117F7B47006B0C1F /* PBXTextBookmark */;
+			D06730D4117F7B47006B0C1F /* PBXTextBookmark */ = D06730D4117F7B47006B0C1F /* PBXTextBookmark */;
+			D06730D5117F7B47006B0C1F /* PBXTextBookmark */ = D06730D5117F7B47006B0C1F /* PBXTextBookmark */;
+			D06730D6117F7B47006B0C1F /* PBXTextBookmark */ = D06730D6117F7B47006B0C1F /* PBXTextBookmark */;
+			D06730DA117F7C09006B0C1F /* PBXTextBookmark */ = D06730DA117F7C09006B0C1F /* PBXTextBookmark */;
+			D06730DE117F7C3F006B0C1F /* PBXTextBookmark */ = D06730DE117F7C3F006B0C1F /* PBXTextBookmark */;
+			D06730E2117F7C69006B0C1F /* PBXTextBookmark */ = D06730E2117F7C69006B0C1F /* PBXTextBookmark */;
+			D06730E4117F7D1C006B0C1F /* PBXTextBookmark */ = D06730E4117F7D1C006B0C1F /* PBXTextBookmark */;
+			D06730E7117F7DAB006B0C1F /* PBXTextBookmark */ = D06730E7117F7DAB006B0C1F /* PBXTextBookmark */;
+			D06730E8117F7DAB006B0C1F /* PBXTextBookmark */ = D06730E8117F7DAB006B0C1F /* PBXTextBookmark */;
+			D06730E9117F7DAB006B0C1F /* PBXTextBookmark */ = D06730E9117F7DAB006B0C1F /* PBXTextBookmark */;
+			D06730EB117F7E12006B0C1F /* PBXTextBookmark */ = D06730EB117F7E12006B0C1F /* PBXTextBookmark */;
+			D06730EC117F7E12006B0C1F /* PBXTextBookmark */ = D06730EC117F7E12006B0C1F /* PBXTextBookmark */;
+			D06730ED117F7E12006B0C1F /* PBXTextBookmark */ = D06730ED117F7E12006B0C1F /* PBXTextBookmark */;
+			D06730F4117F7EBD006B0C1F /* PBXTextBookmark */ = D06730F4117F7EBD006B0C1F /* PBXTextBookmark */;
+			D06730F5117F7EBD006B0C1F /* PBXTextBookmark */ = D06730F5117F7EBD006B0C1F /* PBXTextBookmark */;
+			D06730F6117F7EBD006B0C1F /* PBXTextBookmark */ = D06730F6117F7EBD006B0C1F /* PBXTextBookmark */;
+			D06730F8117F7EBE006B0C1F /* XCBuildMessageTextBookmark */ = D06730F8117F7EBE006B0C1F /* XCBuildMessageTextBookmark */;
+			D06730F9117F7EBE006B0C1F /* PBXTextBookmark */ = D06730F9117F7EBE006B0C1F /* PBXTextBookmark */;
+			D06730FD117F7ECB006B0C1F /* PBXTextBookmark */ = D06730FD117F7ECB006B0C1F /* PBXTextBookmark */;
+			D0673102117F7EE2006B0C1F /* PBXTextBookmark */ = D0673102117F7EE2006B0C1F /* PBXTextBookmark */;
+			D0673103117F7EE2006B0C1F /* PBXTextBookmark */ = D0673103117F7EE2006B0C1F /* PBXTextBookmark */;
+			D0673107117F7F09006B0C1F /* PBXTextBookmark */ = D0673107117F7F09006B0C1F /* PBXTextBookmark */;
+			D0673108117F7F09006B0C1F /* PBXTextBookmark */ = D0673108117F7F09006B0C1F /* PBXTextBookmark */;
+			D067310C117F7F2E006B0C1F /* PBXTextBookmark */ = D067310C117F7F2E006B0C1F /* PBXTextBookmark */;
+			D0673110117F7FAC006B0C1F /* XCBuildMessageTextBookmark */ = D0673110117F7FAC006B0C1F /* XCBuildMessageTextBookmark */;
+			D0673113117F7FB2006B0C1F /* PBXTextBookmark */ = D0673113117F7FB2006B0C1F /* PBXTextBookmark */;
+			D0673114117F7FB2006B0C1F /* PBXTextBookmark */ = D0673114117F7FB2006B0C1F /* PBXTextBookmark */;
+			D0673115117F7FB2006B0C1F /* PBXTextBookmark */ = D0673115117F7FB2006B0C1F /* PBXTextBookmark */;
+			D0673118117F7FB2006B0C1F /* PBXTextBookmark */ = D0673118117F7FB2006B0C1F /* PBXTextBookmark */;
+			D067311A117F7FC6006B0C1F /* PBXTextBookmark */ = D067311A117F7FC6006B0C1F /* PBXTextBookmark */;
+			D067311B117F7FC6006B0C1F /* XCBuildMessageTextBookmark */ = D067311B117F7FC6006B0C1F /* XCBuildMessageTextBookmark */;
+			D067311C117F7FC6006B0C1F /* PBXTextBookmark */ = D067311C117F7FC6006B0C1F /* PBXTextBookmark */;
+			D067311D117F7FDC006B0C1F /* PBXTextBookmark */ = D067311D117F7FDC006B0C1F /* PBXTextBookmark */;
 			D0694952117522440023D731 = D0694952117522440023D731 /* PBXTextBookmark */;
 			D0694954117522440023D731 = D0694954117522440023D731 /* PBXTextBookmark */;
 			D0815CBE117768BB00DFE2D4 = D0815CBE117768BB00DFE2D4 /* PBXTextBookmark */;

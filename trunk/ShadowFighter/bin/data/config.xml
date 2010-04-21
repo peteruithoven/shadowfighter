@@ -8,7 +8,7 @@
 <detectionZoneX>0.000000</detectionZoneX>
 <detectionZoneY>0.000000</detectionZoneY>
 <detectionZoneWidth>640.000000</detectionZoneWidth>
-<detectionZoneHeight>460.000000</detectionZoneHeight>
+<detectionZoneHeight>480.000000</detectionZoneHeight>
 <maxNumBlobs>5</maxNumBlobs>
 <maxNumHitBlobs>5</maxNumHitBlobs>
 <minDiffHitBlobsPos>50</minDiffHitBlobsPos>

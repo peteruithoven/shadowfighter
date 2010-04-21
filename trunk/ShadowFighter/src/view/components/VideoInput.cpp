@@ -15,7 +15,7 @@ VideoInput::VideoInput()
 	useCamera = false;
 	
 	width = 640;
-	height = 460;
+	height = 480;
 	
 	ofAddListener(ofEvents.draw, this, &VideoInput::draw);
 	if(useCamera)

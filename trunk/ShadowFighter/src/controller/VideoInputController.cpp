@@ -49,7 +49,7 @@ void VideoInputController::analyze(unsigned char * pixels)
 	if (model->willLearnBackground)
 	{
 		model->grayEmptyImg->setFromPixels(grayPixels,videoW,videoH);
-
+		
 		ofImage imgSaver = *new ofImage();
 		imgSaver.setFromPixels(grayPixels, videoW, videoH, OF_IMAGE_GRAYSCALE, false);
 		imgSaver.saveImage("empty.png");
@@ -61,10 +61,9 @@ void VideoInputController::analyze(unsigned char * pixels)
 	
 	delete [] grayPixels;
 	
-	// store pref grayimage
-	model->prevGrayDiffImg->setFromPixels(model->grayDiffImg->getPixels(), videoW, videoH);
-	if(model->debugDetection)
-		model->prevGrayDiffImg->draw(0, videoH);
+	
+	//if(model->debugDetection)
+	//	model->prevGrayDiffImg->draw(0, videoH);
 	
 	// take the abs value of the difference between background and incoming and then threshold:
 	model->grayDiffImg->absDiff(*model->grayEmptyImg, *model->grayImg);
@@ -73,6 +72,9 @@ void VideoInputController::analyze(unsigned char * pixels)
 	model->grayDiffImg->threshold(model->threshold);
 	if(model->debugDetection)
 		model->grayDiffImg->draw(videoW, videoH);
+	
+	// store pref grayimage
+	model->prevGrayDiffImg->setFromPixels(model->grayDiffImg->getPixels(), videoW, videoH);
 	
 	contourFinder.findContours(*model->grayDiffImg, model->minBlobArea, model->maxBlobArea, model->maxNumBlobs, true);
 	
@@ -103,13 +105,6 @@ void VideoInputController::analyze(unsigned char * pixels)
 	}*/
 	
 	ofRectangle *detectionZone = &model->detectionZone;
-	
-	
-	cout << "detectionZone.x: " << detectionZone->x << "\n";
-	cout << "detectionZone.y: " << detectionZone->y << "\n";
-	cout << "detectionZone.width: " << detectionZone->width << "\n";
-	cout << "detectionZone.height: " << detectionZone->height << "\n";
-	
 	if(model->debugDetection)
 	{
 		ofNoFill();
@@ -241,8 +236,8 @@ void VideoInputController::analyze(unsigned char * pixels)
 void VideoInputController::checkHit()
 {
 	//cout << "VideoInputController::checkHit\n";
-	int hitBlobDisplayX = model->videoW*2;
-	int hitBlobDisplayY = 0;
+	int hitBlobDisplayX = 0;
+	int hitBlobDisplayY = model->videoH;
 	
 	//ofRectangle activeArea = newBlob->boundingRect;
 	ofRectangle activeArea = *new ofRectangle();
@@ -251,7 +246,8 @@ void VideoInputController::checkHit()
 	//model->grayDiffImg->draw(0, videoH);
 	
 	model->grayDiffImg->threshold(model->threshold+model->hitThreshold);
-	//model->grayDiffImg->draw(hitBlobDisplayX, hitBlobDisplayY);
+	if(model->debugDetection)
+		model->grayDiffImg->draw(hitBlobDisplayX, hitBlobDisplayY);
 	
 	hitContourFinder.findContours(*model->grayDiffImg, model->minHitBlobArea, model->maxHitBlobArea, model->maxNumHitBlobs, true);
 	int numBlobs = hitContourFinder.blobs.size();
@@ -277,7 +273,10 @@ void VideoInputController::checkHit()
 			continue;
 		//blob.draw(hitBlobDisplayX,hitBlobDisplayY);
 		if(model->debugDetection)
+		{
 			blob.draw(0,0);
+			blob.draw(hitBlobDisplayX,hitBlobDisplayY);
+		}
 		
 		//model->hitRect = &blobRect;
 		model->hitRect->x = blobRect.x;

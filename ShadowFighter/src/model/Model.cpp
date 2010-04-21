@@ -13,7 +13,7 @@ Model::Model()
 {
 	cout << "Model::Model\n";
 	videoW				= 640;
-	videoH				= 460;
+	videoH				= 480;
 	willLearnBackground = false;
 	maxNumBlobs			= 5;
 	cameraIndex			= 0;
@@ -79,6 +79,8 @@ void Model::parseXML()
 	detectionZone.y			=  xml.getValue("detectionZoneY", 1);	
 	detectionZone.width		=  xml.getValue("detectionZoneWidth", 1);	
 	detectionZone.height	=  xml.getValue("detectionZoneHeight", 1);	
+	
+	detectionZone.height = videoH;
 	
 	cout << "backgroundImageURL: " << backgroundImageURL << "\n";
 	cout << "threshold: " << threshold << "\n";

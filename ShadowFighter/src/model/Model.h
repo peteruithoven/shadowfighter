@@ -49,9 +49,10 @@ class Model{
 		
 		ofImage*			imgLoader;
 		
-		vector<ofxCvBlob*>*	blobs;
 		vector<ofxCvBlob*>*	prevHitBlobs;
+		vector< vector<ofxCvBlob*>* >*	blobsHistory;
 		ofxCvGrayscaleImage* prevGrayDiffImg;
+		int					maxBlobsHistoryLength;
 		bool				hitting;
 		int					hitCounter;
 		ofRectangle*		hitRect;

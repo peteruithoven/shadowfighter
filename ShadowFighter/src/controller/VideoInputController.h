@@ -32,7 +32,8 @@ class VideoInputController : public BaseController
 		ofxCvGrayscaleImage* getBlobImage(ofxCvBlob * blob, ofxCvGrayscaleImage * orgImage);
 		void setPixelsSubRegion(ofxCvImage * orgImage, ofxCvImage * targetImage,int x, int y,int width, int height, bool color);
 		ofRectangle getIntersection(ofRectangle rect1, ofRectangle rect2);
-		void drawRect(ofRectangle rect,int color, int x, int y);
+		void drawRect(ofRectangle rect,int x, int y, int color, int a);
+		void drawRect(ofRectangle rect,int x, int y, int color);
 		void checkHit();
 		void filterProjection();
 };

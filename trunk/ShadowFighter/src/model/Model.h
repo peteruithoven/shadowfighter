@@ -21,7 +21,7 @@ class Model{
 		
 		static int					CAMERA;
 		static int					CLIP1_DEMO;
-	
+		static int					CLIP5_DEMO;
 		ofxXmlSettings		xml;
 		int					videoW;
 		int					videoH;

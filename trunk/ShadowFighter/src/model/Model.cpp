@@ -11,6 +11,7 @@
 
 int Model::CAMERA = 0;
 int Model::CLIP1_DEMO = 1;
+int Model::CLIP5_DEMO = 2;
 
 Model::Model()
 {
@@ -101,6 +102,18 @@ void Model::parseXML()
 		backgroundImageURL = "empty clip1.png";
 		movieURL = "movies/clip1.mov";
 	}
+	else if(pixelsSource == CLIP5_DEMO)
+	{
+		threshold = 35;
+		hitThreshold = 47;
+		backgroundImageURL = "empty clip5.png";
+		movieURL = "movies/clip5.mov";
+	}
+	else 
+	{
+		backgroundImageURL = "empty.png";
+	}
+
 	
 	cout << "backgroundImageURL: " << backgroundImageURL << "\n";
 	cout << "threshold: " << threshold << "\n";
@@ -125,11 +138,12 @@ void Model::parseXML()
 void Model::storeValues()
 {	
 	cout << "Model::storeValues\n";
-	//if(demoMovie != NO_DEMO) return;
-	
-	xml.setValue("backgroundImage", backgroundImageURL);
-	xml.setValue("threshold", threshold);
-	xml.setValue("hitThreshold", hitThreshold);
+	if(pixelsSource == CAMERA)
+	{
+		xml.setValue("backgroundImage", backgroundImageURL);
+		xml.setValue("threshold", threshold);
+		xml.setValue("hitThreshold", hitThreshold);
+	}
 	xml.setValue("minBlobArea", minBlobArea);
 	xml.setValue("maxBlobArea", maxBlobArea);
 	xml.setValue("minHitBlobArea", minHitBlobArea);
@@ -188,6 +202,7 @@ void Model::setCameraIndex(int newValue)
 }
 void Model::hit()
 {
+	//cout << "Model::hit:\n";
 	int emptyArg = 0;
 	ofNotifyEvent(HIT,emptyArg,this); 
 }

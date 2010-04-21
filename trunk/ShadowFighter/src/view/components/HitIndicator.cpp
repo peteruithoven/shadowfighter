@@ -30,6 +30,7 @@ void HitIndicator::draw()
 		ofFill();
 		ofEnableAlphaBlending();
 		ofSetColor(255,0,0,alpha);
+		//ofSetColor(255,0,0);
 		ofCircle(x, y, width);
 		ofDisableAlphaBlending();
 		

@@ -34,6 +34,7 @@ class VideoInputController : public BaseController
 		ofRectangle getIntersection(ofRectangle rect1, ofRectangle rect2);
 		void drawRect(ofRectangle rect,int color, int x, int y);
 		void checkHit();
+		void filterProjection();
 };
 
 #endif

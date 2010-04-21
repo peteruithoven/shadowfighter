@@ -12,10 +12,11 @@ Display::Display()
 {
 	threshold = 0;
 	hitThreshold = 0;
+	
+	ttf.loadFont("mono.ttf", 10);
 }
 void Display::start()
 {
-	ttf.loadFont("mono.ttf", 10);
 	ofAddListener(ofEvents.draw, this, &Display::draw);
 }
 void Display::draw(ofEventArgs & args)

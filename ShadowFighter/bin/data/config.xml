@@ -1,10 +1,10 @@
-<backgroundImage>empty.png</backgroundImage>
+<backgroundImage>empty clip1.png</backgroundImage>
 <threshold>35</threshold>
 <hitThreshold>47</hitThreshold>
 <minBlobArea>19600</minBlobArea>
 <maxBlobArea>211600</maxBlobArea>
 <minHitBlobArea>100</minHitBlobArea>
-<maxHitBlobArea>160000</maxHitBlobArea>
+<maxHitBlobArea>409600</maxHitBlobArea>
 <detectionZoneX>0.000000</detectionZoneX>
 <detectionZoneY>0.000000</detectionZoneY>
 <detectionZoneWidth>640.000000</detectionZoneWidth>
@@ -13,3 +13,7 @@
 <maxNumHitBlobs>5</maxNumHitBlobs>
 <minDiffHitBlobsPos>50</minDiffHitBlobsPos>
 <debugDetection>1</debugDetection>
+<hitDetectionZoneX>150.000000</hitDetectionZoneX>
+<hitDetectionZoneY>0.000000</hitDetectionZoneY>
+<hitDetectionZoneWidth>340.000000</hitDetectionZoneWidth>
+<hitDetectionZoneHeight>480.000000</hitDetectionZoneHeight>

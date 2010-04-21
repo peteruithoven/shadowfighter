@@ -12,14 +12,17 @@
 VideoInput::VideoInput()
 {
 	//cout << "VideoInput::VideoInput\n";
-	useCamera = false;
-	
-	width = 640;
-	height = 480;
-	
+}
+void VideoInput::init(bool bUseCamera,string movieURL)
+{
+	cout << "VideoInput::init\n";
+	cout << "  bUseCamera: " << bUseCamera << "\n";
+	cout << "  movieURL: " << movieURL << "\n";
 	ofAddListener(ofEvents.draw, this, &VideoInput::draw);
+	useCamera = bUseCamera;
 	if(useCamera)
 	{
+		cout << "  initializing camera\n";
 		camera.setDeviceID(4);
 		camera.setVerbose(true);
 		camera.initGrabber(width,height);
@@ -28,7 +31,8 @@ VideoInput::VideoInput()
 	}
 	else 
 	{
-		videoPlayer.loadMovie("movies/clip1.mov");
+		cout << "  initializing video\n";
+		videoPlayer.loadMovie(movieURL);
 		start();
 	}
 }

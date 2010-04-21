@@ -15,7 +15,7 @@
 Projection::Projection()
 {
 	sender.setup( HOST, PORT );
-	ofAddListener(ofEvents.update, this, &Projection::update);
+	//ofAddListener(ofEvents.update, this, &Projection::update);
 }
 void Projection::addHit(int x,int y)
 {

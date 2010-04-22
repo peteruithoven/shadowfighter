@@ -84,6 +84,8 @@ void VideoInputController::analyze(unsigned char * pixels)
 	int numBlobs = contourFinder.blobs.size();
 	//int numPrevBlobs = model->blobs->size();
 	
+	drawBlobsHistory();
+	
 	checkHit();
 	
 	/*if(model->hitting)
@@ -114,7 +116,7 @@ void VideoInputController::analyze(unsigned char * pixels)
 		ofRect(blobDisplayX+detectionZone->x, blobDisplayY+detectionZone->y, detectionZone->width, detectionZone->height);
 	}
 	// store and draw blobs
-	vector<ofxCvBlob*> * prevBlobs = new vector<ofxCvBlob*>;
+	vector<Blob*> * prevBlobs = new vector<Blob*>;
     for (int i = 0; i < numBlobs; i++)
 	{
 		ofxCvBlob blob = contourFinder.blobs[i];
@@ -130,7 +132,7 @@ void VideoInputController::analyze(unsigned char * pixels)
 			blob.draw(blobDisplayX,blobDisplayY);
 		
 		// store copy of blobs
-		ofxCvBlob * blobCopy = new ofxCvBlob();
+		Blob * blobCopy = new Blob();
 		blobCopy->boundingRect.x = blobRect.x;
 		blobCopy->boundingRect.y = blobRect.y;
 		blobCopy->boundingRect.width = blobRect.width;
@@ -158,7 +160,7 @@ void VideoInputController::filterProjection()
 			int pixelIndex = (i*videoW) + j;
 			if(model->pixelsSource == Model::CLIP5_DEMO)
 				pixels[pixelIndex] -= 30;
-			if(pixels[pixelIndex] > 180)
+			if(pixels[pixelIndex] > 255)//180)
 			{
 				pixels[pixelIndex] = backgroundPixels[pixelIndex];
 			}
@@ -169,96 +171,8 @@ void VideoInputController::filterProjection()
 	if(model->debugDetection)
 		model->grayImg->draw(0,0);
 }
-
-/*float VideoInputController::getAutoThreshold(ofxCvGrayscaleImage * image)
-{
-    //cout << "\VideoInputController::getAutoThreshold";
-    unsigned char * pixels = image->getPixels();
-    int length = image->getWidth()*image->getHeight();
-	
-    int minLum = 255;
-    int maxLum = 0;
-    for (int i = 0; i < length; i++) {
-        unsigned char pixel = pixels[i];       
-        int lum = pixel;
-        if(lum<minLum)
-            minLum = lum;
-        if(lum>maxLum)
-            maxLum = lum;
-    }
-    int threshold = (minLum+maxLum)/2;
-	//  cout << "\n    threshold: ";
-	//  cout << threshold;
-    return threshold;
-}*/
-/*ofxCvGrayscaleImage* VideoInputController::getBlobImage(ofxCvBlob * blob, ofxCvGrayscaleImage * orgImage)
-{
-	ofRectangle boundingRect = blob->boundingRect;
-	
-	ofxCvGrayscaleImage * image = new ofxCvGrayscaleImage();
-	image->allocate(boundingRect.width,boundingRect.height);
-	
-	setPixelsSubRegion(orgImage, image, 
-					   boundingRect.x, 
-					   boundingRect.y, 
-					   boundingRect.width, 
-					   boundingRect.height, false);
-	
-	return image;
-}*/
-/*void VideoInputController::setPixelsSubRegion(ofxCvImage * orgImage, ofxCvImage * targetImage,int x, int y,int width, int height, bool color)
-{
-	unsigned char * pixels = orgImage->getPixels();
-	int totalWidth = orgImage->getWidth();
-	int subRegionLength = width * height;
-	if(color) subRegionLength*=3; // rgb
-	unsigned char subRegion[subRegionLength];
-	
-	int result_pix = 0;
-	for (int i = y; i < y+height; i++) {
-		for(int j = x; j < x+width; j++) {
-			int base = (i * totalWidth) + j;
-			if(color) base *= 3; // rgb
-			
-			subRegion[result_pix] = pixels[base];
-			result_pix++;
-			
-			if(color)
-			{
-				subRegion[result_pix] = pixels[base+1];
-				result_pix++;
-				subRegion[result_pix] = pixels[base+2];
-				result_pix++;
-			}
-		}
-	}
-	targetImage->setFromPixels(subRegion, width, height);
-}*/
-/*ofRectangle VideoInputController::getIntersection(ofRectangle rect1, ofRectangle rect2)
-{
-	ofRectangle intersection = *new ofRectangle();
-	
-	int rect1R = rect1.x+rect1.width;
-	int rect1B = rect1.y+rect1.height;
-	
-	int rect2R = rect2.x+rect2.width;
-	int rect2B = rect2.y+rect2.height;
-	
-	int l = (rect1.x < rect2.x)? rect1.x : rect2.x;
-	int r = (rect1R < rect2R)? rect1R : rect2R;
-	int t = (rect1.y < rect2.y)? rect1.y : rect2.y;
-	int b = (rect1B < rect2B)? rect1B : rect2B;
-	
-	intersection.x = l;
-	intersection.y = t;
-	intersection.width = r-l;
-	intersection.height = b-t;
-	
-	return intersection;
-}*/
 void VideoInputController::drawRect(ofRectangle rect,int x, int y, int color, int a)
 {
-	
 	ofEnableAlphaBlending();
 	ofNoFill();
 	int r = (color >> 16) & 0xff;
@@ -275,7 +189,11 @@ void VideoInputController::drawRect(ofRectangle rect,int x, int y, int color)
 {
 	drawRect(rect, x, y, color, 255);
 }
-void VideoInputController::checkHit()
+bool sortBlobsOnX(ofxCvBlob * blob1, ofxCvBlob * blob2)
+{
+	return (blob1->boundingRect.x < blob2->boundingRect.x); 
+}
+void VideoInputController::drawBlobsHistory()
 {
 	int blobsHistoryDisplayX = model->videoW*2;
 	int blobsHistoryDisplayY = 0;
@@ -283,7 +201,7 @@ void VideoInputController::checkHit()
 	if(model->debugDetection)
 		model->prevGrayDiffImg->draw(blobsHistoryDisplayX,blobsHistoryDisplayY);
 	
-
+	int blobColors[4] = {0xff0000, 0x00ff00, 0x0000ff, 0xffff00};
 	int historyLength = model->blobsHistory->size();
 	if(historyLength > 0)
 	{
@@ -291,20 +209,57 @@ void VideoInputController::checkHit()
 		int alphaStep = (255-initAlpha)/historyLength;
 		for (int i = 0; i < historyLength; i++)
 		{
-			vector<ofxCvBlob*> * blobs = model->blobsHistory->at(i);
+			vector<Blob*> * blobs = model->blobsHistory->at(i);
+			
+			if(i == 0)
+				std::sort (blobs->begin(), blobs->end(), &sortBlobsOnX);
+			
 			for (int j = 0; j < blobs->size(); j++)
 			{
 				int alpha = initAlpha + alphaStep*i;
-				ofxCvBlob * blob = blobs->at(j);
-				drawRect(blob->boundingRect,blobsHistoryDisplayX,blobsHistoryDisplayY,0x0000ff,alpha);
+				Blob * blob = blobs->at(j);
+				
+				if(i == 0)
+				{
+					blob->color = blobColors[j];
+				}
+				else
+				{
+					vector<Blob*> * prevBlobs = model->blobsHistory->at(i-1);
+					blob->color = 0xffffff;
+					for (int l = 0; l < prevBlobs->size(); l++)
+					{
+						Blob * prevBlob = prevBlobs->at(l);
+						if(matchBlobs(blob, prevBlob))
+							blob->color = prevBlob->color;
+					}
+				}
+				
+				drawRect(blob->boundingRect,blobsHistoryDisplayX,blobsHistoryDisplayY,blob->color,alpha);
 			}
 		}
 	}
 	ofSetColor(0xffffff);
+}
+
+bool  VideoInputController::matchBlobs(ofxCvBlob * blob1, ofxCvBlob * blob2)
+{
+	//cout << "VideoInputController::matchBlobs\n";
+	ofRectangle blobRect1 = blob1->boundingRect;
+	ofRectangle blobRect2 = blob2->boundingRect;
 	
+	int blob1CX = blobRect1.x+blobRect1.width/2;
+	int blob1CY = blobRect1.y+blobRect1.height/2;
+	int blob2CX = blobRect2.x+blobRect2.width/2;
+	int blob2CY = blobRect2.y+blobRect2.height/2;
 	
+	int dis = ofDist(blob1CX,blob1CY,blob2CX,blob2CY);
 	
-	
+	bool match = (dis < model->blobDiffTolerance);
+	return match;
+}
+void VideoInputController::checkHit()
+{
 	//cout << "VideoInputController::checkHit\n";
 	int hitBlobDisplayX = 0;
 	int hitBlobDisplayY = model->videoH;
@@ -338,15 +293,6 @@ void VideoInputController::checkHit()
 			 blobRect.y+blobRect.height <= detectionZone->y+detectionZone->height))
 			continue;
 		
-		/*if(blobRect.x == detectionZone.x || 
-		   blobRect.y == detectionZone.y || 
-		   blobRect.x+blobRect.width == detectionZone.x+detectionZone.width ||
-		   blobRect.y+blobRect.height == detectionZone.y+detectionZone.height)
-			continue;*/
-		
-		
-		   
-		
 		bool toCloseToPrevHit = false;
 		for (int j = 0; j < model->prevHitBlobs->size(); j++)
 		{
@@ -361,6 +307,13 @@ void VideoInputController::checkHit()
 		}
 		if(toCloseToPrevHit)
 			continue;
+		
+		//if(!thereWasAnAttack())
+		//	continue;
+		
+		
+		
+		
 		//blob.draw(hitBlobDisplayX,hitBlobDisplayY);
 		if(model->debugDetection)
 		{
@@ -543,4 +496,93 @@ void VideoInputController::checkHit()
 	model->hitRect->height = maxX-minY;
 	
 	//ofSetFrameRate(1);	*/
+}
+bool VideoInputController::thereWasAnAttack()
+{
+	cout << "VideoInputController::thereWasAnAttack\n";
+	
+	int blobDiffTolerance = 100;
+	int minAttackSpeed = 0;
+	
+	bool isAttack = false;
+	int historyLength = model->blobsHistory->size();
+	if(historyLength < model->maxBlobsHistoryLength)
+		return false;
+	//for (int i = historyLength-1; i > 0; i--)
+	//{
+		//cout << "  i: " << i << "\n";
+		vector<Blob*> * blobs = model->blobsHistory->at(historyLength-1);
+		vector<Blob*> * prevBlobs = model->blobsHistory->at(historyLength-3);
+		for (int j = 0; j < blobs->size(); j++)
+		{
+			Blob * blob = blobs->at(j);
+			ofRectangle blobRect = blob->boundingRect;
+			for (int l = 0; l < prevBlobs->size(); l++)
+			{
+				Blob * prevBlob = prevBlobs->at(l);
+				ofRectangle prevBlobRect = prevBlob->boundingRect;
+				
+				
+				int diffX = prevBlobRect.x-blobRect.x;
+				if(diffX < 0) diffX *= -1;
+				cout << "  diffX: " << diffX << "\n";
+				int diffY = prevBlobRect.y-blobRect.y;
+				if(diffY < 0) diffY *= -1;
+				cout << "  diffY: " << diffY << "\n";
+				int diffWidth = prevBlobRect.width-blobRect.width;
+				if(diffWidth < 0) diffWidth *= -1;
+				cout << "  diffWidth: " << diffWidth << "\n";
+				int diffHeight = prevBlobRect.height-blobRect.height;
+				if(diffHeight < 0) diffHeight *= -1;
+				cout << "  diffHeight: " << diffHeight << "\n";
+				
+				if(diffX < blobDiffTolerance && 
+				   diffY < blobDiffTolerance && 
+				   diffWidth < blobDiffTolerance && 
+				   diffHeight < blobDiffTolerance)
+				{
+					cout << "  found matching prev blob\n";
+					
+					cout << "    prevBlobRect.x: " << prevBlobRect.x << "\n";
+					cout << "    blobRect.x: " << blobRect.x << "\n";
+					cout << "    diffX: " << diffX << "\n";
+					
+					// same blob, prev frame
+					int attackSpeed;
+					bool onLeftSide = (blobRect.x+blobRect.width < model->videoW/2);
+					cout << "    onLeftSide: " << onLeftSide << "\n";
+					if(onLeftSide)
+						attackSpeed = (blobRect.x+blobRect.width)-(prevBlobRect.x+prevBlobRect.width);
+					else 
+						attackSpeed = (prevBlobRect.x-blobRect.x)*-1;
+					cout << "    attackSpeed: " << attackSpeed << "\n";
+					if(attackSpeed >= minAttackSpeed || attackSpeed <= -minAttackSpeed)
+						isAttack = true;
+				}
+			}
+		//}
+	}
+	
+	/*
+	
+	cout << "  get prev blobs\n";
+	ofxCvBlob * prevBlob0 = model->blobs->at(0);
+	ofxCvBlob * prevBlob1 = model->blobs->at(1);
+	
+	// determine left & right blob
+	cout << "  determine left & right blob\n";
+	ofxCvBlob * leftBlob;
+	ofxCvBlob * rightBlob;
+	if(prevBlob0->boundingRect.x < prevBlob1->boundingRect.x)
+	{
+		leftBlob = prevBlob0;
+		rightBlob = prevBlob1;
+	}
+	else 
+	{
+		leftBlob = prevBlob1;
+		rightBlob = prevBlob0;
+	}*/
+	//return isAttack;
+	return true;
 }

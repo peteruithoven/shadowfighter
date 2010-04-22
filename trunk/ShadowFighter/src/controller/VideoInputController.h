@@ -14,6 +14,9 @@
 #include "BaseController.h"
 #include "ofxCvGrayscaleImage.h"
 #include "ofxCvContourFinder.h"
+#include <algorithm>
+#include <vector>
+#include <iostream>
 
 class VideoInputController : public BaseController
 {
@@ -21,7 +24,7 @@ class VideoInputController : public BaseController
 	
 		VideoInputController();
 		void newPixels(unsigned char * pixels);
-	
+
 	protected:
 		
         ofxCvContourFinder	contourFinder;	
@@ -36,6 +39,13 @@ class VideoInputController : public BaseController
 		void drawRect(ofRectangle rect,int x, int y, int color);
 		void checkHit();
 		void filterProjection();
+		void drawBlobsHistory();
+		bool thereWasAnAttack();
+		bool matchBlobs(ofxCvBlob * blob1, ofxCvBlob * blob2);
+	void sortBlobs(vector<Blob*> * blobs);
+
+	
+	
 };
 
 #endif

@@ -20,8 +20,6 @@ void VisualFeedback::addHit(int x,int y)
 	hitIndicator->y = y;
 	hitIndicator->start();
 	children.push_back(hitIndicator);
-	
-	
 }
 
 void VisualFeedback::draw(ofEventArgs & args)

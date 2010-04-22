@@ -15,16 +15,20 @@
 #include "Timer.h"
 #include "ofxCvGrayscaleImage.h"
 #include "ofImage.h"
+#include "Blob.h"
 
-class Model{
+class Model
+{
 	public:
 		
-		static int					CAMERA;
-		static int					CLIP1_DEMO;
-		static int					CLIP5_DEMO;
+		static int			CAMERA;
+		static int			CLIP1_DEMO;
+		static int			CLIP5_DEMO;
+	
 		ofxXmlSettings		xml;
 		int					videoW;
 		int					videoH;
+		int					blobDiffTolerance;
 		bool				debug;
 		int					threshold;
 		int					hitThreshold;
@@ -50,7 +54,7 @@ class Model{
 		ofImage*			imgLoader;
 		
 		vector<ofxCvBlob*>*	prevHitBlobs;
-		vector< vector<ofxCvBlob*>* >*	blobsHistory;
+		vector< vector<Blob*>* >*	blobsHistory;
 		ofxCvGrayscaleImage* prevGrayDiffImg;
 		int					maxBlobsHistoryLength;
 		bool				hitting;

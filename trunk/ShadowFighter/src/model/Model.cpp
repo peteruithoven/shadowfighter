@@ -17,17 +17,21 @@ Model::Model()
 {
 	cout << "Model::Model\n";
 	
-	pixelsSource		= CLIP5_DEMO;
+	pixelsSource			= CLIP5_DEMO;
 	
 	videoW					= 640;
 	videoH					= 480;
+	
+	blobDiffTolerance		= 50;
+	maxBlobsHistoryLength	= 5;
+	minDiffHitBlobsPos		= 50;
+	
 	willLearnBackground		= false;
 	maxNumBlobs				= 5;
 	cameraIndex				= 0;
 	debugDetection			= true;
-	minDiffHitBlobsPos		= 50;
 	movieURL				= "";
-	maxBlobsHistoryLength	= 5;
+	
 	
 	grayImg = new ofxCvGrayscaleImage();
 	grayEmptyImg = new ofxCvGrayscaleImage();
@@ -37,7 +41,7 @@ Model::Model()
 	grayDiffImg->allocate(videoW,videoH);
 	
 	prevHitBlobs		= new vector<ofxCvBlob*>;
-	blobsHistory		= new vector< vector<ofxCvBlob*>* >;
+	blobsHistory		= new vector< vector<Blob*>* >;
 	prevGrayDiffImg		= new ofxCvGrayscaleImage();
 	prevGrayDiffImg->allocate(videoW, videoH);
 	

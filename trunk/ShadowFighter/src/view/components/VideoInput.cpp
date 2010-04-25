@@ -41,8 +41,10 @@ void VideoInput::init(bool bUseCamera,string movieURL)
 void VideoInput::start()
 {
 	cout << "VideoInput::start\n";
+	videoPlayer.setLoopState(OF_LOOP_NONE);
+	videoPlayer.setSpeed(0.1);
 	videoPlayer.play();
-	videoPlayer.setPosition(0.4);
+	videoPlayer.setPosition(0.41);
 }
 void VideoInput::stop()
 {

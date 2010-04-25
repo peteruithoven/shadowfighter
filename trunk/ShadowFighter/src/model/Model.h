@@ -28,8 +28,13 @@ class Model
 		ofxXmlSettings		xml;
 		int					videoW;
 		int					videoH;
+		int					pixelsSource;
+		string				movieURL;
+		ofRectangle*		hitRect;
+		int					cameraIndex;
+		
+		// detection
 		int					blobDiffTolerance;
-		bool				debug;
 		int					threshold;
 		int					hitThreshold;
 		bool				willLearnBackground;
@@ -39,17 +44,16 @@ class Model
 		int					maxBlobArea;
 		int					maxNumBlobs;
 		int					maxNumHitBlobs;
-		bool				debugDetection;
 		int					minDiffHitBlobsPos;
+		int					minAttackSpeed;
 		string				backgroundImageURL;
 		ofRectangle			detectionZone;
 		ofRectangle			hitDetectionZone;
 		
-		int					pixelsSource;
-		string				movieURL;
 		ofxCvGrayscaleImage* grayImg;
 		ofxCvGrayscaleImage* grayEmptyImg;
 		ofxCvGrayscaleImage* grayDiffImg;
+		ofxCvGrayscaleImage* grayHitDiffImg;
 		
 		ofImage*			imgLoader;
 		
@@ -57,10 +61,26 @@ class Model
 		vector< vector<Blob*>* >*	blobsHistory;
 		ofxCvGrayscaleImage* prevGrayDiffImg;
 		int					maxBlobsHistoryLength;
-		bool				hitting;
+	
+		// game logic
+		int					startHealth;
+		int					player1Health;
+		int					player2Health;
+		int					hitDamage;
+	
+		// debugging
+		bool				debug;
+		bool				debugDetection;
+		int					possibleAttacksCounter;
 		int					hitCounter;
-		ofRectangle*		hitRect;
-		int					cameraIndex;
+		int					frameCounter;
+		int					hitsTextX;
+		int					hitsTextY;
+		int					attacksTextX;
+		int					attacksTextY;
+		int					lineHeight;
+		bool				takeScreenShots;
+	
 	
 		Model();
 		void loadData();
@@ -70,7 +90,8 @@ class Model
 		void setHitThreshold(int newValue);
 		void setCameraIndex(int newValue);
 		void setDebug(bool debug);
-		void hit();
+		
+		void hit(int type, int area, int victim);
 		
 
 		ofEvent< int > DATA_LOADED;

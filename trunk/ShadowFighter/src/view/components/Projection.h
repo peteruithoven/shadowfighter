@@ -20,10 +20,10 @@ class Projection : public DisplayObject
 	public:
 	
 		Model * model;
-	
+		
 		Projection();
 		void addHit(int x,int y);
-	
+		void updateHealth(float player1Health,float player2Health);
 	private:
 		ofxOscSender sender;
 		ofxOscBundle messagesBundle;

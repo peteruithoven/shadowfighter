@@ -4,6 +4,7 @@
 #define PORT 12345
 #define HIT_ADDRESS 0
 #define BOUNDING_BOX 1
+#define HEALTH 2
 
 //--------------------------------------------------------------
 void testApp::setup()
@@ -18,7 +19,12 @@ void testApp::setup()
 	ofSetCircleResolution(100);
 	
 	children = *new vector<DisplayObject*>;
-
+	
+	int marginX = (screenW-healthBarPlayer1.width-healthBarPlayer2.width)/3;
+	healthBarPlayer1.x = marginX;
+	healthBarPlayer2.x = screenW-healthBarPlayer2.width-marginX;
+	healthBarPlayer1.y = healthBarPlayer2.y = 10;
+	
 	loadData();
 	
 	receiver.setup(PORT);
@@ -81,7 +87,7 @@ void testApp::update()
 	ofxOscMessage m;
 	while(receiver.getNextMessage(&m))
 	{
-		cout << "  m.getAddress(): " << m.getAddress() << "\n";
+		//cout << "  m.getAddress(): " << m.getAddress() << "\n";
 		switch (ofToInt(m.getAddress()))
 		{
 			case HIT_ADDRESS:
@@ -101,8 +107,11 @@ void testApp::update()
 					boundingBox->height = float(m.getArgAsInt32(3))/videoH*screenH*scale;
 					
 					boundingBoxes.push_back(boundingBox);
-					
 				}
+				break;
+			case HEALTH:
+				healthBarPlayer1.percentage = m.getArgAsFloat(0);
+				healthBarPlayer2.percentage = m.getArgAsFloat(1);
 				break;
 		}
 		m.clear();
@@ -147,12 +156,12 @@ void testApp::draw()
 			ofRect(boundingBox->x,boundingBox->y,boundingBox->width,boundingBox->height);
 		}
 		
-		ofNoFill();
+		/*ofNoFill();
 		ofSetLineWidth(20);
 		ofRect(0,0,1024,768);
 		
 		ofFill();
-		ofEllipse(1024/2,768/2,50,50);
+		ofEllipse(1024/2,768/2,50,50);*/
 		ofDisableAlphaBlending();
 	}
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D06505EA1183B3F900FF75CD /* HealthBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D06505E81183B3F900FF75CD /* HealthBar.cpp */; };
 		D0672C2F117D9F7C006B0C1F /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0672C28117D9F7C006B0C1F /* tinyxml.cpp */; };
 		D0672C30117D9F7C006B0C1F /* tinyxmlerror.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0672C2A117D9F7C006B0C1F /* tinyxmlerror.cpp */; };
 		D0672C31117D9F7C006B0C1F /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0672C2B117D9F7C006B0C1F /* tinyxmlparser.cpp */; };
@@ -94,6 +95,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D06505E81183B3F900FF75CD /* HealthBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HealthBar.cpp; path = src/HealthBar.cpp; sourceTree = SOURCE_ROOT; };
+		D06505E91183B3F900FF75CD /* HealthBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HealthBar.h; path = src/HealthBar.h; sourceTree = SOURCE_ROOT; };
 		D0672C26117D9F7C006B0C1F /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = install.xml; path = ../../openFrameworks/addons/ofxXmlSettings/install.xml; sourceTree = SDKROOT; };
 		D0672C28117D9F7C006B0C1F /* tinyxml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxml.cpp; path = ../../openFrameworks/addons/ofxXmlSettings/libs/tinyxml.cpp; sourceTree = SDKROOT; };
 		D0672C29117D9F7C006B0C1F /* tinyxml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tinyxml.h; path = ../../openFrameworks/addons/ofxXmlSettings/libs/tinyxml.h; sourceTree = SDKROOT; };
@@ -604,6 +607,8 @@
 				D0CB794C1178E60E006933F8 /* HitIndicator.h */,
 				D0CB79731178E6D9006933F8 /* DisplayObject.cpp */,
 				D0CB79741178E6D9006933F8 /* DisplayObject.h */,
+				D06505E81183B3F900FF75CD /* HealthBar.cpp */,
+				D06505E91183B3F900FF75CD /* HealthBar.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -781,6 +786,7 @@
 				D0672C30117D9F7C006B0C1F /* tinyxmlerror.cpp in Sources */,
 				D0672C31117D9F7C006B0C1F /* tinyxmlparser.cpp in Sources */,
 				D0672C32117D9F7C006B0C1F /* ofxXmlSettings.cpp in Sources */,
+				D06505EA1183B3F900FF75CD /* HealthBar.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

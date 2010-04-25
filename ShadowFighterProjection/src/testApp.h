@@ -5,6 +5,7 @@
 #include "HitIndicator.h"
 #include "ofxOsc.h"
 #include "ofxXmlSettings.h"
+#include "HealthBar.h"
 
 class testApp : public ofBaseApp{
 
@@ -23,22 +24,27 @@ class testApp : public ofBaseApp{
 	
 	private:
 	
-		int x;
-		int y;
-		float scale;
-		int alpha;
-		bool debug;
+		int		x;
+		int		y;
+		float	scale;
+		int		alpha;
+		bool	debug;
 	
-		int videoW;
-		int videoH;
-		int screenW;
-		int screenH;
+		int		videoW;
+		int		videoH;
+		int		screenW;
+		int		screenH;
 	
 		ofxOscReceiver	receiver;
-		void addHit(float hitX,float hitY);
+	
+		HealthBar healthBarPlayer1;
+		HealthBar healthBarPlayer2;
+	
 		vector<DisplayObject*> children;
 		vector<ofRectangle*> boundingBoxes;
 		ofxXmlSettings xml;
+	
+		void addHit(float hitX,float hitY);
 	
 		bool ofKeyAlt() {
 			return (glutGetModifiers() & GLUT_ACTIVE_ALT);

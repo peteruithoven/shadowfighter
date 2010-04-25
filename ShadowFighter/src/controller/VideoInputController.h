@@ -26,26 +26,32 @@ class VideoInputController : public BaseController
 		void newPixels(unsigned char * pixels);
 
 	protected:
-		
+		ofTrueTypeFont		font;
         ofxCvContourFinder	contourFinder;	
 		ofxCvContourFinder	hitContourFinder;	
-		void analyze(unsigned char * pixels);
-		float getAutoThreshold(ofxCvGrayscaleImage * image);
 	
-		ofxCvGrayscaleImage* getBlobImage(ofxCvBlob * blob, ofxCvGrayscaleImage * orgImage);
-		void setPixelsSubRegion(ofxCvImage * orgImage, ofxCvImage * targetImage,int x, int y,int width, int height, bool color);
-		ofRectangle getIntersection(ofRectangle rect1, ofRectangle rect2);
+		void analyze(unsigned char * pixels);
+		void storeBackgroundImage(unsigned char * pixels);
+		void filterProjection();
+		void findHitBlobs();
+		void analyseHitBlobs();
+		bool hitIsUnique(ofRectangle blobRect);
+		void storeHistory();
+	
+	
+		// debug
+		void drawBlobsHistory();
+		void drawHitText(string text);
+		void drawAttackText(string text);
+	
+		// utils
+		unsigned char * toGrayscale(unsigned char * pixels);
 		void drawRect(ofRectangle rect,int x, int y, int color, int a);
 		void drawRect(ofRectangle rect,int x, int y, int color);
-		void checkHit();
-		void filterProjection();
-		void drawBlobsHistory();
-		bool thereWasAnAttack();
+		void sortBlobs(vector<Blob*> * blobs);
+		void takeScreenShot(string extraText);
 		bool matchBlobs(ofxCvBlob * blob1, ofxCvBlob * blob2);
-	void sortBlobs(vector<Blob*> * blobs);
-
-	
-	
+		bool rectHitTest(ofRectangle rect1,ofRectangle rect2);
 };
 
 #endif

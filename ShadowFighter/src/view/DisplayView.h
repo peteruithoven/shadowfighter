@@ -3,9 +3,8 @@
  *  openFrameworks
  *
  *  Created by Peter Uithoven on 5/30/09.
- *  Copyright 2009 __MyCompanyName__. All rights reserved.
  *  
- *  Displays textual data. 
+ *  Displays textual config data. 
  */
 
 #ifndef _DisplayView

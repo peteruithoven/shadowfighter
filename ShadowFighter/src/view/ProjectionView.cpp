@@ -27,4 +27,8 @@ void ProjectionView::onHit(int & arg)
 	int x = model->hitRect->x+model->hitRect->width/2;
 	int y = model->hitRect->y+model->hitRect->height/2;
 	projection.addHit(x, y);
+	
+	float player1Health = float(model->player1Health)/model->startHealth;
+	float player2Health = float(model->player2Health)/model->startHealth;
+	projection.updateHealth(player1Health, player2Health);
 }

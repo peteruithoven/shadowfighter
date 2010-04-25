@@ -11,6 +11,7 @@
 #define PORT 12345
 #define HIT_ADDRESS 0
 #define BOUNDING_BOX 1
+#define HEALTH 2
 
 Projection::Projection()
 {
@@ -24,6 +25,14 @@ void Projection::addHit(int x,int y)
 	message->setAddress(ofToString(HIT_ADDRESS));
 	message->addIntArg(x);
 	message->addIntArg(y);
+	messagesBundle.addMessage(*message);
+}
+void Projection::updateHealth(float player1Health,float player2Health)
+{
+	ofxOscMessage * message = new ofxOscMessage();
+	message->setAddress(ofToString(HEALTH));
+	message->addFloatArg(player1Health);
+	message->addFloatArg(player2Health);
 	messagesBundle.addMessage(*message);
 }
 void Projection::update(ofEventArgs & args)

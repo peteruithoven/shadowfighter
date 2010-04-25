@@ -3,7 +3,8 @@
 //--------------------------------------------------------------
 void testApp::setup(){
 	
-	ofSetFrameRate(31);
+	ofSetFrameRate(3);
+	//ofSetFrameRate(31);
 	ofBackground(0,0,0);
 	
 	model;
@@ -14,6 +15,7 @@ void testApp::setup(){
 	//settingsView.setModel(&model);
 	keyboardView.setModel(&model);
 	visualFeedbackView.setModel(&model);
+	gameInfoView.setModel(&model);
 	model.loadData();
 	model.start();
 	

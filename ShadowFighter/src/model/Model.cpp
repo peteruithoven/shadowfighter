@@ -17,38 +17,57 @@ Model::Model()
 {
 	cout << "Model::Model\n";
 	
-	pixelsSource			= CLIP5_DEMO;
+	pixelsSource			= CLIP1_DEMO;
 	
 	videoW					= 640;
 	videoH					= 480;
 	
-	blobDiffTolerance		= 50;
+	blobDiffTolerance		= 75;
 	maxBlobsHistoryLength	= 5;
 	minDiffHitBlobsPos		= 50;
+	minAttackSpeed			= 0;//15;
 	
 	willLearnBackground		= false;
 	maxNumBlobs				= 5;
 	cameraIndex				= 0;
-	debugDetection			= true;
+	
 	movieURL				= "";
 	
 	
-	grayImg = new ofxCvGrayscaleImage();
-	grayEmptyImg = new ofxCvGrayscaleImage();
-	grayDiffImg = new ofxCvGrayscaleImage();
+	grayImg					= new ofxCvGrayscaleImage();
+	grayEmptyImg			= new ofxCvGrayscaleImage();
+	grayDiffImg				= new ofxCvGrayscaleImage();
+	grayHitDiffImg			= new ofxCvGrayscaleImage();
 	grayImg->allocate(videoW,videoH);
 	grayEmptyImg->allocate(videoW,videoH);
 	grayDiffImg->allocate(videoW,videoH);
+	grayHitDiffImg->allocate(videoW,videoH);
 	
-	prevHitBlobs		= new vector<ofxCvBlob*>;
-	blobsHistory		= new vector< vector<Blob*>* >;
-	prevGrayDiffImg		= new ofxCvGrayscaleImage();
+	prevHitBlobs			= new vector<ofxCvBlob*>;
+	blobsHistory			= new vector< vector<Blob*>* >;
+	prevGrayDiffImg			= new ofxCvGrayscaleImage();
 	prevGrayDiffImg->allocate(videoW, videoH);
+		
+	hitRect					= new ofRectangle();
 	
-	hitting				= false;
-	hitCounter			= 0;
-	hitRect				= new ofRectangle();
 	
+	// game logic
+	startHealth				= 100;
+	player1Health			= startHealth;
+	player2Health			= startHealth;
+	hitDamage				= 30;
+	
+	// debugging
+	debug					= true;
+	debugDetection			= true;
+	takeScreenShots			= true;
+	
+	possibleAttacksCounter	= 0;
+	hitCounter				= -1;
+	frameCounter			= -1;
+	hitsTextY				= 0;
+	attacksTextY			= 0;
+	lineHeight				= 20;
 }
 void Model::loadData()
 {
@@ -110,7 +129,7 @@ void Model::parseXML()
 	else if(pixelsSource == CLIP5_DEMO)
 	{
 		threshold = 35;
-		hitThreshold = 47;
+		hitThreshold = 40;
 		backgroundImageURL = "empty clip5.png";
 		movieURL = "movies/clip5.mov";
 	}
@@ -118,7 +137,6 @@ void Model::parseXML()
 	{
 		backgroundImageURL = "empty.png";
 	}
-
 	
 	cout << "backgroundImageURL: " << backgroundImageURL << "\n";
 	cout << "threshold: " << threshold << "\n";
@@ -205,9 +223,17 @@ void Model::setCameraIndex(int newValue)
 	int emptyArg = 0;
 	ofNotifyEvent(CAMERA_INDEX_CHANGED,emptyArg,this); 
 }
-void Model::hit()
+void Model::hit(int type, int area, int victim)
 {
-	//cout << "Model::hit:\n";
+	cout << "Model::hit:\n";
+	
+	if(victim == 1)
+		player1Health -= hitDamage;
+	else 
+		player2Health -= hitDamage;
+	
+	cout << "  "<<player1Health<<" : "<<player2Health<<"\n";
+	
 	int emptyArg = 0;
 	ofNotifyEvent(HIT,emptyArg,this); 
 }

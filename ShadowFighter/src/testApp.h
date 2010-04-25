@@ -11,6 +11,8 @@
 #include "keyboardView.h"
 #include "VisualFeedbackView.h"
 #include "ProjectionView.h"
+#include "GameInfoView.h"
+
 
 class testApp : public ofBaseApp{
 
@@ -24,9 +26,8 @@ class testApp : public ofBaseApp{
 		//SettingsView settingsView;
 		KeyboardView keyboardView;
 		VisualFeedbackView visualFeedbackView;
+		GameInfoView gameInfoView;
 		
-		
-	
 		void setup();
 		void update();
 		void draw();

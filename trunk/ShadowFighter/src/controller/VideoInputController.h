@@ -34,12 +34,14 @@ class VideoInputController : public BaseController
 		void analyze(unsigned char * pixels);
 		void storeBackgroundImage(unsigned char * pixels);
 		void filterProjection();
+		void correctEmptyImage();
 		void findHitBlobs();
 		void analyseHitBlobs();
 		bool hitIsUnique(ofRectangle blobRect);
 		void storeHistory();
-	
-	
+		void analyzeBlobs();
+		void storeBlobHistory();
+		
 		// debug
 		void drawBlobsHistory();
 		void drawHitText(string text);
@@ -51,8 +53,10 @@ class VideoInputController : public BaseController
 		void drawRect(ofRectangle rect,int x, int y, int color);
 		void sortBlobs(vector<Blob*> * blobs);
 		void takeScreenShot(string extraText);
+		void takeHitScreenShot(string extraText);
 		bool matchBlobs(ofxCvBlob * blob1, ofxCvBlob * blob2);
 		bool rectHitTest(ofRectangle rect1,ofRectangle rect2);
+		void colorInImage(ofxCvGrayscaleImage * image, int color, ofRectangle rect);
 };
 
 #endif

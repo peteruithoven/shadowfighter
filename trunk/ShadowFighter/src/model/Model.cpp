@@ -12,35 +12,39 @@
 int Model::CAMERA = 0;
 int Model::CLIP1_DEMO = 1;
 int Model::CLIP5_DEMO = 2;
+int Model::CLIP6_DEMO = 3;
 
 Model::Model()
 {
 	cout << "Model::Model\n";
-	pixelsSource			= CLIP1_DEMO;
+	pixelsSource			= CLIP6_DEMO;
 	videoW					= 640;
 	videoH					= 480;
 	
 	blobDiffTolerance		= 75;
 	maxBlobsHistoryLength	= 5;
-	minDiffHitBlobsPos		= 50;
-	minAttackSpeed			= 0;//15;
+	minDiffHitBlobsPos		= 50; //50;
+	minAttackSpeed			= 5;//15;
 	state					= STATE_DEMO;
 	willLearnBackground		= false;
 	maxNumBlobs				= 5;
 	cameraIndex				= 0;
-	
+	clip6EmptyCorrection	= 70;
 	movieURL				= "";
 	
 	grayImg					= new ofxCvGrayscaleImage();
 	grayEmptyImg			= new ofxCvGrayscaleImage();
+	grayEmptyCopyImg		= new ofxCvGrayscaleImage();
 	grayDiffImg				= new ofxCvGrayscaleImage();
 	grayHitDiffImg			= new ofxCvGrayscaleImage();
 	grayImg->allocate(videoW,videoH);
 	grayEmptyImg->allocate(videoW,videoH);
+	grayEmptyCopyImg->allocate(videoW,videoH);
 	grayDiffImg->allocate(videoW,videoH);
 	grayHitDiffImg->allocate(videoW,videoH);
 	
 	prevHitBlobs			= new vector<ofxCvBlob*>;
+	currentBlobs			= new vector<Blob*>;
 	blobsHistory			= new vector< vector<Blob*>* >;
 	prevGrayDiffImg			= new ofxCvGrayscaleImage();
 	prevGrayDiffImg->allocate(videoW, videoH);
@@ -49,13 +53,14 @@ Model::Model()
 	
 	// game logic
 	startHealth				= 100;
-	hitDamage				= 30;
+	hitDamage				= 10;
 	
 	// debugging
 	debug					= true;
 	debugDetection			= true;
 	slowMotion				= false;
-	takeScreenShots			= slowMotion;
+	takeScreenShots			= false;
+	takeHitScreenShots		= false;
 	
 	hitsTextY				= 0;
 	attacksTextY			= 0;
@@ -70,6 +75,7 @@ void Model::resetGame()
 {
 	player1Health			= startHealth;
 	player2Health			= startHealth;	
+	winner					= 0;
 	
 	// debugging
 	possibleAttacksCounter	= 0;
@@ -97,7 +103,32 @@ void Model::loadData()
 	// load image with ofImage, store on ofxCvGrayscaleImage
 	imgLoader = new ofImage();
 	imgLoader->loadImage(backgroundImageURL);
+	
+	/*unsigned char * pixels = imgLoader->getPixels();
+	unsigned char * grayPixels = new unsigned char[videoW*videoH];
+	int counter = 0;
+	for (int i = 0; i < videoH; i++) {
+		for (int j = 0; j < videoW*3; j+=3) {
+			
+			// get r, g and b components
+			int r = (i*videoW*3) + j;
+			int g = (i*videoW*3) + (j+1);
+			int b = (i*videoW*3) + (j+2);
+			
+			int grayPixel = (11 * pixels[r] + 16 * pixels[g] + 5 * pixels[b]) / 32;
+			
+			grayPixels[counter] = grayPixel;
+			
+			counter++;
+		}
+	}
+	
+	ofImage imgSaver = *new ofImage();
+	imgSaver.setFromPixels(grayPixels, videoW, videoH, OF_IMAGE_GRAYSCALE, false);
+	imgSaver.saveImage("empty clip6.png");*/
+	
 	grayEmptyImg->setFromPixels(imgLoader->getPixels(), videoW,videoH);
+	grayEmptyCopyImg->setFromPixels(imgLoader->getPixels(), videoW,videoH);
 	
 	int emptyArg = 0;
 	ofNotifyEvent(DATA_LOADED,emptyArg,this);
@@ -143,6 +174,15 @@ void Model::parseXML()
 		backgroundImageURL = "empty clip5.png";
 		movieURL = "movies/clip5.mov";
 	}
+	else if(pixelsSource == CLIP6_DEMO)
+	{
+		threshold = 28;
+		hitThreshold = 64;
+		backgroundImageURL = "empty clip6.png";
+		movieURL = "movies/clip6";
+		//movieURL = "movies/clip1.mov";
+		detectionZone.x = hitDetectionZone.x = 75;
+	}
 	else 
 	{
 		backgroundImageURL = "empty.png";
@@ -176,6 +216,15 @@ void Model::storeValues()
 		xml.setValue("backgroundImage", backgroundImageURL);
 		xml.setValue("threshold", threshold);
 		xml.setValue("hitThreshold", hitThreshold);
+		
+		xml.setValue("detectionZoneX", detectionZone.x);
+		xml.setValue("detectionZoneY", detectionZone.y);
+		xml.setValue("detectionZoneWidth", detectionZone.width);
+		xml.setValue("detectionZoneHeight", detectionZone.height);
+		xml.setValue("hitDetectionZoneX", hitDetectionZone.x);
+		xml.setValue("hitDetectionZoneY", hitDetectionZone.y);
+		xml.setValue("hitDetectionZoneWidth", hitDetectionZone.width);
+		xml.setValue("hitDetectionZoneHeight", hitDetectionZone.height);
 	}
 	xml.setValue("minBlobArea", minBlobArea);
 	xml.setValue("maxBlobArea", maxBlobArea);
@@ -185,14 +234,7 @@ void Model::storeValues()
 	xml.setValue("maxNumHitBlobs", maxNumHitBlobs);
 	xml.setValue("minDiffHitBlobsPos", minDiffHitBlobsPos);
 	xml.setValue("debugDetection", debugDetection);
-	xml.setValue("detectionZoneX", detectionZone.x);
-	xml.setValue("detectionZoneY", detectionZone.y);
-	xml.setValue("detectionZoneWidth", detectionZone.width);
-	xml.setValue("detectionZoneHeight", detectionZone.height);
-	xml.setValue("hitDetectionZoneX", hitDetectionZone.x);
-	xml.setValue("hitDetectionZoneY", hitDetectionZone.y);
-	xml.setValue("hitDetectionZoneWidth", hitDetectionZone.width);
-	xml.setValue("hitDetectionZoneHeight", hitDetectionZone.height);
+	
 	
 	xml.saveFile("config.xml");
 }
@@ -243,9 +285,12 @@ void Model::hit(int type, int area, int victim)
 	int emptyArg = 0;
 	ofNotifyEvent(HIT,emptyArg,this); 
 	
+	return;
+	
 	if(player1Health <= 0 || player2Health <= 0)
 	{
-		state = STATE_DEMO;
+		winner = (player1Health <= 0)? 2 : 1;
+		setState(STATE_GAME_FINISHED);
 	}
 }
 void Model::setState(int newValue)
@@ -261,7 +306,7 @@ void Model::setState(int newValue)
 	}
 	
 	int emptyArg = 0;
-	ofNotifyEvent(STATE_CHANGE,emptyArg,this); 
+	ofNotifyEvent(STATE_CHANGE,emptyArg,this);
 }
 
 

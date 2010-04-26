@@ -41,7 +41,16 @@ void KeyboardController::keyPressed(int keyCode)
 			//if(model->state == STATE_DEMO)
 				model->setState(STATE_GAME);
 			break;
-			
+		case 'q':
+			model->clip6EmptyCorrection -= 1;
+			//model->clip6EmptyCorrectionChange = -5;
+			cout << "  model->clip6EmptyCorrection: " << model->clip6EmptyCorrection << "\n";
+			break;
+		case 'w':
+			model->clip6EmptyCorrection += 1;
+			//model->clip6EmptyCorrectionChange = +5;			
+			cout << "  model->clip6EmptyCorrection: " << model->clip6EmptyCorrection << "\n";
+			break;
 			
 		/*case 'i':
 			model->setInvert(!model->getInvert());

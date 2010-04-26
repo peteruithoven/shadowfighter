@@ -25,6 +25,7 @@ class Model
 		static int			CAMERA;
 		static int			CLIP1_DEMO;
 		static int			CLIP5_DEMO;
+		static int			CLIP6_DEMO;
 	
 		ofxXmlSettings		xml;
 		int					videoW;
@@ -48,27 +49,32 @@ class Model
 		int					maxNumHitBlobs;
 		int					minDiffHitBlobsPos;
 		int					minAttackSpeed;
+		int					clip6EmptyCorrection;
+	
 		string				backgroundImageURL;
 		ofRectangle			detectionZone;
 		ofRectangle			hitDetectionZone;
 		
 		ofxCvGrayscaleImage* grayImg;
 		ofxCvGrayscaleImage* grayEmptyImg;
+		ofxCvGrayscaleImage* grayEmptyCopyImg;
 		ofxCvGrayscaleImage* grayDiffImg;
 		ofxCvGrayscaleImage* grayHitDiffImg;
 		
 		ofImage*			imgLoader;
 		
 		vector<ofxCvBlob*>*	prevHitBlobs;
+		vector<Blob*> *				currentBlobs;
 		vector< vector<Blob*>* >*	blobsHistory;
 		ofxCvGrayscaleImage* prevGrayDiffImg;
 		int					maxBlobsHistoryLength;
-	
+		
 		// game logic
 		int					startHealth;
 		int					player1Health;
 		int					player2Health;
 		int					hitDamage;
+		int					winner;
 	
 		// debugging
 		bool				debug;
@@ -82,7 +88,9 @@ class Model
 		int					attacksTextY;
 		int					lineHeight;
 		bool				takeScreenShots;
+		bool				takeHitScreenShots;
 		bool				slowMotion;
+		
 		Model();
 		void loadData();
 		void start();

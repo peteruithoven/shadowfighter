@@ -19,7 +19,8 @@ bool sortBlobsOnX(ofxCvBlob * blob1, ofxCvBlob * blob2)
 }
 void VideoInputController::newPixels(unsigned char * pixels)
 {
-	analyze(pixels);
+	if(model->state == STATE_GAME)
+		analyze(pixels);
 }
 void VideoInputController::analyze(unsigned char * pixels)
 {

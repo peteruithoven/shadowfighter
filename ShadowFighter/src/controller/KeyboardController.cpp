@@ -37,6 +37,10 @@ void KeyboardController::keyPressed(int keyCode)
 		case 'd':
 			model->debugDetection = !model->debugDetection;
 			break;
+		case OF_KEY_RETURN:
+			//if(model->state == STATE_DEMO)
+				model->setState(STATE_GAME);
+			break;
 			
 			
 		/*case 'i':

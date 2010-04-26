@@ -10,13 +10,14 @@
 #ifndef _VideoInputController
 #define _VideoInputController
 
-#include <ofUtils.h>
+#include "ofMain.h"
 #include "BaseController.h"
 #include "ofxCvGrayscaleImage.h"
 #include "ofxCvContourFinder.h"
 #include <algorithm>
 #include <vector>
 #include <iostream>
+#include "Constants.h"
 
 class VideoInputController : public BaseController
 {

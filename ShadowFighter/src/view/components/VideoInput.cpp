@@ -29,6 +29,7 @@ void VideoInput::init(bool bUseCamera,string movieURL)
 		camera.setDeviceID(4);
 		camera.setVerbose(true);
 		camera.initGrabber(width,height);
+		//camera.videoSettings();
 		colorImg.allocate(width,height);
 	}
 	else 

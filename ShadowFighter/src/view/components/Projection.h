@@ -14,6 +14,7 @@
 #include "DisplayObject.h"
 #include "Model.h"
 
+
 class Projection : public DisplayObject 
 {
 
@@ -24,10 +25,14 @@ class Projection : public DisplayObject
 		Projection();
 		void addHit(int x,int y);
 		void updateHealth(float player1Health,float player2Health);
+		void updateState(int state);
+		void updateWinner(int winner);
+	
 	private:
 		ofxOscSender sender;
 		ofxOscBundle messagesBundle;
 		void update(ofEventArgs & args);
+	
 };
 
 #endif

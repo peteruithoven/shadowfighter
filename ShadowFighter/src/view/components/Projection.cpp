@@ -12,6 +12,8 @@
 #define HIT_ADDRESS 0
 #define BOUNDING_BOX 1
 #define HEALTH 2
+#define WINNER 3
+#define STATE 4
 
 Projection::Projection()
 {
@@ -33,6 +35,21 @@ void Projection::updateHealth(float player1Health,float player2Health)
 	message->setAddress(ofToString(HEALTH));
 	message->addFloatArg(player1Health);
 	message->addFloatArg(player2Health);
+	messagesBundle.addMessage(*message);
+}
+void Projection::updateState(int state)
+{
+	cout << "Projection::updateState: "<<state<<"\n";
+	ofxOscMessage * message = new ofxOscMessage();
+	message->setAddress(ofToString(STATE));
+	message->addIntArg(state);
+	messagesBundle.addMessage(*message);
+}
+void Projection::updateWinner(int winner)
+{
+	ofxOscMessage * message = new ofxOscMessage();
+	message->setAddress(ofToString(WINNER));
+	message->addIntArg(winner);
 	messagesBundle.addMessage(*message);
 }
 void Projection::update(ofEventArgs & args)

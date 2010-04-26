@@ -1,13 +1,13 @@
 <backgroundImage>empty.png</backgroundImage>
 <threshold>15</threshold>
-<hitThreshold>37</hitThreshold>
+<hitThreshold>45</hitThreshold>
 <minBlobArea>19600</minBlobArea>
 <maxBlobArea>211600</maxBlobArea>
 <minHitBlobArea>75</minHitBlobArea>
 <maxHitBlobArea>409600</maxHitBlobArea>
-<detectionZoneX>0.000000</detectionZoneX>
+<detectionZoneX>150.000000</detectionZoneX>
 <detectionZoneY>0.000000</detectionZoneY>
-<detectionZoneWidth>640.000000</detectionZoneWidth>
+<detectionZoneWidth>340.000000</detectionZoneWidth>
 <detectionZoneHeight>480.000000</detectionZoneHeight>
 <maxNumBlobs>5</maxNumBlobs>
 <maxNumHitBlobs>5</maxNumHitBlobs>
@@ -17,3 +17,4 @@
 <hitDetectionZoneY>0.000000</hitDetectionZoneY>
 <hitDetectionZoneWidth>340.000000</hitDetectionZoneWidth>
 <hitDetectionZoneHeight>480.000000</hitDetectionZoneHeight>
+<maxDiffHitBlobsPos>1</maxDiffHitBlobsPos>

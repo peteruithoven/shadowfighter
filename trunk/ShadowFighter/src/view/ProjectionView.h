@@ -25,6 +25,8 @@ class ProjectionView : public BaseView
 	protected:
 		Projection projection;
 		void onHit(int & arg);
+		void onReset(int & arg);
+		void updateHealth();
 };
 
 #endif

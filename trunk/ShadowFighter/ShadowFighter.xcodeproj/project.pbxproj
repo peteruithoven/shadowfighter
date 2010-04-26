@@ -272,6 +272,7 @@
 		D0650574118395DB00FF75CD /* GameInfoView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameInfoView.cpp; path = openFrameworks/apps/projects/ShadowFighter/src/view/GameInfoView.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		D06505771183969500FF75CD /* HealthBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HealthBar.h; path = openFrameworks/apps/projects/ShadowFighter/src/view/components/HealthBar.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		D06505781183969500FF75CD /* HealthBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HealthBar.cpp; path = openFrameworks/apps/projects/ShadowFighter/src/view/components/HealthBar.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		D0661AF61184FEC6009000D9 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = openFrameworks/apps/projects/ShadowFighter/src/Constants.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		D06732DF11806AFB006B0C1F /* Blob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Blob.cpp; path = src/model/Blob.cpp; sourceTree = SOURCE_ROOT; };
 		D06732E011806AFB006B0C1F /* Blob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Blob.h; path = src/model/Blob.h; sourceTree = SOURCE_ROOT; };
 		D0694B1B117541660023D731 /* KeyboardView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = KeyboardView.cpp; path = src/view/KeyboardView.cpp; sourceTree = SOURCE_ROOT; };
@@ -1138,6 +1139,7 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				D0661AF61184FEC6009000D9 /* Constants.h */,
 				D05088731174DF0C00DA5FDE /* model */,
 				D05088821174DF0C00DA5FDE /* view */,
 				D050886D1174DF0C00DA5FDE /* controller */,

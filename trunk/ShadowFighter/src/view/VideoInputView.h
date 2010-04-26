@@ -31,7 +31,6 @@ class VideoInputView : public BaseView
 		VideoInput videoInput;
 		void onNewPixels(int & nothing);
 		void onDataLoaded(int & nothing);
-		void onCameraIndexChanged(int & nothing);
 };
 
 #endif

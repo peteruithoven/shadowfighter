@@ -23,14 +23,14 @@ class VideoInput : public DisplayObject{
 		ofVideoPlayer	videoPlayer; // public for performance increase of direct calls
 		ofVideoGrabber	camera;
 		bool			useCamera;
+		bool			slowMotion;
+	
 		VideoInput();
 		void init(bool useCamera,string movieURL);
 		void start();
 		void stop();
 	
 		ofEvent< int > NEW_PIXELS;
-	
-
 	
 	protected:
 		bool	running;

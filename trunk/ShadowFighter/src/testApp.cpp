@@ -3,8 +3,8 @@
 //--------------------------------------------------------------
 void testApp::setup(){
 	
-	ofSetFrameRate(3);
-	//ofSetFrameRate(31);
+	//ofSetFrameRate(3);
+	ofSetFrameRate(31);
 	ofBackground(0,0,0);
 	
 	model;

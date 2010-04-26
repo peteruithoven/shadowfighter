@@ -21,6 +21,7 @@ void VideoInput::init(bool bUseCamera,string movieURL)
 	cout << "  bUseCamera: " << bUseCamera << "\n";
 	cout << "  movieURL: " << movieURL << "\n";
 	
+	//slowMotion = false;
 	useCamera = bUseCamera;
 	if(useCamera)
 	{
@@ -42,7 +43,9 @@ void VideoInput::start()
 {
 	cout << "VideoInput::start\n";
 	videoPlayer.setLoopState(OF_LOOP_NONE);
-	videoPlayer.setSpeed(0.1);
+	if(slowMotion)
+		videoPlayer.setSpeed(0.1);
+	videoPlayer.setVolume(0);
 	videoPlayer.play();
 	videoPlayer.setPosition(0.41);
 }

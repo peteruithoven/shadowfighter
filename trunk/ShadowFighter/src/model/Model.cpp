@@ -16,9 +16,7 @@ int Model::CLIP5_DEMO = 2;
 Model::Model()
 {
 	cout << "Model::Model\n";
-	
 	pixelsSource			= CLIP1_DEMO;
-	
 	videoW					= 640;
 	videoH					= 480;
 	
@@ -26,13 +24,12 @@ Model::Model()
 	maxBlobsHistoryLength	= 5;
 	minDiffHitBlobsPos		= 50;
 	minAttackSpeed			= 0;//15;
-	
+	state					= STATE_DEMO;
 	willLearnBackground		= false;
 	maxNumBlobs				= 5;
 	cameraIndex				= 0;
 	
 	movieURL				= "";
-	
 	
 	grayImg					= new ofxCvGrayscaleImage();
 	grayEmptyImg			= new ofxCvGrayscaleImage();
@@ -50,24 +47,37 @@ Model::Model()
 		
 	hitRect					= new ofRectangle();
 	
-	
 	// game logic
 	startHealth				= 100;
-	player1Health			= startHealth;
-	player2Health			= startHealth;
 	hitDamage				= 30;
 	
 	// debugging
 	debug					= true;
 	debugDetection			= true;
-	takeScreenShots			= true;
+	slowMotion				= false;
+	takeScreenShots			= slowMotion;
 	
-	possibleAttacksCounter	= 0;
-	hitCounter				= -1;
-	frameCounter			= -1;
 	hitsTextY				= 0;
 	attacksTextY			= 0;
 	lineHeight				= 20;
+	
+	resetGame();
+	
+	if(slowMotion)
+		ofSetFrameRate(3);
+}
+void Model::resetGame()
+{
+	player1Health			= startHealth;
+	player2Health			= startHealth;	
+	
+	// debugging
+	possibleAttacksCounter	= 0;
+	hitCounter				= -1;
+	frameCounter			= -1;
+	
+	int emptyArg = 0;
+	ofNotifyEvent(RESET,emptyArg,this); 
 }
 void Model::loadData()
 {
@@ -216,13 +226,6 @@ void Model::setHitThreshold(int newValue)
 	ofNotifyEvent(VALUES_UPDATED,emptyArg,this); 
 	storeValues();
 }
-void Model::setCameraIndex(int newValue)
-{
-	cout << "Model::setCameraIndex:" << newValue << "\n";
-	cameraIndex = newValue;
-	int emptyArg = 0;
-	ofNotifyEvent(CAMERA_INDEX_CHANGED,emptyArg,this); 
-}
 void Model::hit(int type, int area, int victim)
 {
 	cout << "Model::hit:\n";
@@ -232,11 +235,35 @@ void Model::hit(int type, int area, int victim)
 	else 
 		player2Health -= hitDamage;
 	
+	if(player1Health < 0) player1Health = 0;
+	if(player2Health < 0) player2Health = 0;
+	
 	cout << "  "<<player1Health<<" : "<<player2Health<<"\n";
 	
 	int emptyArg = 0;
 	ofNotifyEvent(HIT,emptyArg,this); 
+	
+	if(player1Health <= 0 || player2Health <= 0)
+	{
+		state = STATE_DEMO;
+	}
 }
+void Model::setState(int newValue)
+{
+	cout << "Model::setState:" << newValue << "\n";
+	state = newValue;
+	
+	switch(state)
+	{
+		case STATE_GAME:
+			resetGame();
+			break;
+	}
+	
+	int emptyArg = 0;
+	ofNotifyEvent(STATE_CHANGE,emptyArg,this); 
+}
+
 
 void Model::update(ofEventArgs & args)
 { 

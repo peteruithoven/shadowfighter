@@ -20,7 +20,6 @@ void VideoInputView::setModel(Model * model)
 	controller.setModel(model);
 	
 	ofAddListener(model->DATA_LOADED,this,&VideoInputView::onDataLoaded);
-	ofAddListener(model->CAMERA_INDEX_CHANGED,this,&VideoInputView::onCameraIndexChanged);
 }
 void VideoInputView::onDataLoaded(int & nothing)
 {
@@ -34,6 +33,7 @@ void VideoInputView::onDataLoaded(int & nothing)
 	bool useCamera = (model->pixelsSource == Model::CAMERA);
 	cout << "  useCamera: " << useCamera << "\n";
 	
+	videoInput.slowMotion = model->slowMotion;
 	videoInput.init(useCamera,model->movieURL);
 }
 void VideoInputView::onNewPixels(int & nothing)
@@ -42,8 +42,4 @@ void VideoInputView::onNewPixels(int & nothing)
 		controller.newPixels(videoInput.camera.getPixels());
 	else
 		controller.newPixels(videoInput.videoPlayer.pixels);
-}
-void VideoInputView::onCameraIndexChanged(int & nothing)
-{
-	videoInput.camera.setDeviceID(model->cameraIndex);
 }

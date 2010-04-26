@@ -16,6 +16,7 @@
 #include "ofxCvGrayscaleImage.h"
 #include "ofImage.h"
 #include "Blob.h"
+#include "Constants.h"
 
 class Model
 {
@@ -32,6 +33,7 @@ class Model
 		string				movieURL;
 		ofRectangle*		hitRect;
 		int					cameraIndex;
+		int					state;
 		
 		// detection
 		int					blobDiffTolerance;
@@ -80,30 +82,29 @@ class Model
 		int					attacksTextY;
 		int					lineHeight;
 		bool				takeScreenShots;
-	
-	
+		bool				slowMotion;
 		Model();
 		void loadData();
 		void start();
 		void learnBackground();
 		void setThreshold(int newValue);
 		void setHitThreshold(int newValue);
-		void setCameraIndex(int newValue);
 		void setDebug(bool debug);
-		
+		void setState(int state);
+	
 		void hit(int type, int area, int victim);
 		
-
 		ofEvent< int > DATA_LOADED;
 		ofEvent< int > VALUES_UPDATED;
-		ofEvent< int > CAMERA_INDEX_CHANGED;
 		ofEvent< int > HIT;
-		
+		ofEvent< int > STATE_CHANGE;
+		ofEvent< int > RESET;
 	protected:
 		Timer				timer;
 	
 		void parseXML();
 		void storeValues();
+		void resetGame();
 		void update(ofEventArgs & args);
 		void onTick(int  & count);
 };

@@ -29,11 +29,13 @@ class VideoInput : public DisplayObject{
 		void init(bool useCamera,string movieURL);
 		void start();
 		void stop();
-	
+		void pause();
+		void resume();
 		ofEvent< int > NEW_PIXELS;
 	
 	protected:
 		bool	running;
+		bool	paused;
 		ofxCvColorImage colorImg;
 		void draw(ofEventArgs & args);
 };

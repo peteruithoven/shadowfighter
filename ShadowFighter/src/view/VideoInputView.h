@@ -31,6 +31,8 @@ class VideoInputView : public BaseView
 		VideoInput videoInput;
 		void onNewPixels(int & nothing);
 		void onDataLoaded(int & nothing);
+		void onVideoPause(int & nothing);
+		void onVideoResume(int & nothing);
 };
 
 #endif

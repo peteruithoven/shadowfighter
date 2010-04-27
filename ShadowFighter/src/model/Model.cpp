@@ -17,20 +17,23 @@ int Model::CLIP6_DEMO = 3;
 Model::Model()
 {
 	cout << "Model::Model\n";
-	pixelsSource			= CLIP6_DEMO;
+	pixelsSource			= CLIP5_DEMO;
 	videoW					= 640;
 	videoH					= 480;
 	
 	blobDiffTolerance		= 75;
 	maxBlobsHistoryLength	= 5;
 	minDiffHitBlobsPos		= 50; //50;
-	minAttackSpeed			= 5;//15;
+	minAttackSpeed			= 0;//5;//15;
 	state					= STATE_DEMO;
 	willLearnBackground		= false;
 	maxNumBlobs				= 5;
 	cameraIndex				= 0;
 	clip6EmptyCorrection	= 70;
 	movieURL				= "";
+	
+	simpleHitBlobAnalysis	= true;
+	centerX					= videoW/2;
 	
 	grayImg					= new ofxCvGrayscaleImage();
 	grayEmptyImg			= new ofxCvGrayscaleImage();
@@ -61,7 +64,7 @@ Model::Model()
 	slowMotion				= false;
 	takeScreenShots			= false;
 	takeHitScreenShots		= false;
-	
+	videoPaused				= false;
 	hitsTextY				= 0;
 	attacksTextY			= 0;
 	lineHeight				= 20;
@@ -173,15 +176,19 @@ void Model::parseXML()
 		hitThreshold = 40;
 		backgroundImageURL = "empty clip5.png";
 		movieURL = "movies/clip5.mov";
+		
+		hitDetectionZone.x = 200;
+		hitDetectionZone.width = videoW-hitDetectionZone.x*2;
 	}
 	else if(pixelsSource == CLIP6_DEMO)
 	{
-		threshold = 28;
+		threshold = 37;
 		hitThreshold = 64;
 		backgroundImageURL = "empty clip6.png";
 		movieURL = "movies/clip6";
 		//movieURL = "movies/clip1.mov";
 		detectionZone.x = hitDetectionZone.x = 75;
+		centerX = detectionZone.x+detectionZone.width/2;
 	}
 	else 
 	{
@@ -285,8 +292,6 @@ void Model::hit(int type, int area, int victim)
 	int emptyArg = 0;
 	ofNotifyEvent(HIT,emptyArg,this); 
 	
-	return;
-	
 	if(player1Health <= 0 || player2Health <= 0)
 	{
 		winner = (player1Health <= 0)? 2 : 1;
@@ -308,7 +313,17 @@ void Model::setState(int newValue)
 	int emptyArg = 0;
 	ofNotifyEvent(STATE_CHANGE,emptyArg,this);
 }
-
+void Model::setVideoPause(bool newValue)
+{
+	cout << "Model::setVideoPause:" << newValue << "\n";
+	videoPaused = newValue;
+	
+	int emptyArg = 0;
+	if(videoPaused)
+		ofNotifyEvent(VIDEO_PAUSE,emptyArg,this);
+	else
+		ofNotifyEvent(VIDEO_RESUME,emptyArg,this);
+}
 
 void Model::update(ofEventArgs & args)
 { 

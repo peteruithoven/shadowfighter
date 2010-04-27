@@ -49,43 +49,23 @@ void VideoInputController::analyze(unsigned char * pixels)
 	// filters
 	filterProjection();
 	
+	findHitBlobs();
 	
+	findShadowBlobs();
 	
-	// take the abs value of the difference between background and incoming and then threshold:
-	model->grayDiffImg->absDiff(*model->grayEmptyImg, *model->grayImg);
-	model->grayDiffImg->threshold(model->threshold);
-	
-	if(model->pixelsSource == Model::CLIP6_DEMO)
-	{
-		ofRectangle colorRect;
-		colorRect.width = videoW;
-		colorRect.height = 50;
-		colorRect.x = 0;
-		colorRect.y = videoH-colorRect.height;
-		colorInImage(model->grayDiffImg, 0x000000, colorRect);
-	}
-	
-	if(model->debugDetection)
-		model->grayDiffImg->draw(videoW, videoH);
-	// find normal blobs
-	contourFinder.findContours(*model->grayDiffImg, model->minBlobArea, model->maxBlobArea, model->maxNumBlobs, true);
-	
-	
-	int numBlobs = contourFinder.blobs.size();
-	//int numPrevBlobs = model->blobs->size();
 	
 	if(model->debugDetection)
 		drawBlobsHistory();
 	
-	//// hit blobs
-	findHitBlobs();
-	
-	if(hitContourFinder.blobs.size() > 0)
+	if(model->simpleHitBlobAnalysis)
+		analyseHitBlobsSimple();
+	else
 		analyseHitBlobs();
 	
+	storeShadowBlobs();
+
 	storeHistory();
-	analyzeBlobs();
-	storeBlobHistory();
+	
 	takeScreenShot("");
 }
 void VideoInputController::storeBackgroundImage(unsigned char * grayPixels)
@@ -160,6 +140,7 @@ void VideoInputController::correctEmptyImage()
 		}
 	}
 	model->grayEmptyImg->setFromPixels(newPixels, videoW, videoH);
+	delete [] newPixels;
 }
 void VideoInputController::findHitBlobs()
 {
@@ -174,19 +155,102 @@ void VideoInputController::findHitBlobs()
 	if(model->debugDetection)
 		model->grayHitDiffImg->draw(hitBlobDisplayX, hitBlobDisplayY);
 	
-	ofRectangle * detectionZone = &model->hitDetectionZone;
-	if(model->debugDetection)
-	{
-		ofNoFill();
-		ofSetColor(0xcc0000);
-		ofRect(detectionZone->x, detectionZone->y, detectionZone->width, detectionZone->height);
-		ofRect(hitBlobDisplayX+detectionZone->x, hitBlobDisplayY+detectionZone->y, detectionZone->width, detectionZone->height);
-	}
-	
 	hitContourFinder.findContours(*model->grayHitDiffImg, model->minHitBlobArea, model->maxHitBlobArea, model->maxNumHitBlobs, true);
 }
-void VideoInputController::analyzeBlobs()
+void VideoInputController::findShadowBlobs()
 {
+	// take the abs value of the difference between background and incoming and then threshold:
+	model->grayDiffImg->absDiff(*model->grayEmptyImg, *model->grayImg);
+	model->grayDiffImg->threshold(model->threshold);
+	
+	
+	
+	// loop through pixels of grayHitDiffImg if white, 
+	//   paint same pixel index in grayDiffImg black
+	//cout << "VideoInputController::filterProjection\n";
+	int videoW = model->videoW;
+	int videoH = model->videoH;
+	
+	//unsigned char * grayHitDiffPixels = model->grayHitDiffImg->getPixels();
+	//unsigned char * grayDiffPixels = model->grayDiffImg->getPixels();
+	/*for (int i = 0; i < videoH; i++) {
+		for (int j = 0; j < videoW; j++) {
+			
+			int pixelIndex = (i*videoW) + j;
+			
+			if(grayHitDiffPixels[pixelIndex] == 255)
+			{
+				int tPI = ((i-1)*videoW) + j;
+				int bPI = ((i+1)*videoW) + j;
+				int lPI = (i*videoW) + (j-1);
+				int rPI = (i*videoW) + (j+1);
+				
+				if(tPI >= 0) grayHitDiffPixels[tPI] = 200;
+				if(bPI >= 0) grayHitDiffPixels[bPI] = 200;
+				if(lPI >= 0) grayHitDiffPixels[lPI] = 200;
+				if(rPI >= 0) grayHitDiffPixels[rPI] = 200;
+			}
+		}
+	}
+	for (int i = 0; i < videoH; i++) {
+		for (int j = 0; j < videoW; j++) {
+			
+			int pixelIndex = (i*videoW) + j;
+			
+			if(grayHitDiffPixels[pixelIndex] == 200)
+			{
+				grayHitDiffPixels[pixelIndex] = 255;
+			}
+		}
+	}*/
+	/*for (int i = 0; i < videoH; i++) {
+		for (int j = 0; j < videoW; j++) {
+			
+			int pixelIndex = (i*videoW) + j;
+			
+			if(grayHitDiffPixels[pixelIndex] == 255)
+				grayDiffPixels[pixelIndex] = 0;
+		}
+	}
+	model->grayDiffImg->setFromPixels(grayDiffPixels, videoW, videoH);*/
+	
+	/*ofRectangle * hitDetectionZone = &model->hitDetectionZone;
+	int increase = 10;
+	for(int i = 0; i<hitContourFinder.blobs.size();i++)
+	{
+		ofxCvBlob hitBlob = hitContourFinder.blobs[i];
+		ofRectangle hitBlobRect = hitBlob.boundingRect;
+		
+		if((hitBlobRect.x >= hitDetectionZone->x &&
+			 hitBlobRect.y >= hitDetectionZone->y &&
+			 hitBlobRect.x+hitBlobRect.width <= hitDetectionZone->x+hitDetectionZone->width &&
+			 hitBlobRect.y+hitBlobRect.height <= hitDetectionZone->y+hitDetectionZone->height))
+		{
+			hitBlobRect.x -= increase/2;
+			hitBlobRect.y -= increase/2;
+			hitBlobRect.width += increase;
+			hitBlobRect.height += increase;
+			colorInImage(model->grayDiffImg, 0, hitBlobRect);
+		}
+	}*/
+	
+	
+	if(model->pixelsSource == Model::CLIP6_DEMO)
+	{
+		ofRectangle colorRect;
+		colorRect.width = model->videoW;
+		colorRect.height = 50;
+		colorRect.x = 0;
+		colorRect.y = model->videoH-colorRect.height;
+		colorInImage(model->grayDiffImg, 0x000000, colorRect);
+	}
+	
+	if(model->debugDetection)
+		model->grayDiffImg->draw(model->videoW, model->videoH);
+	// find shadow/normal blobs
+	contourFinder.findContours(*model->grayDiffImg, model->minBlobArea, model->maxBlobArea, model->maxNumBlobs, true);
+	
+	
 	float blobDisplayX = model->videoW;
 	float blobDisplayY = model->videoH;
 	ofRectangle *detectionZone = &model->detectionZone;
@@ -197,8 +261,9 @@ void VideoInputController::analyzeBlobs()
 		ofRect(detectionZone->x, detectionZone->y, detectionZone->width, detectionZone->height);
 		ofRect(blobDisplayX+detectionZone->x, blobDisplayY+detectionZone->y, detectionZone->width, detectionZone->height);
 	}
-
-	model->currentBlobs->clear();
+	
+	//model->currentBlobs->clear();
+	vector<Blob*> * currentBlobs = new vector<Blob*>; 
     for (int i = 0; i < contourFinder.blobs.size(); i++)
 	{
 		ofxCvBlob blob = contourFinder.blobs[i];
@@ -228,15 +293,18 @@ void VideoInputController::analyzeBlobs()
 		blobCopy->boundingRect.width = blobRect.width;
 		blobCopy->boundingRect.height = blobRect.height;
 		//cout << "  new blob copy: " << blobCopy << "\n";
-		model->currentBlobs->push_back(blobCopy);
+		//model->currentBlobs->push_back(blobCopy);
+		currentBlobs->push_back(blobCopy);
 	}
-}
-
-void VideoInputController::storeBlobHistory()
-{
-	model->blobsHistory->push_back(model->currentBlobs);
+	model->blobsHistory->push_back(currentBlobs);
 	if(model->blobsHistory->size() > model->maxBlobsHistoryLength)
 		model->blobsHistory->erase(model->blobsHistory->begin());
+}
+void VideoInputController::storeShadowBlobs()
+{	
+	//model->blobsHistory->push_back(model->currentBlobs);
+	//if(model->blobsHistory->size() > model->maxBlobsHistoryLength)
+	//	model->blobsHistory->erase(model->blobsHistory->begin());
 }
 void VideoInputController::storeHistory()
 {
@@ -311,9 +379,156 @@ void VideoInputController::drawBlobsHistory()
 	}
 	ofSetColor(0xffffff);
 }
+void VideoInputController::analyseHitBlobsSimple()
+{
+	// per hit blob
+	// check detection area
+	// check unique
+	// hittest check with current shadowblob
+	// analyze left / right
+	// correct with prev shadowblobs (if 2) 
+	// human shadow hit filter ?
+	// check hit blob speed
+	
+	int videoW = model->videoW;
+	int videoH = model->videoH;
+	
+	int hitBlobDisplayX = 0;
+	int hitBlobDisplayY = videoH;
+	int attacksDisplayX = videoW*2;
+	int attacksDisplayY = videoH;
+	
+	ofRectangle * detectionZone = &model->hitDetectionZone;
+	if(model->debugDetection)
+	{
+		ofNoFill();
+		ofSetColor(0xcc0000);
+		ofRect(detectionZone->x, detectionZone->y, detectionZone->width, detectionZone->height);
+		ofRect(hitBlobDisplayX+detectionZone->x, hitBlobDisplayY+detectionZone->y, detectionZone->width, detectionZone->height);
+		
+		int centerX = model->centerX;
+		
+		ofNoFill();
+		ofSetColor(0xffffff);
+		ofLine(centerX, 0, centerX, videoH);
+		ofLine(hitBlobDisplayX+centerX, hitBlobDisplayY+0, hitBlobDisplayX+centerX, hitBlobDisplayY+videoH);
+	}
+	
+	if(hitContourFinder.blobs.size() == 0) return;
+	
+	model->hitsTextX = hitBlobDisplayX;
+	model->hitsTextY = hitBlobDisplayY;
+	
+	drawHitText("  Found hit blobs ");
+	
+	model->hitCounter = 0;
+	for (int i = 0; i < hitContourFinder.blobs.size(); i++)
+	{
+		ofxCvBlob hitBlob = hitContourFinder.blobs[i];
+		ofRectangle hitBlobRect = hitBlob.boundingRect;
+		
+		model->hitCounter++;
+
+		if(model->debugDetection)
+		{
+			drawHitText("  Found hit blob");
+			hitBlob.draw(0,0);
+			hitBlob.draw(hitBlobDisplayX,hitBlobDisplayY);
+		}
+		
+		if(!(hitBlobRect.x >= detectionZone->x &&
+			 hitBlobRect.y >= detectionZone->y &&
+			 hitBlobRect.x+hitBlobRect.width <= detectionZone->x+detectionZone->width &&
+			 hitBlobRect.y+hitBlobRect.height <= detectionZone->y+detectionZone->height))
+		{
+			drawHitText("  Hit blob is outside detectionZone");
+			continue;
+		}
+		drawHitText("  Hit blob is inside detectionZone");
+		
+		if(!hitIsUnique(hitBlobRect))
+		{
+			drawHitText("  Hit blob isn't a unique hit blob");
+			takeHitScreenShot("("+ofToString(model->hitCounter)+")");
+			continue;
+		}
+		drawHitText("  Hit blob is a unique hit blob");
+		
+		
+		/*int numPrevHitBlobs = model->prevHitBlobs->size();
+		for (int j = 0; j < numPrevHitBlobs; j++)
+		{
+			ofxCvBlob* prevHitBlob = model->prevHitBlobs->at(j);
+			if(matchBlobs(&hitBlob, prevHitBlob))
+			{
+				ofRectangle prevHitBlobRect = prevHitBlob->boundingRect;
+				int attackSpeed = hitBlobRect.x-prevHitBlobRect.x;
+				drawHitText("  attackSpeed: " + ofToString(attackSpeed));
+			}
+			//ofRectangle prevHitBlobRect = prevHitBlob->boundingRect;
+			//int prevHitBlobRect.x
+			
+			//cout << "  dist: " << dist << "\n";
+			
+			// if hit blobs are to close to a prev hit blob they are not unique
+		}*/
+		
+		
+		
+		// hittest with current shadow blobs
+		bool hitsShadow = false;
+		for (int j = 0; j < contourFinder.blobs.size(); j++)
+		{
+			ofxCvBlob shadowBlob = contourFinder.blobs[j];
+			ofRectangle shadowBlobRect = shadowBlob.boundingRect;
+			if(rectHitTest(hitBlobRect,shadowBlobRect))
+				hitsShadow = true;
+		}
+		
+		if(!hitsShadow)
+		{
+			drawHitText("  Hit blob doesn't hit shadow blobs");
+			takeHitScreenShot("("+ofToString(model->hitCounter)+")");
+			continue;
+		}	
+		drawHitText("  Hit blob hits shadow blob(s)");
+		
+		int hitBlobRectCX = hitBlobRect.x+hitBlobRect.width/2;
+		int deadZoneWidth = 20;
+		int deadZoneL = model->centerX-deadZoneWidth/2;
+		int deadZoneR = model->centerX+deadZoneWidth/2;
+		
+		if(hitBlobRectCX > deadZoneL && hitBlobRectCX < deadZoneR)
+		{
+			drawHitText("  Hit blob inside deadzone");
+			takeHitScreenShot("("+ofToString(model->hitCounter)+")");
+			continue;
+		}
+		drawHitText("  Hit blob outside deadzone");
+		
+		int victim = (hitBlobRectCX < model->centerX)? 1 : 2;
+		
+		// TODO: correct with prev shadowblobs (if 2) 
+		// TODO: human shadow hit filter ?
+		// TODO: check hit blob speed (find old, match blobs, check speed) 
+		//			(store if hit blobs are valid, store only valid blobs)
+		model->hitRect->x = hitBlobRect.x;
+		model->hitRect->y = hitBlobRect.y;
+		model->hitRect->width = hitBlobRect.width;
+		model->hitRect->height = hitBlobRect.height;	
+		
+		drawHitText("  victim: "+ofToString(victim));		
+		model->hit(0,0,victim);
+		
+		drawHitText("  healths: "+ofToString(model->player1Health)+" vs. "+ofToString(model->player2Health));
+		takeHitScreenShot("("+ofToString(model->hitCounter)+")");
+	}
+}
 void VideoInputController::analyseHitBlobs()
 {
 	//cout << "VideoInputController::analyseHitBlobs (frame: "<<model->frameCounter<<")\n";
+	
+	if(hitContourFinder.blobs.size() == 0) return;
 	
 	int hitBlobDisplayX = 0;
 	int hitBlobDisplayY = model->videoH;
@@ -327,6 +542,13 @@ void VideoInputController::analyseHitBlobs()
 	drawHitText("  Found hit blobs ");
 	
 	ofRectangle * detectionZone = &model->hitDetectionZone;
+	if(model->debugDetection)
+	{
+		ofNoFill();
+		ofSetColor(0xcc0000);
+		ofRect(detectionZone->x, detectionZone->y, detectionZone->width, detectionZone->height);
+		ofRect(hitBlobDisplayX+detectionZone->x, hitBlobDisplayY+detectionZone->y, detectionZone->width, detectionZone->height);
+	}
 	int validBlobs = 0;
 	for (int i = 0; i < hitContourFinder.blobs.size(); i++)
 	{
@@ -419,7 +641,7 @@ void VideoInputController::analyseHitBlobs()
 			model->prevGrayDiffImg->draw(attacksDisplayX,attacksDisplayY);
 		
 		int historyLength = model->blobsHistory->size();
-		if(historyLength < model->maxBlobsHistoryLength) 
+		if(historyLength < 2) 
 		{
 			drawAttackText("  not enough blobs history");
 			takeHitScreenShot("("+ofToString(model->hitCounter)+")");
@@ -438,6 +660,11 @@ void VideoInputController::analyseHitBlobs()
 			prevBlob->color = blobColors[i];
 			
 			vector<Blob*> * prevPrevBlobs = model->blobsHistory->at(historyLength-2);
+			if(prevPrevBlobs->size() < 2) 
+			{
+				drawAttackText("  not enough prev prev blobs");
+				takeHitScreenShot("("+ofToString(model->hitCounter)+")");
+			}
 			for (int j = 0; j < prevPrevBlobs->size(); j++)
 			{
 				Blob * prevPrevBlob = prevPrevBlobs->at(j);
@@ -503,6 +730,10 @@ void VideoInputController::analyseHitBlobs()
 						takeHitScreenShot("("+ofToString(model->hitCounter)+")");
 					}
 
+				}
+				else
+				{
+					drawAttackText("  not a matching blob to detect speed");	
 				}
 			}
 			drawRect(prevBlob->boundingRect,attacksDisplayX,attacksDisplayY,prevBlob->color,255);
@@ -612,12 +843,18 @@ bool VideoInputController::matchBlobs(ofxCvBlob * blob1, ofxCvBlob * blob2)
 	ofRectangle blobRect1 = blob1->boundingRect;
 	ofRectangle blobRect2 = blob2->boundingRect;
 	
-	int blob1CX = blobRect1.x+blobRect1.width/2;
+	/*int blob1CX = blobRect1.x+blobRect1.width/2;
 	int blob1CY = blobRect1.y+blobRect1.height/2;
 	int blob2CX = blobRect2.x+blobRect2.width/2;
 	int blob2CY = blobRect2.y+blobRect2.height/2;
 	
-	int dis = ofDist(blob1CX,blob1CY,blob2CX,blob2CY);
+	int dis = ofDist(blob1CX,blob1CY,blob2CX,blob2CY);*/
+	
+	int blob1CX = blobRect1.x+blobRect1.width/2;
+	int blob2CX = blobRect2.x+blobRect2.width/2;
+	int dis = blob2CX-blob1CX;
+	
+	if(dis < 0) dis *= -1;
 	
 	bool match = (dis < model->blobDiffTolerance);
 	return match;
@@ -637,24 +874,20 @@ bool VideoInputController::rectHitTest(ofRectangle rect1,ofRectangle rect2)
 
 void VideoInputController::colorInImage(ofxCvGrayscaleImage * image, int color, ofRectangle rect)
 {
-	int numNewPixels = rect.width*rect.height;
-	unsigned char* newPixels = new unsigned char[numNewPixels];
-	for(int i = 0;i<rect.width*rect.height;i++)
-	{
-		newPixels[i] = color;
-	}
-	
 	int width = image->getWidth();
 	int height = image->getHeight();
 	unsigned char * orgPixels = image->getPixels();
-	int newPixelsIndex = 0;
+	//int newPixelsIndex = 0;
 	for (int i = rect.y; i < rect.y+rect.height; i++) 
 	{
 		for(int j = rect.x; j < rect.x+rect.width; j++) 
 		{
 			int orgPixelsIndex = (i * width) + j;				
-			orgPixels[orgPixelsIndex] = newPixels[newPixelsIndex];
+			//orgPixels[orgPixelsIndex] = newPixels[newPixelsIndex];
+			orgPixels[orgPixelsIndex] = color;
 		}
 	}
 	image->setFromPixels(orgPixels, width, height);
+	
+	//delete [] orgPixels;
 }

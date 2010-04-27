@@ -1,9 +1,9 @@
 <backgroundImage>empty.png</backgroundImage>
 <threshold>15</threshold>
 <hitThreshold>45</hitThreshold>
-<minBlobArea>19600</minBlobArea>
+<minBlobArea>5600</minBlobArea>
 <maxBlobArea>211600</maxBlobArea>
-<minHitBlobArea>75</minHitBlobArea>
+<minHitBlobArea>20</minHitBlobArea>
 <maxHitBlobArea>409600</maxHitBlobArea>
 <detectionZoneX>150.000000</detectionZoneX>
 <detectionZoneY>0.000000</detectionZoneY>

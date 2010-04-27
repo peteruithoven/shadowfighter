@@ -4,7 +4,7 @@
 void testApp::setup(){
 	
 	//ofSetFrameRate(3);
-	ofSetFrameRate(31);
+	ofSetFrameRate(60);
 	ofBackground(0,0,0);
 	
 	model;

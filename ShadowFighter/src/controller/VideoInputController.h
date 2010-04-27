@@ -33,13 +33,15 @@ class VideoInputController : public BaseController
 	
 		void analyze(unsigned char * pixels);
 		void storeBackgroundImage(unsigned char * pixels);
-		void filterProjection();
 		void correctEmptyImage();
+		void filterProjection();
 		void findHitBlobs();
+		void findShadowBlobs();
+		void storeShadowBlobs();
+		void analyseHitBlobsSimple();
 		void analyseHitBlobs();
 		bool hitIsUnique(ofRectangle blobRect);
 		void storeHistory();
-		void analyzeBlobs();
 		void storeBlobHistory();
 		
 		// debug

@@ -10,7 +10,8 @@
 
 HitIndicator::HitIndicator()
 {
-	
+	img.loadImage("images/boom2.png");
+	imgY = 0-img.getHeight();
 }
 void HitIndicator::start()
 {
@@ -30,11 +31,12 @@ void HitIndicator::draw()
 		ofEnableAlphaBlending();
 		ofSetColor(255,255,255,alpha);
 		ofCircle(x, y, width*scale);
+		img.draw(x-img.getWidth()/2, y+imgY);
 		ofDisableAlphaBlending();
-		
 		
 		width += 8;
 		alpha -= 20;
+		imgY -= 2;
 		if(alpha < 0)
 			running = false;
 	}

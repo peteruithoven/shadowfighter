@@ -6,6 +6,7 @@
 #include "ofxOsc.h"
 #include "ofxXmlSettings.h"
 #include "HealthBar.h"
+#include "Constants.h"
 
 class testApp : public ofBaseApp{
 
@@ -29,20 +30,22 @@ class testApp : public ofBaseApp{
 		float	scale;
 		int		alpha;
 		bool	debug;
+		int		winner;
+		int		state;
 	
 		int		videoW;
 		int		videoH;
 		int		screenW;
 		int		screenH;
 	
-		ofxOscReceiver	receiver;
+		ofxOscReceiver			receiver;
 	
-		HealthBar healthBarPlayer1;
-		HealthBar healthBarPlayer2;
-	
-		vector<DisplayObject*> children;
-		vector<ofRectangle*> boundingBoxes;
-		ofxXmlSettings xml;
+		HealthBar				healthBarPlayer1;
+		HealthBar				healthBarPlayer2;
+		ofImage					img;
+		vector<DisplayObject*>	children;
+		vector<ofRectangle*>	boundingBoxes;
+		ofxXmlSettings			xml;
 	
 		void addHit(float hitX,float hitY);
 	
@@ -61,6 +64,7 @@ class testApp : public ofBaseApp{
 		void loadData();
 		void parseXML();
 		void storeValues();
+		void setState(int state);
 };
 
 #endif

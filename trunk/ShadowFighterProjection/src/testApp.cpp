@@ -5,6 +5,8 @@
 #define HIT_ADDRESS 0
 #define BOUNDING_BOX 1
 #define HEALTH 2
+#define WINNER 3
+#define STATE 4
 
 //--------------------------------------------------------------
 void testApp::setup()
@@ -13,6 +15,9 @@ void testApp::setup()
 	videoH				= 460;
 	screenW				= 1024;
 	screenH				= 768;
+	
+	debug				= false;
+	state				= STATE_DEMO;
 	
 	ofSetFrameRate(31);
 	ofBackground(0,0,0);
@@ -39,6 +44,10 @@ void testApp::loadData()
 	}
 	parseXML();
 	storeValues();
+	
+	//img.setImageType(OF_IMAGE_COLOR_ALPHA);
+	//img.loadImage("images/boom2.png");
+	//img.loadImage("images/transparency.png");
 }
 void testApp::parseXML()
 {
@@ -113,6 +122,14 @@ void testApp::update()
 				healthBarPlayer1.percentage = m.getArgAsFloat(0);
 				healthBarPlayer2.percentage = m.getArgAsFloat(1);
 				break;
+			case STATE:
+				cout << "  STATE\n";
+				setState(m.getArgAsInt32(0));
+				break;
+			case WINNER:
+				winner = m.getArgAsInt32(0);
+				cout << "  winner: " << winner << "\n";
+				break;
 		}
 		m.clear();
 	}
@@ -127,12 +144,32 @@ void testApp::update()
 		}
 	}
 }
-
+void testApp::setState(int state)
+{
+	cout << "setState: " << state << "\n";
+	this->state = state;
+	switch(state)
+	{
+		case STATE_GAME_FINISHED:
+			cout << "  STATE_GAME_FINISHED\n";
+			cout << "  winner: " << winner << "\n";
+			if(winner == 1)
+				img.loadImage("images/victory1.png");
+			else if(winner == 2)
+				img.loadImage("images/victory2.png");
+			
+			break;
+		default:
+			cout << "  DEFAULT\n";
+			img.clear();
+			break;
+	}
+}
 //--------------------------------------------------------------
 void testApp::draw()
 {
 	//cout << "testApp::draw\n";
-	
+	//cout << "  state: " << ofToString(state) << "\n";
 	for(int i = 0;i<children.size();i++)
 	{
 		DisplayObject* displayObject = children.at(i);
@@ -140,10 +177,21 @@ void testApp::draw()
 		hitIndicator->draw();
 	}
 	
-	if(debug)
+	ofSetColor(0xffffff);
+	ofEnableAlphaBlending();
+	img.draw(0, 0);
+	ofDisableAlphaBlending();
+	
+	if(state == STATE_GAME || state == STATE_GAME_FINISHED)
+	{
+		healthBarPlayer1.draw();
+		healthBarPlayer2.draw();
+	}
+	
+	if(debug && state == STATE_GAME)
 	{
 		ofEnableAlphaBlending();
-		ofSetColor(255,255,255,alpha);
+		ofSetColor(255,255,255,50);
 		//ofSetColor(255,255,255);
 		
 		//cout << "  boundingBoxes.size(): " << boundingBoxes.size() << "\n";

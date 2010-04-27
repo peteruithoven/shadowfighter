@@ -18,6 +18,9 @@ class HitIndicator : public DisplayObject
 {
 
 	public:
+		int						imgY;
+		ofImage					img;
+	
 		HitIndicator();
 		void start();
 		void stop();

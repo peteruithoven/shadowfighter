@@ -13,6 +13,7 @@ VideoInput::VideoInput()
 {
 	//cout << "VideoInput::VideoInput\n";
 	running = false;
+	paused = false;
 	ofAddListener(ofEvents.draw, this, &VideoInput::draw);
 }
 void VideoInput::init(bool bUseCamera,string movieURL)
@@ -45,15 +46,32 @@ void VideoInput::start()
 	cout << "VideoInput::start\n";
 	videoPlayer.setLoopState(OF_LOOP_NONE);
 	if(slowMotion)
-		videoPlayer.setSpeed(0.1);
+		videoPlayer.setSpeed(0.2);
 	videoPlayer.setVolume(0);
 	videoPlayer.play();
 	videoPlayer.setPosition(0.41);
 }
 void VideoInput::stop()
 {
+	if(useCamera) return;
 	videoPlayer.stop();
 }
+void VideoInput::pause()
+{
+	
+	if(useCamera) 
+		paused = true;
+	else
+		videoPlayer.setPaused(true);
+}
+void VideoInput::resume()
+{
+	if(useCamera) 
+		paused = false;
+	else
+		videoPlayer.setPaused(false);
+}
+
 void VideoInput::draw(ofEventArgs & args)
 { 
 	//cout << "VideoInput::draw\n";
@@ -61,7 +79,7 @@ void VideoInput::draw(ofEventArgs & args)
 	ofSetColor(255, 255, 255);
 	if(useCamera)
 	{
-		camera.grabFrame();
+		if(!paused) camera.grabFrame();
 		colorImg.setFromPixels(camera.getPixels(), width,height);
 		colorImg.draw(0,0);
 	}

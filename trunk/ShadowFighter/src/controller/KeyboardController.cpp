@@ -51,6 +51,9 @@ void KeyboardController::keyPressed(int keyCode)
 			//model->clip6EmptyCorrectionChange = +5;			
 			cout << "  model->clip6EmptyCorrection: " << model->clip6EmptyCorrection << "\n";
 			break;
+		case 'p':
+			model->setVideoPause(!model->videoPaused);
+			break;
 			
 		/*case 'i':
 			model->setInvert(!model->getInvert());

@@ -50,6 +50,8 @@ class Model
 		int					minDiffHitBlobsPos;
 		int					minAttackSpeed;
 		int					clip6EmptyCorrection;
+		bool				simpleHitBlobAnalysis;
+		int					centerX;
 	
 		string				backgroundImageURL;
 		ofRectangle			detectionZone;
@@ -90,6 +92,7 @@ class Model
 		bool				takeScreenShots;
 		bool				takeHitScreenShots;
 		bool				slowMotion;
+		bool				videoPaused;
 		
 		Model();
 		void loadData();
@@ -99,6 +102,7 @@ class Model
 		void setHitThreshold(int newValue);
 		void setDebug(bool debug);
 		void setState(int state);
+		void setVideoPause(bool newValue);
 	
 		void hit(int type, int area, int victim);
 		
@@ -107,6 +111,8 @@ class Model
 		ofEvent< int > HIT;
 		ofEvent< int > STATE_CHANGE;
 		ofEvent< int > RESET;
+		ofEvent< int > VIDEO_PAUSE;
+		ofEvent< int > VIDEO_RESUME;
 	protected:
 		Timer				timer;
 	

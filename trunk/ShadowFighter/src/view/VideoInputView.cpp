@@ -20,6 +20,8 @@ void VideoInputView::setModel(Model * model)
 	controller.setModel(model);
 	
 	ofAddListener(model->DATA_LOADED,this,&VideoInputView::onDataLoaded);
+	ofAddListener(model->VIDEO_PAUSE,this,&VideoInputView::onVideoPause);
+	ofAddListener(model->VIDEO_RESUME,this,&VideoInputView::onVideoResume);
 }
 void VideoInputView::onDataLoaded(int & nothing)
 {
@@ -35,6 +37,14 @@ void VideoInputView::onDataLoaded(int & nothing)
 	
 	videoInput.slowMotion = model->slowMotion;
 	videoInput.init(useCamera,model->movieURL);
+}
+void VideoInputView::onVideoPause(int & nothing)
+{
+	videoInput.pause();
+}	
+void VideoInputView::onVideoResume(int & nothing)
+{
+	videoInput.resume();	
 }
 void VideoInputView::onNewPixels(int & nothing)
 {

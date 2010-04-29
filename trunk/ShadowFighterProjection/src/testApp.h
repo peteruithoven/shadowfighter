@@ -7,6 +7,8 @@
 #include "ofxXmlSettings.h"
 #include "HealthBar.h"
 #include "Constants.h"
+#include "DisplayObjectContainer.h"
+#include "Image.h"
 
 class testApp : public ofBaseApp{
 
@@ -30,16 +32,22 @@ class testApp : public ofBaseApp{
 		float	scale;
 		int		alpha;
 		bool	debug;
+		bool	hide;
 		int		winner;
 		int		state;
-	
+		int		countDown;
 		int		videoW;
 		int		videoH;
 		int		screenW;
 		int		screenH;
-	
+		
 		ofxOscReceiver			receiver;
-	
+		Image*					player1Img;
+		Image*					player2Img;
+		Image*					countDownImg;
+		bool					detectedPlayer1;	
+		bool					detectedPlayer2;	
+		DisplayObjectContainer	images;
 		HealthBar				healthBarPlayer1;
 		HealthBar				healthBarPlayer2;
 		ofImage					img;
@@ -65,6 +73,8 @@ class testApp : public ofBaseApp{
 		void parseXML();
 		void storeValues();
 		void setState(int state);
+		void updatePlayerImages();
+		void updateCountDown();
 };
 
 #endif

@@ -13,7 +13,6 @@
 		D0672C31117D9F7C006B0C1F /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0672C2B117D9F7C006B0C1F /* tinyxmlparser.cpp */; };
 		D0672C32117D9F7C006B0C1F /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0672C2D117D9F7C006B0C1F /* ofxXmlSettings.cpp */; };
 		D0CB794D1178E60E006933F8 /* HitIndicator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0CB794B1178E60E006933F8 /* HitIndicator.cpp */; };
-		D0CB79751178E6D9006933F8 /* DisplayObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0CB79731178E6D9006933F8 /* DisplayObject.cpp */; };
 		D0CB79D81178E9B4006933F8 /* liboscpack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CB79C31178E9B4006933F8 /* liboscpack.a */; };
 		D0CB79D91178E9B4006933F8 /* liboscpack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CB79C51178E9B4006933F8 /* liboscpack.a */; };
 		D0CB79DA1178E9B4006933F8 /* osc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CB79C71178E9B4006933F8 /* osc.a */; };
@@ -24,6 +23,9 @@
 		D0CB79DF1178E9B4006933F8 /* ofxOscMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0CB79D21178E9B4006933F8 /* ofxOscMessage.cpp */; };
 		D0CB79E01178E9B4006933F8 /* ofxOscReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0CB79D41178E9B4006933F8 /* ofxOscReceiver.cpp */; };
 		D0CB79E11178E9B4006933F8 /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0CB79D61178E9B4006933F8 /* ofxOscSender.cpp */; };
+		D0DCE9001188BA0300CF4A03 /* DisplayObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0DCE8FC1188BA0300CF4A03 /* DisplayObject.cpp */; };
+		D0DCE9011188BA0300CF4A03 /* DisplayObjectContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0DCE8FE1188BA0300CF4A03 /* DisplayObjectContainer.cpp */; };
+		D0DCE9051188BA3000CF4A03 /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0DCE9041188BA3000CF4A03 /* Image.cpp */; };
 		E45BE0AA0E8CC67C009D7055 /* GLee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE0A90E8CC67C009D7055 /* GLee.a */; };
 		E45BE2E40E8CC69C009D7055 /* rtAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE2E30E8CC69C009D7055 /* rtAudio.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -107,8 +109,6 @@
 		D0672C2E117D9F7C006B0C1F /* ofxXmlSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxXmlSettings.h; path = ../../openFrameworks/addons/ofxXmlSettings/src/ofxXmlSettings.h; sourceTree = SDKROOT; };
 		D0CB794B1178E60E006933F8 /* HitIndicator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HitIndicator.cpp; path = src/HitIndicator.cpp; sourceTree = SOURCE_ROOT; };
 		D0CB794C1178E60E006933F8 /* HitIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HitIndicator.h; path = src/HitIndicator.h; sourceTree = SOURCE_ROOT; };
-		D0CB79731178E6D9006933F8 /* DisplayObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DisplayObject.cpp; path = src/DisplayObject.cpp; sourceTree = SOURCE_ROOT; };
-		D0CB79741178E6D9006933F8 /* DisplayObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DisplayObject.h; path = src/DisplayObject.h; sourceTree = SOURCE_ROOT; };
 		D0CB79AE1178E9B4006933F8 /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = install.xml; path = ../../openFrameworks/addons/ofxOsc/install.xml; sourceTree = SDKROOT; };
 		D0CB79B31178E9B4006933F8 /* IpEndpointName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IpEndpointName.h; path = ../../openFrameworks/addons/ofxOsc/libs/oscpack/include/ip/IpEndpointName.h; sourceTree = SDKROOT; };
 		D0CB79B41178E9B4006933F8 /* NetworkingUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NetworkingUtils.h; path = ../../openFrameworks/addons/ofxOsc/libs/oscpack/include/ip/NetworkingUtils.h; sourceTree = SDKROOT; };
@@ -139,6 +139,12 @@
 		D0CB79D51178E9B4006933F8 /* ofxOscReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxOscReceiver.h; path = ../../openFrameworks/addons/ofxOsc/src/ofxOscReceiver.h; sourceTree = SDKROOT; };
 		D0CB79D61178E9B4006933F8 /* ofxOscSender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxOscSender.cpp; path = ../../openFrameworks/addons/ofxOsc/src/ofxOscSender.cpp; sourceTree = SDKROOT; };
 		D0CB79D71178E9B4006933F8 /* ofxOscSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxOscSender.h; path = ../../openFrameworks/addons/ofxOsc/src/ofxOscSender.h; sourceTree = SDKROOT; };
+		D0DCE8FC1188BA0300CF4A03 /* DisplayObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DisplayObject.cpp; path = openFrameworks/apps/projects/ShadowFighterProjection/src/utils/display/DisplayObject.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		D0DCE8FD1188BA0300CF4A03 /* DisplayObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DisplayObject.h; path = openFrameworks/apps/projects/ShadowFighterProjection/src/utils/display/DisplayObject.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		D0DCE8FE1188BA0300CF4A03 /* DisplayObjectContainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DisplayObjectContainer.cpp; path = openFrameworks/apps/projects/ShadowFighterProjection/src/utils/display/DisplayObjectContainer.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		D0DCE8FF1188BA0300CF4A03 /* DisplayObjectContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DisplayObjectContainer.h; path = openFrameworks/apps/projects/ShadowFighterProjection/src/utils/display/DisplayObjectContainer.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		D0DCE9031188BA3000CF4A03 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Image.h; path = openFrameworks/apps/projects/ShadowFighterProjection/src/utils/display/Image.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		D0DCE9041188BA3000CF4A03 /* Image.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Image.cpp; path = openFrameworks/apps/projects/ShadowFighterProjection/src/utils/display/Image.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		E45BE0390E8CC647009D7055 /* FreeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FreeImage.h; path = ../../../libs/freeimage/include/FreeImage.h; sourceTree = SOURCE_ROOT; };
 		E45BE03F0E8CC650009D7055 /* fmod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fmod.h; path = ../../../libs/fmodex/include/fmod.h; sourceTree = SOURCE_ROOT; };
 		E45BE0400E8CC650009D7055 /* fmod.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = fmod.hpp; path = ../../../libs/fmodex/include/fmod.hpp; sourceTree = SOURCE_ROOT; };
@@ -409,6 +415,29 @@
 			path = ../../openFrameworks/addons/ofxOsc/src;
 			sourceTree = SDKROOT;
 		};
+		D0DCE8FA1188BA0300CF4A03 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				D0DCE8FB1188BA0300CF4A03 /* display */,
+			);
+			name = utils;
+			path = openFrameworks/apps/projects/ShadowFighterProjection/src/utils;
+			sourceTree = SYSTEM_DEVELOPER_DIR;
+		};
+		D0DCE8FB1188BA0300CF4A03 /* display */ = {
+			isa = PBXGroup;
+			children = (
+				D0DCE8FC1188BA0300CF4A03 /* DisplayObject.cpp */,
+				D0DCE8FD1188BA0300CF4A03 /* DisplayObject.h */,
+				D0DCE8FE1188BA0300CF4A03 /* DisplayObjectContainer.cpp */,
+				D0DCE8FF1188BA0300CF4A03 /* DisplayObjectContainer.h */,
+				D0DCE9041188BA3000CF4A03 /* Image.cpp */,
+				D0DCE9031188BA3000CF4A03 /* Image.h */,
+			);
+			name = display;
+			path = openFrameworks/apps/projects/ShadowFighterProjection/src/utils/display;
+			sourceTree = SYSTEM_DEVELOPER_DIR;
+		};
 		E45BE0360E8CC5DE009D7055 /* libs */ = {
 			isa = PBXGroup;
 			children = (
@@ -607,10 +636,9 @@
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
 				D0CB794B1178E60E006933F8 /* HitIndicator.cpp */,
 				D0CB794C1178E60E006933F8 /* HitIndicator.h */,
-				D0CB79731178E6D9006933F8 /* DisplayObject.cpp */,
-				D0CB79741178E6D9006933F8 /* DisplayObject.h */,
 				D06505E81183B3F900FF75CD /* HealthBar.cpp */,
 				D06505E91183B3F900FF75CD /* HealthBar.h */,
+				D0DCE8FA1188BA0300CF4A03 /* utils */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -779,7 +807,6 @@
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* testApp.cpp in Sources */,
 				D0CB794D1178E60E006933F8 /* HitIndicator.cpp in Sources */,
-				D0CB79751178E6D9006933F8 /* DisplayObject.cpp in Sources */,
 				D0CB79DE1178E9B4006933F8 /* ofxOscBundle.cpp in Sources */,
 				D0CB79DF1178E9B4006933F8 /* ofxOscMessage.cpp in Sources */,
 				D0CB79E01178E9B4006933F8 /* ofxOscReceiver.cpp in Sources */,
@@ -789,6 +816,9 @@
 				D0672C31117D9F7C006B0C1F /* tinyxmlparser.cpp in Sources */,
 				D0672C32117D9F7C006B0C1F /* ofxXmlSettings.cpp in Sources */,
 				D06505EA1183B3F900FF75CD /* HealthBar.cpp in Sources */,
+				D0DCE9001188BA0300CF4A03 /* DisplayObject.cpp in Sources */,
+				D0DCE9011188BA0300CF4A03 /* DisplayObjectContainer.cpp in Sources */,
+				D0DCE9051188BA3000CF4A03 /* Image.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

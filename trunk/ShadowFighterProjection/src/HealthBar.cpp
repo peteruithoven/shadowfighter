@@ -13,6 +13,8 @@ HealthBar::HealthBar()
 	percentage = 1;
 	width = 150;
 	height = 30;
+	
+	setAutoDraw(false);
 }
 
 void HealthBar::draw()

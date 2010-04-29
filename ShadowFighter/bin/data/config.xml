@@ -3,7 +3,7 @@
 <hitThreshold>45</hitThreshold>
 <minBlobArea>5600</minBlobArea>
 <maxBlobArea>211600</maxBlobArea>
-<minHitBlobArea>20</minHitBlobArea>
+<minHitBlobArea>100</minHitBlobArea>
 <maxHitBlobArea>409600</maxHitBlobArea>
 <detectionZoneX>150.000000</detectionZoneX>
 <detectionZoneY>0.000000</detectionZoneY>

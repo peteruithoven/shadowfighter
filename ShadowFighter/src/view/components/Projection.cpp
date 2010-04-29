@@ -7,13 +7,15 @@
 
 #include "Projection.h"
 
-#define HOST "localhost"
-#define PORT 12345
-#define HIT_ADDRESS 0
-#define BOUNDING_BOX 1
-#define HEALTH 2
-#define WINNER 3
-#define STATE 4
+#define HOST			"localhost"
+#define PORT			12345
+#define HIT_ADDRESS		0
+#define BOUNDING_BOX	1
+#define HEALTH			2
+#define WINNER			3
+#define STATE			4
+#define PLAYERS_UPDATE	5
+#define COUNT_DOWN		6
 
 Projection::Projection()
 {
@@ -52,14 +54,29 @@ void Projection::updateWinner(int winner)
 	message->addIntArg(winner);
 	messagesBundle.addMessage(*message);
 }
+void Projection::updatePlayers(bool detectedPlayer1, bool detectedPlayer2)
+{
+	ofxOscMessage * message = new ofxOscMessage();
+	message->setAddress(ofToString(PLAYERS_UPDATE));
+	message->addIntArg((detectedPlayer1)? 1 : 0);
+	message->addIntArg((detectedPlayer2)? 1 : 0);
+	messagesBundle.addMessage(*message);
+}
+void Projection::updateCountDown(int countDown)
+{
+	ofxOscMessage * message = new ofxOscMessage();
+	message->setAddress(ofToString(COUNT_DOWN));
+	message->addIntArg(countDown);
+	messagesBundle.addMessage(*message);
+}
 void Projection::update(ofEventArgs & args)
 {
 	//cout << "Projection::update\n";
 	//cout << "  model: " << &model << "\n";
 	//cout << "  model->blobs->size(): " << model->blobs->size() << "\n";
-	if(model == NULL) return;
+	//if(model == NULL) return;
 	
-	vector< vector<Blob*>* >*	blobsHistory = model->blobsHistory;
+	/*vector< vector<Blob*>* >*	blobsHistory = model->blobsHistory;
 	if(blobsHistory->size() < 1) return; 
 	vector<Blob*>*	prevBlobs = blobsHistory->at(0);
 	
@@ -75,7 +92,7 @@ void Projection::update(ofEventArgs & args)
 		message->addIntArg(blobRect.width);
 		message->addIntArg(blobRect.height);
 		messagesBundle.addMessage(*message);
-	}
+	}*/
 	
 	if(messagesBundle.getMessageCount() > 0)
 	{

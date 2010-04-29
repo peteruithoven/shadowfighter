@@ -21,11 +21,13 @@ void ProjectionView::setModel(Model * model)
 	ofAddListener(model->HIT,this,&ProjectionView::onHit);
 	ofAddListener(model->RESET,this,&ProjectionView::onReset);
 	ofAddListener(model->STATE_CHANGE,this,&ProjectionView::onStateChange);
+	ofAddListener(model->PLAYERS_CHANGED,this,&ProjectionView::onPlayersChanged);
+	ofAddListener(model->COUNT_DOWN,this,&ProjectionView::onCountDown);
 	projection.model = model;
 }
 void ProjectionView::onHit(int & arg)
 {
-	//cout << "ProjectionView::onHit\n";
+	cout << "ProjectionView::onHit\n";
 	int x = model->hitRect->x+model->hitRect->width/2;
 	int y = model->hitRect->y+model->hitRect->height/2;
 	projection.addHit(x, y);
@@ -42,6 +44,16 @@ void ProjectionView::onStateChange(int & arg)
 	if(model->state == STATE_GAME_FINISHED)
 		projection.updateWinner(model->winner);
 	projection.updateState(model->state);
+}
+void ProjectionView::onPlayersChanged(int & arg)
+{
+	cout << "ProjectionView::onPlayersChanged\n";
+	projection.updatePlayers(model->detectedPlayer1, model->detectedPlayer2);
+}
+void ProjectionView::onCountDown(int & arg)
+{
+	cout << "ProjectionView::onCountDown\n";
+	projection.updateCountDown(model->countDown);
 }
 
 void ProjectionView::updateHealth()

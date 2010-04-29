@@ -17,7 +17,7 @@ int Model::CLIP6_DEMO = 3;
 Model::Model()
 {
 	cout << "Model::Model\n";
-	pixelsSource			= CLIP5_DEMO;
+	pixelsSource			= CAMERA;
 	videoW					= 640;
 	videoH					= 480;
 	
@@ -34,6 +34,9 @@ Model::Model()
 	
 	simpleHitBlobAnalysis	= true;
 	centerX					= videoW/2;
+	
+	detectedPlayer1			= false;
+	detectedPlayer2			= false;
 	
 	grayImg					= new ofxCvGrayscaleImage();
 	grayEmptyImg			= new ofxCvGrayscaleImage();
@@ -54,9 +57,18 @@ Model::Model()
 		
 	hitRect					= new ofRectangle();
 	
+	countDownTimer.setInterval(700);
+	countDownTimer.setRepeatCount(4);
+	ofAddListener(countDownTimer.TICK,this,&Model::onCountDownTick);
+	
+	finishTimer.setInterval(5000);
+	finishTimer.setRepeatCount(1);
+	ofAddListener(finishTimer.TICK,this,&Model::onFinishTick);
+	
 	// game logic
+	gamePaused				= false;
 	startHealth				= 100;
-	hitDamage				= 10;
+	hitDamage				= 10;//3;
 	
 	// debugging
 	debug					= true;
@@ -278,6 +290,7 @@ void Model::setHitThreshold(int newValue)
 void Model::hit(int type, int area, int victim)
 {
 	cout << "Model::hit:\n";
+	if(gamePaused) return;
 	
 	if(victim == 1)
 		player1Health -= hitDamage;
@@ -305,8 +318,21 @@ void Model::setState(int newValue)
 	
 	switch(state)
 	{
+		case STATE_COUNT_DOWN:
+			countDown = countDownTimer.getRepeatCount();
+			countDownTimer.reset();
+			countDownTimer.start();
+			break;
 		case STATE_GAME:
-			resetGame();
+			if(!gamePaused)
+				resetGame();
+			gamePaused = false;
+			break;
+		case STATE_WAITING:
+			gamePaused = true;
+			break;
+		case STATE_GAME_FINISHED:
+			finishTimer.start();
 			break;
 	}
 	
@@ -324,12 +350,74 @@ void Model::setVideoPause(bool newValue)
 	else
 		ofNotifyEvent(VIDEO_RESUME,emptyArg,this);
 }
+void Model::setDetectedPlayer1(bool newValue)
+{
+	if(newValue == detectedPlayer1) return;
+	detectedPlayer1 = newValue;
+	
+	int emptyArg = 0;
+	ofNotifyEvent(PLAYERS_CHANGED,emptyArg,this);
+	
+	checkPlayers();
+}
+void Model::setDetectedPlayer2(bool newValue)
+{
+	if(newValue == detectedPlayer2) return;
+	detectedPlayer2 = newValue;
+	
+	int emptyArg = 0;
+	ofNotifyEvent(PLAYERS_CHANGED,emptyArg,this);
+	
+	checkPlayers();
+}
+
+void Model::checkPlayers()
+{
+	cout << "Model::checkPlayers\n";
+	cout << "  state: "<<state<<"\n";
+	cout << "  detectedPlayer1: "<<detectedPlayer1<<"\n";
+	cout << "  detectedPlayer2: "<<detectedPlayer2<<"\n";
+	if(state == STATE_DEMO && detectedPlayer1 && detectedPlayer2)
+	{
+		setState(STATE_COUNT_DOWN);
+	}
+	else if(state == STATE_GAME && !detectedPlayer1 && !detectedPlayer2)
+	{
+		setState(STATE_WAITING);
+	}
+	else if(state == STATE_WAITING && detectedPlayer1 && detectedPlayer2)
+	{
+		setState(STATE_GAME);
+	}
+}
 
 void Model::update(ofEventArgs & args)
 { 
 	
 }
-void Model::onTick(int  & count)
+void Model::onCountDownTick(int  & count)
 {
+	cout << "Model::onCountDownTick\n";
+	cout << "  count: "<<count<<"\n";
 	
+	if(count < countDownTimer.getRepeatCount()-1)
+	{
+		
+		countDown = countDownTimer.getRepeatCount()-1-count;
+		cout << "  countdown: "<<countDown<<"\n";
+		int emptyArg = 0;
+		ofNotifyEvent(COUNT_DOWN,emptyArg,this);
+	}
+	else 
+	{
+		cout << "  start game\n";
+		setState(STATE_GAME);
+	}
+}
+void Model::onFinishTick(int  & count)
+{
+	cout << "Model::onFinishTick\n";
+	cout << "  count: "<<count<<"\n";
+	
+	setState(STATE_DEMO);
 }

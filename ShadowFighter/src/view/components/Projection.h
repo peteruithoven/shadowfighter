@@ -27,6 +27,8 @@ class Projection : public DisplayObject
 		void updateHealth(float player1Health,float player2Health);
 		void updateState(int state);
 		void updateWinner(int winner);
+		void updatePlayers(bool detectedPlayer1, bool detectedPlayer2);
+		void updateCountDown(int countDown);
 	
 	private:
 		ofxOscSender sender;

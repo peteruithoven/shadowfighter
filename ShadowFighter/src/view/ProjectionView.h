@@ -27,6 +27,8 @@ class ProjectionView : public BaseView
 		void onHit(int & arg);
 		void onReset(int & arg);
 		void onStateChange(int & arg);
+		void onPlayersChanged(int & arg);
+		void onCountDown(int & arg);
 		void updateHealth();
 };
 

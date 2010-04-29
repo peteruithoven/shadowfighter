@@ -35,7 +35,8 @@ class Model
 		ofRectangle*		hitRect;
 		int					cameraIndex;
 		int					state;
-		
+		int					countDown;
+	
 		// detection
 		int					blobDiffTolerance;
 		int					threshold;
@@ -52,6 +53,8 @@ class Model
 		int					clip6EmptyCorrection;
 		bool				simpleHitBlobAnalysis;
 		int					centerX;
+		bool				detectedPlayer1;
+		bool				detectedPlayer2;
 	
 		string				backgroundImageURL;
 		ofRectangle			detectionZone;
@@ -72,6 +75,7 @@ class Model
 		int					maxBlobsHistoryLength;
 		
 		// game logic
+		bool				gamePaused;
 		int					startHealth;
 		int					player1Health;
 		int					player2Health;
@@ -103,7 +107,9 @@ class Model
 		void setDebug(bool debug);
 		void setState(int state);
 		void setVideoPause(bool newValue);
-	
+		void setDetectedPlayer1(bool newValue);
+		void setDetectedPlayer2(bool newValue);
+		void checkPlayers();
 		void hit(int type, int area, int victim);
 		
 		ofEvent< int > DATA_LOADED;
@@ -113,14 +119,19 @@ class Model
 		ofEvent< int > RESET;
 		ofEvent< int > VIDEO_PAUSE;
 		ofEvent< int > VIDEO_RESUME;
+		ofEvent< int > PLAYERS_CHANGED;
+		ofEvent< int > COUNT_DOWN;
+		
 	protected:
-		Timer				timer;
+		Timer				countDownTimer;
+		Timer				finishTimer;
 	
 		void parseXML();
 		void storeValues();
 		void resetGame();
 		void update(ofEventArgs & args);
-		void onTick(int  & count);
+		void onCountDownTick(int  & count);
+		void onFinishTick(int  & count);	
 };
 
 #endif

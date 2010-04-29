@@ -10,8 +10,7 @@
 #ifndef _Timer
 #define _Timer
 
-#include <ofUtils.h>
-#include <ofEvents.h>
+#include "ofMain.h"
 
 class Timer{
 

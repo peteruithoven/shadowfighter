@@ -17,7 +17,7 @@ int Model::CLIP6_DEMO = 3;
 Model::Model()
 {
 	cout << "Model::Model\n";
-	pixelsSource			= CAMERA;
+	pixelsSource			= CLIP6_DEMO;
 	videoW					= 640;
 	videoH					= 480;
 	
@@ -68,7 +68,7 @@ Model::Model()
 	// game logic
 	gamePaused				= false;
 	startHealth				= 100;
-	hitDamage				= 10;//3;
+	hitDamage				= 7;//3;
 	
 	// debugging
 	debug					= true;
@@ -383,11 +383,16 @@ void Model::checkPlayers()
 	}
 	else if(state == STATE_GAME && !detectedPlayer1 && !detectedPlayer2)
 	{
-		setState(STATE_WAITING);
+		//setState(STATE_WAITING);
 	}
 	else if(state == STATE_WAITING && detectedPlayer1 && detectedPlayer2)
 	{
 		setState(STATE_GAME);
+	}
+	else if(state != STATE_GAME  && state != STATE_GAME_FINISHED  && (!detectedPlayer1 || !detectedPlayer2))
+	{
+		setState(STATE_DEMO);
+		countDownTimer.reset();
 	}
 }
 

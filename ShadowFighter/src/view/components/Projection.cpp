@@ -76,7 +76,7 @@ void Projection::update(ofEventArgs & args)
 	//cout << "  model->blobs->size(): " << model->blobs->size() << "\n";
 	//if(model == NULL) return;
 	
-	/*vector< vector<Blob*>* >*	blobsHistory = model->blobsHistory;
+	vector< vector<Blob*>* >*	blobsHistory = model->blobsHistory;
 	if(blobsHistory->size() < 1) return; 
 	vector<Blob*>*	prevBlobs = blobsHistory->at(0);
 	
@@ -92,7 +92,7 @@ void Projection::update(ofEventArgs & args)
 		message->addIntArg(blobRect.width);
 		message->addIntArg(blobRect.height);
 		messagesBundle.addMessage(*message);
-	}*/
+	}
 	
 	if(messagesBundle.getMessageCount() > 0)
 	{

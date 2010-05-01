@@ -24,6 +24,8 @@ void ProjectionView::setModel(Model * model)
 	ofAddListener(model->PLAYERS_CHANGED,this,&ProjectionView::onPlayersChanged);
 	ofAddListener(model->COUNT_DOWN,this,&ProjectionView::onCountDown);
 	projection.model = model;
+	
+	projection.updateState(model->state);
 }
 void ProjectionView::onHit(int & arg)
 {

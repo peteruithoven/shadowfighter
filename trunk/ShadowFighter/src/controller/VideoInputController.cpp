@@ -64,8 +64,11 @@ void VideoInputController::analyze(unsigned char * pixels)
 		else
 			analyseHitBlobs();
 	}
-	analyzeShadowsForPlayers();
-
+	else 
+	{
+		analyzeShadowsForPlayers();
+	}
+	
 	storeShadowBlobs();
 
 	storeHistory();
@@ -440,10 +443,12 @@ void VideoInputController::analyseHitBlobsSimple()
 			hitBlob.draw(hitBlobDisplayX,hitBlobDisplayY);
 		}
 		
-		if(!(hitBlobRect.x >= detectionZone->x &&
-			 hitBlobRect.y >= detectionZone->y &&
-			 hitBlobRect.x+hitBlobRect.width <= detectionZone->x+detectionZone->width &&
-			 hitBlobRect.y+hitBlobRect.height <= detectionZone->y+detectionZone->height))
+		int hitBlobXC = hitBlobRect.x+hitBlobRect.width/2;
+		int hitBlobYC = hitBlobRect.y+hitBlobRect.height/2;
+		if(!(hitBlobXC >= detectionZone->x &&
+			 hitBlobYC >= detectionZone->y &&
+			 hitBlobXC <= detectionZone->x+detectionZone->width &&
+			 hitBlobYC <= detectionZone->y+detectionZone->height))
 		{
 			drawHitText("  Hit blob is outside detectionZone");
 			continue;

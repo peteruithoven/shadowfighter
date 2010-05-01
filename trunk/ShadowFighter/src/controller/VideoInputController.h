@@ -61,6 +61,7 @@ class VideoInputController : public BaseController
 		bool matchBlobs(ofxCvBlob * blob1, ofxCvBlob * blob2);
 		bool rectHitTest(ofRectangle rect1,ofRectangle rect2);
 		void colorInImage(ofxCvGrayscaleImage * image, int color, ofRectangle rect);
+		void colorDiff(ofxCvGrayscaleImage * diffImg, ofxCvColorImage * img1, ofxCvColorImage * img2);
 };
 
 #endif

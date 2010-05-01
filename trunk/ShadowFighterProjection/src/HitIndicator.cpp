@@ -30,7 +30,7 @@ void HitIndicator::draw()
 		ofFill();
 		ofEnableAlphaBlending();
 		ofSetColor(255,255,255,alpha);
-		ofCircle(x, y, width*scale);
+		//ofCircle(x, y, width*scale);
 		img.draw(x-img.getWidth()/2, y+imgY);
 		ofSetColor(255,255,255,255);
 		ofDisableAlphaBlending();

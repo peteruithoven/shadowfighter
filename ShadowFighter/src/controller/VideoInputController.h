@@ -38,11 +38,12 @@ class VideoInputController : public BaseController
 		void findHitBlobs();
 		void findShadowBlobs();
 		void storeShadowBlobs();
-		void analyseHitBlobsSimple();
+		void analyseHitBlobsSimple(unsigned char * colorPixels);
 		void analyzeShadowsForPlayers();
 		void analyseHitBlobs();
 		bool hitIsUnique(ofRectangle blobRect);
 		bool hitsBody(ofRectangle hitBlobRect);
+		bool isCorrectColor(ofRectangle hitBlobRect, unsigned char * colorPixels);
 		void storeHistory();
 		void storeBlobHistory();
 		

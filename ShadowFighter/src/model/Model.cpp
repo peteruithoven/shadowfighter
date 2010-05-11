@@ -17,7 +17,7 @@ int Model::CLIP6_DEMO = 3;
 Model::Model()
 {
 	cout << "Model::Model\n";
-	pixelsSource			= CLIP6_DEMO;
+	pixelsSource			= CLIP5_DEMO;
 	videoW					= 640;
 	videoH					= 480;
 	
@@ -68,7 +68,7 @@ Model::Model()
 	// game logic
 	gamePaused				= false;
 	startHealth				= 100;
-	hitDamage				= 7;//3;
+	hitDamage				= 3; //7;//3;
 	
 	// debugging
 	debug					= true;
@@ -85,6 +85,10 @@ Model::Model()
 	
 	if(slowMotion)
 		ofSetFrameRate(3);
+	
+	cout << "Model:: calling setup \n";
+	soundController.setup();
+	cout << "Model:: called setup \n";
 }
 void Model::resetGame()
 {
@@ -145,6 +149,8 @@ void Model::loadData()
 	grayEmptyImg->setFromPixels(imgLoader->getPixels(), videoW,videoH);
 	grayEmptyCopyImg->setFromPixels(imgLoader->getPixels(), videoW,videoH);
 	
+	delete imgLoader;
+	
 	int emptyArg = 0;
 	ofNotifyEvent(DATA_LOADED,emptyArg,this);
 	ofNotifyEvent(VALUES_UPDATED,emptyArg,this);
@@ -181,6 +187,8 @@ void Model::parseXML()
 		hitThreshold = 47;
 		backgroundImageURL = "empty clip1.png";
 		movieURL = "movies/clip1.mov";
+		
+		//minBlobArea = 10;
 	}
 	else if(pixelsSource == CLIP5_DEMO)
 	{
@@ -191,6 +199,9 @@ void Model::parseXML()
 		
 		hitDetectionZone.x = 200;
 		hitDetectionZone.width = videoW-hitDetectionZone.x*2;
+		
+		//hitThreshold = 75;
+		//minBlobArea = 5;
 	}
 	else if(pixelsSource == CLIP6_DEMO)
 	{
@@ -291,6 +302,8 @@ void Model::hit(int type, int area, int victim)
 {
 	cout << "Model::hit:\n";
 	if(gamePaused) return;
+	
+	soundController.PlaySound(victim);
 	
 	if(victim == 1)
 		player1Health -= hitDamage;

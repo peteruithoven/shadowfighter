@@ -8,6 +8,7 @@
  */
 
 #include "VideoInputController.h"
+#include "ofxCvColorImage.h"
 
 VideoInputController::VideoInputController()
 {
@@ -60,7 +61,7 @@ void VideoInputController::analyze(unsigned char * pixels)
 	if(model->state == STATE_GAME)
 	{
 		if(model->simpleHitBlobAnalysis)
-			analyseHitBlobsSimple();
+			analyseHitBlobsSimple(pixels);
 		else
 			analyseHitBlobs();
 	}
@@ -120,8 +121,8 @@ void VideoInputController::filterProjection()
 	
 	//cout << "  model->clip6Correction: " << model->clip6Correction << "\n";
 	
-	if(model->debugDetection)
-		model->grayImg->draw(0,0);
+	//if(model->debugDetection)
+	//	model->grayImg->draw(0,0);
 }
 void VideoInputController::correctEmptyImage()
 {
@@ -163,6 +164,7 @@ void VideoInputController::findHitBlobs()
 		model->grayHitDiffImg->draw(hitBlobDisplayX, hitBlobDisplayY);
 	
 	hitContourFinder.findContours(*model->grayHitDiffImg, model->minHitBlobArea, model->maxHitBlobArea, model->maxNumHitBlobs, true);
+	//hitContourFinder.findContours(*model->grayHitDiffImg, 5, 640*480, 1000, false);
 }
 void VideoInputController::findShadowBlobs()
 {
@@ -305,7 +307,11 @@ void VideoInputController::findShadowBlobs()
 	}
 	model->blobsHistory->push_back(currentBlobs);
 	if(model->blobsHistory->size() > model->maxBlobsHistoryLength)
+	{
+		vector<Blob*> * blobs = model->blobsHistory->at(0);
+		delete blobs;
 		model->blobsHistory->erase(model->blobsHistory->begin());
+	}
 }
 void VideoInputController::storeShadowBlobs()
 {	
@@ -318,7 +324,14 @@ void VideoInputController::storeHistory()
 	//cout << "VideoInputController::storeHistory\n";
 	// store copy of hit blobs
 	if(model->prevHitBlobs->size() > 0)
+	{
+		for (int i = 0; i < model->prevHitBlobs->size(); i++)
+		{
+			ofxCvBlob * blob = model->prevHitBlobs->at(i);
+			delete blob;
+		}
 		model->prevHitBlobs->clear();
+	}
     for (int i = 0; i < hitContourFinder.blobs.size(); i++)
 	{
 		ofxCvBlob blob = hitContourFinder.blobs[i];
@@ -386,8 +399,9 @@ void VideoInputController::drawBlobsHistory()
 	}
 	ofSetColor(0xffffff);
 }
-void VideoInputController::analyseHitBlobsSimple()
+void VideoInputController::analyseHitBlobsSimple(unsigned char * colorPixels)
 {
+	cout << "VideoInputController::analyseHitBlobsSimple\n";
 	// per hit blob
 	// check detection area
 	// check unique
@@ -421,6 +435,8 @@ void VideoInputController::analyseHitBlobsSimple()
 		ofLine(hitBlobDisplayX+centerX, hitBlobDisplayY+0, hitBlobDisplayX+centerX, hitBlobDisplayY+videoH);
 	}
 	
+	//cout << "hitContourFinder.blobs.size(): " << hitContourFinder.blobs.size() << "\n";
+	
 	if(hitContourFinder.blobs.size() == 0) return;
 	
 	model->hitsTextX = hitBlobDisplayX;
@@ -442,6 +458,14 @@ void VideoInputController::analyseHitBlobsSimple()
 			hitBlob.draw(0,0);
 			hitBlob.draw(hitBlobDisplayX,hitBlobDisplayY);
 		}
+		
+		/*if(!isCorrectColor(hitBlobRect,colorPixels))
+		{
+			drawHitText("  Hit blob doesn't have the right color");
+			takeHitScreenShot("("+ofToString(model->hitCounter)+")");
+			continue;
+		}	
+		drawHitText("  Hit blob has the right color");*/
 		
 		int hitBlobXC = hitBlobRect.x+hitBlobRect.width/2;
 		int hitBlobYC = hitBlobRect.y+hitBlobRect.height/2;
@@ -484,6 +508,28 @@ void VideoInputController::analyseHitBlobsSimple()
 			continue;
 		}	
 		drawHitText("  Hit blob hits shadow blob(s)");
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		   
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		int hitBlobRectCX = hitBlobRect.x+hitBlobRect.width/2;
 		int deadZoneWidth = 20;
@@ -832,8 +878,95 @@ bool VideoInputController::hitsBody(ofRectangle hitBlobRect)
 	
 	return (numWhitePixels >= minNumWhitePixels);
 }
-
-
+bool VideoInputController::isCorrectColor(ofRectangle hitBlobRect, unsigned char * colorPixels)
+{
+	int videoW = model->videoW;
+	int videoH = model->videoH;
+	
+	unsigned char * diffPixels = model->grayHitDiffImg->getPixels();
+	
+	int totalR = 0;
+	int totalG = 0;
+	int totalB = 0;
+	
+	ofxCvColorImage colorImg;
+	colorImg.allocate(hitBlobRect.width, hitBlobRect.height);
+	//unsigned char * newPixels = new unsigned char[videoW*videoH*3];
+	unsigned char * newPixels = colorImg.getPixels();
+	int newPixelIndex = 0;
+	for (int i = hitBlobRect.y; i < hitBlobRect.y+hitBlobRect.height; i++) 
+	{
+		for(int j = hitBlobRect.x; j < hitBlobRect.x+hitBlobRect.width; j++) 
+		{
+			int pixelsIndex = (i * videoW) + j;
+			
+			if(diffPixels[pixelsIndex] == 255)
+			{
+				pixelsIndex *= 3; // color
+				int r = colorPixels[pixelsIndex];
+				totalR += r;
+				int g = colorPixels[pixelsIndex+1];
+				totalG += g;
+				int b = colorPixels[pixelsIndex+2];
+				totalB += b;
+				
+				newPixels[newPixelIndex] = r;
+				newPixelIndex++;
+				newPixels[newPixelIndex+1] = b;
+				newPixelIndex++;
+				newPixels[newPixelIndex+2] = g;
+				newPixelIndex++;
+			}
+			else
+			{
+				pixelsIndex *= 3; // color
+				if(model->debugDetection)
+				{
+					newPixels[newPixelIndex] = 0;
+					newPixelIndex++;
+					newPixels[newPixelIndex] = 0;
+					newPixelIndex++;
+					newPixels[newPixelIndex] = 0;
+					newPixelIndex++;
+				}
+			}
+			
+		}
+	}
+	if(model->debugDetection)
+	{
+		ofSetColor(255, 255, 255);
+		colorImg.setFromPixels(newPixels, hitBlobRect.width, hitBlobRect.height);
+		colorImg.draw(videoW+hitBlobRect.x,hitBlobRect.y);
+		
+		
+		int x = videoW+hitBlobRect.x;
+		int y = hitBlobRect.y+hitBlobRect.height;
+		int w = 5;
+		int h;
+		int spacing = 1;
+		int numPixels = hitBlobRect.width*hitBlobRect.height;
+		//r
+		int r = totalR/numPixels;
+		h = float(r)/255*20;
+		ofSetColor(255, 0, 0);
+		ofRect(x,y-h,w,h);
+		//g
+		int g = totalG/numPixels;
+		h = float(g)/255*20;
+		ofSetColor(0, 255, 0);
+		ofRect(x+w+spacing,y-h,w,h);
+		//b
+		int b = totalB/numPixels;
+		h = float(b)/255*20;
+		ofSetColor(0, 0, 255);
+		ofRect(x+w*2+spacing*2,y-h,w,h);
+		
+		
+		
+	}
+	return true;
+}
 void VideoInputController::drawHitText(string text)
 {
 	if(!model->debugDetection) return;
@@ -979,9 +1112,6 @@ bool VideoInputController::rectHitTest(ofRectangle rect1,ofRectangle rect2)
 	else
 		return false;
 }
-
-
-
 void VideoInputController::colorInImage(ofxCvGrayscaleImage * image, int color, ofRectangle rect)
 {
 	int width = image->getWidth();

@@ -80,19 +80,19 @@ void Projection::update(ofEventArgs & args)
 	if(blobsHistory->size() < 1) return; 
 	vector<Blob*>*	prevBlobs = blobsHistory->at(0);
 	
-	for (int i = 0; i < prevBlobs->size(); i++)
-	{
-		ofxCvBlob * blob = prevBlobs->at(i);
-		ofRectangle blobRect = blob->boundingRect;
-		
-		ofxOscMessage * message = new ofxOscMessage();
-		message->setAddress(ofToString(BOUNDING_BOX));
-		message->addIntArg(blobRect.x);
-		message->addIntArg(blobRect.y);
-		message->addIntArg(blobRect.width);
-		message->addIntArg(blobRect.height);
-		messagesBundle.addMessage(*message);
-	}
+	//for (int i = 0; i < prevBlobs->size(); i++)
+//	{
+//		ofxCvBlob * blob = prevBlobs->at(i);
+//		ofRectangle blobRect = blob->boundingRect;
+//		
+//		ofxOscMessage * message = new ofxOscMessage();
+//		message->setAddress(ofToString(BOUNDING_BOX));
+//		message->addIntArg(blobRect.x);
+//		message->addIntArg(blobRect.y);
+//		message->addIntArg(blobRect.width);
+//		message->addIntArg(blobRect.height);
+//		messagesBundle.addMessage(*message);
+//	}
 	
 	if(messagesBundle.getMessageCount() > 0)
 	{

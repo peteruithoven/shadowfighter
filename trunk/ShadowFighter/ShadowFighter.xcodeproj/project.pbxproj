@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D042306B119831F00062DA6E /* SoundController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0423069119831F00062DA6E /* SoundController.cpp */; };
 		D05086DF1174B0DF00DA5FDE /* libcv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D050869D1174B0DF00DA5FDE /* libcv.a */; };
 		D05086E01174B0DF00DA5FDE /* libcvaux.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D050869E1174B0DF00DA5FDE /* libcvaux.a */; };
 		D05086E11174B0DF00DA5FDE /* libcxcore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D050869F1174B0DF00DA5FDE /* libcxcore.a */; };
@@ -145,6 +146,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D0423069119831F00062DA6E /* SoundController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SoundController.cpp; path = /Users/Peter/Downloads/sounds/SoundController.cpp; sourceTree = "<absolute>"; };
+		D042306A119831F00062DA6E /* SoundController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundController.h; path = /Users/Peter/Downloads/sounds/SoundController.h; sourceTree = "<absolute>"; };
 		D050868B1174B0DF00DA5FDE /* cv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cv.h; path = ../../openFrameworks/addons/ofxOpenCv/libs/opencv/include/cv.h; sourceTree = SDKROOT; };
 		D050868C1174B0DF00DA5FDE /* cv.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = cv.hpp; path = ../../openFrameworks/addons/ofxOpenCv/libs/opencv/include/cv.hpp; sourceTree = SDKROOT; };
 		D050868D1174B0DF00DA5FDE /* cvaux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cvaux.h; path = ../../openFrameworks/addons/ofxOpenCv/libs/opencv/include/cvaux.h; sourceTree = SDKROOT; };
@@ -705,6 +708,8 @@
 				D06732E011806AFB006B0C1F /* Blob.h */,
 				D05088741174DF0C00DA5FDE /* Model.cpp */,
 				D05088751174DF0C00DA5FDE /* Model.h */,
+				D0423069119831F00062DA6E /* SoundController.cpp */,
+				D042306A119831F00062DA6E /* SoundController.h */,
 			);
 			name = model;
 			path = src/model;
@@ -1359,6 +1364,7 @@
 				D06732E111806AFB006B0C1F /* Blob.cpp in Sources */,
 				D0650575118395DB00FF75CD /* GameInfoView.cpp in Sources */,
 				D06505791183969500FF75CD /* HealthBar.cpp in Sources */,
+				D042306B119831F00062DA6E /* SoundController.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

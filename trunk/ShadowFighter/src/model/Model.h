@@ -17,6 +17,7 @@
 #include "ofImage.h"
 #include "Blob.h"
 #include "Constants.h"
+#include "SoundController.h"
 
 class Model
 {
@@ -37,6 +38,8 @@ class Model
 		int					state;
 		int					countDown;
 	
+		SoundController		soundController;
+	
 		// detection
 		int					blobDiffTolerance;
 		int					threshold;
@@ -55,7 +58,7 @@ class Model
 		int					centerX;
 		bool				detectedPlayer1;
 		bool				detectedPlayer2;
-	
+		
 		string				backgroundImageURL;
 		ofRectangle			detectionZone;
 		ofRectangle			hitDetectionZone;
@@ -64,14 +67,14 @@ class Model
 		ofxCvGrayscaleImage* grayEmptyImg;
 		ofxCvGrayscaleImage* grayEmptyCopyImg;
 		ofxCvGrayscaleImage* grayDiffImg;
+		ofxCvGrayscaleImage* prevGrayDiffImg;
 		ofxCvGrayscaleImage* grayHitDiffImg;
-		
 		ofImage*			imgLoader;
 		
 		vector<ofxCvBlob*>*	prevHitBlobs;
-		vector<Blob*> *				currentBlobs;
+		vector<Blob*> *				currentBlobs; //TODO remove
 		vector< vector<Blob*>* >*	blobsHistory;
-		ofxCvGrayscaleImage* prevGrayDiffImg;
+		
 		int					maxBlobsHistoryLength;
 		
 		// game logic

@@ -17,9 +17,9 @@ class Image : public DisplayObject
 	public:
 		Image();
 		ofImage img;
-	
-	protected:
 		void draw();
+		void destroy();
+	protected:
 };
 
 #endif

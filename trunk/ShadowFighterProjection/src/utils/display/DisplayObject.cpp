@@ -19,12 +19,15 @@ DisplayObject::DisplayObject()
 	rotation = 0;
 	scale = 1;
 	
-	
 	setAutoDraw(true);
-
+}
+DisplayObject::~DisplayObject()
+{
+	setAutoDraw(false);
 }
 void DisplayObject::setAutoDraw(bool newValue)
 {
+	//cout << "DisplayObject::setAutoDraw: " << newValue << "\n";
 	autoDraw = newValue;
 	if(autoDraw)
 		ofAddListener(ofEvents.draw, this, &DisplayObject::draw);
@@ -37,4 +40,8 @@ void DisplayObject::draw(ofEventArgs & args)
 }
 void DisplayObject::draw()
 {
+}
+void DisplayObject::destroy()
+{
+	// Override to clear memory. Call the clear function on ofImage for example.
 }

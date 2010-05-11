@@ -11,22 +11,22 @@
 #include "ofMain.h"
 #include "ofEvents.h"
 #include "DisplayObject.h"
+#include "Image.h"
+
 
 class DisplayObjectContainer : public DisplayObject 
 {
 	public:
 		DisplayObjectContainer();
-		void addChild(DisplayObject * child);
+		DisplayObject* addChild(DisplayObject * child);
 		void removeChildAt(int index);
 		void clear();
 		int size();
 		DisplayObject * getChildAt(int index);
-		void setAutoDraw(bool newValue);
-
-	private:
+		void draw();
 	
+	private:
 		vector<DisplayObject*>	children;
-		void draw(ofEventArgs & args);
 };
 
 #endif

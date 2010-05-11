@@ -27,8 +27,10 @@ class DisplayObject
 		bool autoDraw;
 	
 		DisplayObject();
+		~DisplayObject();
 		void setAutoDraw(bool newValue);
 		virtual void draw();
+		virtual void destroy();
 	
 	protected:		
 		void draw(ofEventArgs & args);

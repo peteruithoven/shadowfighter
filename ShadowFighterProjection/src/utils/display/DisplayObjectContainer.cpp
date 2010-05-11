@@ -1,6 +1,6 @@
 /*
  *  DisplayObjectContainer.cpp
- *  ShadowFighterProjection
+ *  
  *
  *  Created by Peter Uithoven on 4/28/10.
  */
@@ -12,20 +12,29 @@ DisplayObjectContainer::DisplayObjectContainer()
 {
 	children = *new vector<DisplayObject*>;
 	
-	ofAddListener(ofEvents.draw, this, &DisplayObjectContainer::draw);
+	setAutoDraw(false);
 }
-
-void DisplayObjectContainer::addChild(DisplayObject * child)
+DisplayObject* DisplayObjectContainer::addChild(DisplayObject * child)
 {
 	children.push_back(child);
+	return child;
 }
 void DisplayObjectContainer::removeChildAt(int index)
 {
+	DisplayObject* displayObject = children.at(index);
+	displayObject->destroy();
+	delete displayObject;
+	
 	children.erase(children.begin()+index);
 }
 void DisplayObjectContainer::clear()
 {
-	setAutoDraw(false);
+	for(int i = 0;i<children.size();i++)
+	{
+		DisplayObject* displayObject = children.at(i);
+		displayObject->destroy();
+		delete displayObject;
+	}	
 	children.clear();
 }
 int DisplayObjectContainer::size()
@@ -36,22 +45,11 @@ DisplayObject * DisplayObjectContainer::getChildAt(int index)
 {
 	return children.at(index);
 }
-
-void DisplayObjectContainer::draw(ofEventArgs & args)
+void DisplayObjectContainer::draw()
 { 
 	for(int i = 0;i<children.size();i++)
 	{
 		DisplayObject* displayObject = children.at(i);
-		//displayObject->draw();
-	}
-}
-
-void DisplayObjectContainer::setAutoDraw(bool newValue)
-{
-	autoDraw = newValue;
-	for(int i = 0;i<children.size();i++)
-	{
-		DisplayObject* displayObject = children.at(i);
-		displayObject->setAutoDraw(newValue);
+		displayObject->draw();
 	}
 }

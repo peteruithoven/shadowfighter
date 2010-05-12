@@ -80,7 +80,7 @@ void Projection::update(ofEventArgs & args)
 	if(blobsHistory->size() < 1) return; 
 	vector<Blob*>*	prevBlobs = blobsHistory->at(0);
 	
-	//for (int i = 0; i < prevBlobs->size(); i++)
+//	for (int i = 0; i < prevBlobs->size(); i++)
 //	{
 //		ofxCvBlob * blob = prevBlobs->at(i);
 //		ofRectangle blobRect = blob->boundingRect;

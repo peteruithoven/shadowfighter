@@ -13,5 +13,7 @@
 #define STATE_GAME			2
 #define STATE_GAME_FINISHED	3
 #define STATE_WAITING		4
+#define STATE_EMPTY			5
+#define STATE_GRID			6
 
 #endif

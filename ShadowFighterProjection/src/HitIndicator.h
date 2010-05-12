@@ -18,8 +18,13 @@ class HitIndicator : public DisplayObject
 {
 
 	public:
-		int						imgY;
-		ofImage					img;
+		int						bangImgY;
+		int						alphaChange;
+		float					hitOrgW;
+		float					hitOrgH;
+		float					hitScale;
+		ofImage					bangImg;
+		ofImage					hitImg;
 	
 		HitIndicator();
 		void start();

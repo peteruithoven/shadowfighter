@@ -19,8 +19,9 @@ void testApp::setup()
 	screenH				= 768;
 	
 	debug				= false;
-	hide				= false;
-	state				= STATE_DEMO;
+	disableDraw			= false;
+	lockState			= false;
+	state				= -1;
 	detectedPlayer1		= false;
 	detectedPlayer2		= false;
 	ofSetFrameRate(31);
@@ -166,24 +167,32 @@ void testApp::update()
 }
 void testApp::setState(int state)
 {
-	cout << "testApp::setState: " << state << ": ";
+	cout << "testApp::setState: " << state << "\n";
+	if(this->state == state || lockState) return;
+	
+	cout << "  check passed \n";
+	
+	prevState = this->state;	
+	this->state = state;
 	
 	images.clear();
-	
-	this->state = state;
+	disableDraw = false;
 	switch(state)
 	{
 		case STATE_DEMO:
 		{
-			cout << "STATE_DEMO\n";
+			cout << "  STATE_DEMO\n";
 			
 			Image * bgImg = new Image();
-			bgImg->img.loadImage("images/demo.png");
+			bool loaded = bgImg->img.loadImage("images/demo.png");
+			if(!loaded) cout << "Loading demo image failed\n";
 			images.addChild(bgImg);
 			
+			cout << "  creating player1Img image\n";
 			player1Img = new Image();
 			images.addChild(player1Img);
 			
+			cout << "  creating player2Img image\n";
 			player2Img = new Image();
 			player2Img->x = ofGetWidth()/2;
 			images.addChild(player2Img);
@@ -259,6 +268,24 @@ void testApp::setState(int state)
 			images.addChild(img);
 		}
 		break;
+		case STATE_GRID:
+		{
+			cout << "STATE_GRID\n";
+			
+			Image * img = new Image();
+			img->img.loadImage("images/grid.jpg");
+			images.addChild(img);
+		}
+		break;
+		case STATE_EMPTY:
+		{
+			cout << "STATE_EMPTY\n";
+
+			// no children
+			
+			disableDraw = true;
+		}
+		break;
 		default:
 			cout << "DEFAULT (state) \n";
 		break;
@@ -267,31 +294,49 @@ void testApp::setState(int state)
 void testApp::updatePlayerImages()
 {
 	cout << "testApp::updatePlayerImages\n";
+	cout << "  detectedPlayer1: "<<detectedPlayer1<<"\n";
+	cout << "  state: "<<state<<"\n";
+	string player1ImgURL = "";
 	if(detectedPlayer1)
 	{
 		if(state != STATE_GAME)
-			player1Img->img.loadImage("images/detected1.png");
+			player1ImgURL = "images/detected1.png";
 	}
 	else
 	{
 		if(state == STATE_DEMO)
-			player1Img->img.loadImage("images/demo1.png");
+			player1ImgURL = "images/demo1.png";
 		else
-			player1Img->img.loadImage("images/waiting1.png");
+			player1ImgURL = "images/waiting1.png";
+	}
+	if(player1ImgURL != "")
+	{
+		cout << "  player1ImgURL: "<<player1ImgURL<<"\n";
+		player1Img->img.allocate(512, 768, OF_IMAGE_COLOR_ALPHA);
+		bool loaded = player1Img->img.loadImage(player1ImgURL);
+		if(!loaded) cout << "Loading player1 image failed (" << player1ImgURL << ")\n";
 	}
 	
+	string player2ImgURL = "";
 	if(detectedPlayer2)
 	{
 		if(state != STATE_GAME)
-			player2Img->img.loadImage("images/detected2.png");
+			player2ImgURL = "images/detected2.png";
 	}
 	else
 	{
 		if(state == STATE_DEMO)
-			player2Img->img.loadImage("images/demo2.png");
+			player2ImgURL = "images/demo2.png";
 		else
-			player2Img->img.loadImage("images/waiting2.png");
+			player2ImgURL = "images/waiting2.png";
 	}
+	if(player2ImgURL != "")
+	{
+		player2Img->img.allocate(512, 768, OF_IMAGE_COLOR_ALPHA);
+		bool loaded = player2Img->img.loadImage(player2ImgURL);
+		if(!loaded) cout << "Loading player2 image failed (" << player2ImgURL << ")\n";
+	}
+	
 }
 void testApp::updateCountDown()
 {
@@ -309,7 +354,7 @@ void testApp::draw()
 {
 	ofBackground(0, 0, 0);
 	
-	if(hide) return;
+	if(disableDraw) return;
 	
 	//cout << "testApp::draw\n";
 	//cout << "  state: " << ofToString(state) << "\n";
@@ -400,7 +445,28 @@ void testApp::keyReleased(int keyCode)
 			debug = !debug;
 			break;
 		case 'h':
-			hide = !hide;
+			if(state == STATE_EMPTY)
+			{
+				lockState = false;
+				setState(prevState);
+			}
+			else
+			{
+				setState(STATE_EMPTY);
+				lockState = true;
+			}
+			break;
+		case 'g':
+			if(state == STATE_GRID)
+			{
+				lockState = false;
+				setState(prevState);
+			}
+			else
+			{
+				setState(STATE_GRID);
+				lockState = true;
+			}
 			break;
 	}
 	cout << "x: " << x << " y: " << y << " scale: " << scale << "\n";

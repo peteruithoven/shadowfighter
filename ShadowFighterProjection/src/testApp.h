@@ -32,9 +32,11 @@ class testApp : public ofBaseApp{
 		float	scale;
 		int		alpha;
 		bool	debug;
-		bool	hide;
+		bool	disableDraw;
 		int		winner;
+		bool	lockState;
 		int		state;
+		int		prevState;
 		int		countDown;
 		int		videoW;
 		int		videoH;

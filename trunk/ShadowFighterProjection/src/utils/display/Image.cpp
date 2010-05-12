@@ -10,7 +10,6 @@
 
 Image::Image()
 {
-	
 }
 void Image::draw()
 { 

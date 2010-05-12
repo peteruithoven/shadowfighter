@@ -10,8 +10,15 @@
 
 HitIndicator::HitIndicator()
 {
-	img.loadImage("images/boom2.png");
-	imgY = 0-img.getHeight();
+	alphaChange = 10; //20
+	
+	bangImg.loadImage("images/boom2.png");
+	bangImgY = 0-bangImg.getHeight();
+	
+	hitImg.loadImage("images/hit.png");
+	hitOrgW = hitImg.getWidth();
+	hitOrgH = hitImg.getHeight();
+	hitScale = 0.3;
 }
 void HitIndicator::start()
 {
@@ -30,14 +37,25 @@ void HitIndicator::draw()
 		ofFill();
 		ofEnableAlphaBlending();
 		ofSetColor(255,255,255,alpha);
+		//ofSetColor(255,255,255,255);
 		//ofCircle(x, y, width*scale);
-		img.draw(x-img.getWidth()/2, y+imgY);
+		//bangImg.draw(x-bangImg.getWidth()/2, y+bangImgY);
+		
+		ofPushMatrix();
+		ofTranslate(x, y, 0);
+		ofScale(hitScale, hitScale, 1);
+		
+		hitImg.draw(0-hitImg.getWidth()/2,0-hitImg.getHeight()/2);
+		
+		ofPopMatrix();
+		
 		ofSetColor(255,255,255,255);
 		ofDisableAlphaBlending();
 		
 		width += 8;
-		alpha -= 20;
-		imgY -= 2;
+		alpha -= alphaChange;
+		bangImgY -= 2;
+		hitScale += 0.02;
 		if(alpha < 0)
 			running = false;
 	}

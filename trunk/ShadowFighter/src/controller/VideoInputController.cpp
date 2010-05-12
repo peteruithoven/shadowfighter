@@ -982,6 +982,7 @@ void VideoInputController::drawAttackText(string text)
 
 void VideoInputController::analyzeShadowsForPlayers()
 {
+	//cout << "VideoInputController::analyzeShadowsForPlayers\n";
 	bool detectedPlayer1 = false;
 	bool detectedPlayer2 = false;
 

@@ -17,7 +17,7 @@ int Model::CLIP6_DEMO = 3;
 Model::Model()
 {
 	cout << "Model::Model\n";
-	pixelsSource			= CLIP5_DEMO;
+	pixelsSource			= CLIP1_DEMO;
 	videoW					= 640;
 	videoH					= 480;
 	
@@ -58,7 +58,7 @@ Model::Model()
 	hitRect					= new ofRectangle();
 	
 	countDownTimer.setInterval(700);
-	countDownTimer.setRepeatCount(4);
+	countDownTimer.setRepeatCount(5);
 	ofAddListener(countDownTimer.TICK,this,&Model::onCountDownTick);
 	
 	finishTimer.setInterval(5000);
@@ -68,7 +68,7 @@ Model::Model()
 	// game logic
 	gamePaused				= false;
 	startHealth				= 100;
-	hitDamage				= 3; //7;//3;
+	hitDamage				= 3; //3; //7;//3;
 	
 	// debugging
 	debug					= true;
@@ -346,6 +346,8 @@ void Model::setState(int newValue)
 			break;
 		case STATE_GAME_FINISHED:
 			finishTimer.start();
+			detectedPlayer1 = false;
+			detectedPlayer2 = false;
 			break;
 	}
 	
@@ -421,7 +423,7 @@ void Model::onCountDownTick(int  & count)
 	if(count < countDownTimer.getRepeatCount()-1)
 	{
 		
-		countDown = countDownTimer.getRepeatCount()-1-count;
+		countDown = countDownTimer.getRepeatCount()-2-count;
 		cout << "  countdown: "<<countDown<<"\n";
 		int emptyArg = 0;
 		ofNotifyEvent(COUNT_DOWN,emptyArg,this);

@@ -1,6 +1,6 @@
 <backgroundImage>empty.png</backgroundImage>
 <threshold>22</threshold>
-<hitThreshold>36</hitThreshold>
+<hitThreshold>37</hitThreshold>
 <minBlobArea>100</minBlobArea>
 <maxBlobArea>211600</maxBlobArea>
 <minHitBlobArea>100</minHitBlobArea>

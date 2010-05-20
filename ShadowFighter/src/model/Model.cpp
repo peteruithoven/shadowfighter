@@ -13,17 +13,19 @@ int Model::CAMERA = 0;
 int Model::CLIP1_DEMO = 1;
 int Model::CLIP5_DEMO = 2;
 int Model::CLIP6_DEMO = 3;
+int Model::BLOCK_FIGHT_DEMO = 4;
+int Model::BLOCK_EXPERIMENTS_DEMO = 5;
 
 Model::Model()
 {
 	cout << "Model::Model\n";
-	pixelsSource			= CLIP1_DEMO;
+	pixelsSource			= BLOCK_EXPERIMENTS_DEMO;
 	videoW					= 640;
 	videoH					= 480;
 	
 	blobDiffTolerance		= 75;
 	maxBlobsHistoryLength	= 5;
-	minDiffHitBlobsPos		= 50; //50;
+	minDiffHitBlobsPos		= 75; //50;
 	minAttackSpeed			= 0;//5;//15;
 	state					= STATE_DEMO;
 	willLearnBackground		= false;
@@ -123,28 +125,28 @@ void Model::loadData()
 	imgLoader = new ofImage();
 	imgLoader->loadImage(backgroundImageURL);
 	
-	/*unsigned char * pixels = imgLoader->getPixels();
-	unsigned char * grayPixels = new unsigned char[videoW*videoH];
-	int counter = 0;
-	for (int i = 0; i < videoH; i++) {
-		for (int j = 0; j < videoW*3; j+=3) {
-			
-			// get r, g and b components
-			int r = (i*videoW*3) + j;
-			int g = (i*videoW*3) + (j+1);
-			int b = (i*videoW*3) + (j+2);
-			
-			int grayPixel = (11 * pixels[r] + 16 * pixels[g] + 5 * pixels[b]) / 32;
-			
-			grayPixels[counter] = grayPixel;
-			
-			counter++;
-		}
-	}
-	
-	ofImage imgSaver = *new ofImage();
-	imgSaver.setFromPixels(grayPixels, videoW, videoH, OF_IMAGE_GRAYSCALE, false);
-	imgSaver.saveImage("empty clip6.png");*/
+//	unsigned char * pixels = imgLoader->getPixels();
+//	unsigned char * grayPixels = new unsigned char[videoW*videoH];
+//	int counter = 0;
+//	for (int i = 0; i < videoH; i++) {
+//		for (int j = 0; j < videoW*3; j+=3) {
+//			
+//			// get r, g and b components
+//			int r = (i*videoW*3) + j;
+//			int g = (i*videoW*3) + (j+1);
+//			int b = (i*videoW*3) + (j+2);
+//			
+//			int grayPixel = (11 * pixels[r] + 16 * pixels[g] + 5 * pixels[b]) / 32;
+//			
+//			grayPixels[counter] = grayPixel;
+//			
+//			counter++;
+//		}
+//	}
+//	
+//	ofImage imgSaver = *new ofImage();
+//	imgSaver.setFromPixels(grayPixels, videoW, videoH, OF_IMAGE_GRAYSCALE, false);
+//	imgSaver.saveImage("blob.png");
 	
 	grayEmptyImg->setFromPixels(imgLoader->getPixels(), videoW,videoH);
 	grayEmptyCopyImg->setFromPixels(imgLoader->getPixels(), videoW,videoH);
@@ -212,6 +214,28 @@ void Model::parseXML()
 		//movieURL = "movies/clip1.mov";
 		detectionZone.x = hitDetectionZone.x = 75;
 		centerX = detectionZone.x+detectionZone.width/2;
+	}
+	else if(pixelsSource == BLOCK_FIGHT_DEMO)
+	{
+		threshold = 22;
+		hitThreshold = 37;
+		backgroundImageURL = "empty block-fight.png";
+		movieURL = "movies/block-fight.mov";
+		centerX = 270;
+		detectionZone.x = centerX-detectionZone.width/2;
+		hitDetectionZone.x = centerX-hitDetectionZone.width/2;
+		detectionZone.y = hitDetectionZone.y = 60;
+	}
+	else if(pixelsSource == BLOCK_EXPERIMENTS_DEMO)
+	{
+		threshold = 22;
+		hitThreshold = 37;
+		backgroundImageURL = "empty block-experiments2.png";
+		movieURL = "movies/block-experiments.mov";
+		centerX = 270;
+		detectionZone.x = centerX-detectionZone.width/2;
+		hitDetectionZone.x = centerX-hitDetectionZone.width/2;
+		detectionZone.y = hitDetectionZone.y = 60;
 	}
 	else 
 	{
@@ -351,6 +375,11 @@ void Model::setState(int newValue)
 			break;
 	}
 	
+	if(state != STATE_GAME)
+	{
+		soundController.Reset();
+	}
+	
 	int emptyArg = 0;
 	ofNotifyEvent(STATE_CHANGE,emptyArg,this);
 }
@@ -413,7 +442,10 @@ void Model::checkPlayers()
 
 void Model::update(ofEventArgs & args)
 { 
-	
+	if(state == STATE_GAME)
+	{
+		//soundController.PlayBGSound(player1Health,player2Health,startHealth);
+	}
 }
 void Model::onCountDownTick(int  & count)
 {

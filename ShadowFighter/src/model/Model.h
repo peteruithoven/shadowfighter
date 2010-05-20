@@ -27,6 +27,8 @@ class Model
 		static int			CLIP1_DEMO;
 		static int			CLIP5_DEMO;
 		static int			CLIP6_DEMO;
+		static int			BLOCK_FIGHT_DEMO;
+		static int			BLOCK_EXPERIMENTS_DEMO;
 	
 		ofxXmlSettings		xml;
 		int					videoW;

@@ -49,7 +49,7 @@ void VideoInput::start()
 		videoPlayer.setSpeed(0.2);
 	videoPlayer.setVolume(0);
 	videoPlayer.play();
-	videoPlayer.setPosition(0.41);
+	//videoPlayer.setPosition(0.41);
 }
 void VideoInput::stop()
 {
@@ -85,9 +85,9 @@ void VideoInput::draw(ofEventArgs & args)
 	}
 	else
 	{
-		float position = videoPlayer.getPosition();
-		if(position <= 0.1)
-			videoPlayer.setPosition(0.4);
+		//float position = videoPlayer.getPosition();
+		//if(position <= 0.1)
+		//	videoPlayer.setPosition(0.4);
 		
 		videoPlayer.draw(0,0);
 	}

@@ -18,11 +18,15 @@ void ProjectionView::setModel(Model * model)
 {
 	cout << "ProjectionView::setModel\n";
 	this->model = model;
-	ofAddListener(model->HIT,this,&ProjectionView::onHit);
-	ofAddListener(model->RESET,this,&ProjectionView::onReset);
-	ofAddListener(model->STATE_CHANGE,this,&ProjectionView::onStateChange);
-	ofAddListener(model->PLAYERS_CHANGED,this,&ProjectionView::onPlayersChanged);
-	ofAddListener(model->COUNT_DOWN,this,&ProjectionView::onCountDown);
+	
+	if(model->pixelsSource == Model::CAMERA)
+	{
+		ofAddListener(model->HIT,this,&ProjectionView::onHit);
+		ofAddListener(model->RESET,this,&ProjectionView::onReset);
+		ofAddListener(model->STATE_CHANGE,this,&ProjectionView::onStateChange);
+		ofAddListener(model->PLAYERS_CHANGED,this,&ProjectionView::onPlayersChanged);
+		ofAddListener(model->COUNT_DOWN,this,&ProjectionView::onCountDown);
+	}
 	projection.model = model;
 	
 	projection.updateState(model->state);

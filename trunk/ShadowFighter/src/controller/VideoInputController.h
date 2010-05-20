@@ -38,6 +38,7 @@ class VideoInputController : public BaseController
 		void findHitBlobs();
 		void findShadowBlobs();
 		void storeShadowBlobs();
+		void analyzeShadowsForBlocks();
 		void analyseHitBlobsSimple(unsigned char * colorPixels);
 		void analyzeShadowsForPlayers();
 		void analyseHitBlobs();
@@ -63,6 +64,8 @@ class VideoInputController : public BaseController
 		bool rectHitTest(ofRectangle rect1,ofRectangle rect2);
 		void colorInImage(ofxCvGrayscaleImage * image, int color, ofRectangle rect);
 		void colorDiff(ofxCvGrayscaleImage * diffImg, ofxCvColorImage * img1, ofxCvColorImage * img2);
+		bool rectsAreTouching(ofRectangle rect1,ofRectangle rect2, int tolerance);
+	
 };
 
 #endif

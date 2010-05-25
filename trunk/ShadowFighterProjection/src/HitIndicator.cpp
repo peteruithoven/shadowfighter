@@ -18,7 +18,7 @@ HitIndicator::HitIndicator()
 	hitImg.loadImage("images/hit.png");
 	hitOrgW = hitImg.getWidth();
 	hitOrgH = hitImg.getHeight();
-	hitScale = 0.3;
+	hitScale = 0.4;
 }
 void HitIndicator::start()
 {
@@ -55,7 +55,7 @@ void HitIndicator::draw()
 		width += 8;
 		alpha -= alphaChange;
 		bangImgY -= 2;
-		hitScale += 0.02;
+		hitScale += 0.05;
 		if(alpha < 0)
 			running = false;
 	}

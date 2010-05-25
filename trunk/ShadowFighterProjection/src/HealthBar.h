@@ -16,6 +16,9 @@ class HealthBar : public DisplayObject
 {
 	public:
 		float percentage;
+		ofImage bgImg;
+		ofImage barImgOrg;
+		
 		HealthBar();
 		void draw();
 	

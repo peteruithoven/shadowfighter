@@ -15,11 +15,12 @@ int Model::CLIP5_DEMO = 2;
 int Model::CLIP6_DEMO = 3;
 int Model::BLOCK_FIGHT_DEMO = 4;
 int Model::BLOCK_EXPERIMENTS_DEMO = 5;
+int Model::FIGHT2_DEMO = 6;
 
 Model::Model()
 {
 	cout << "Model::Model\n";
-	pixelsSource			= BLOCK_EXPERIMENTS_DEMO;
+	pixelsSource			= FIGHT2_DEMO;
 	videoW					= 640;
 	videoH					= 480;
 	
@@ -70,7 +71,7 @@ Model::Model()
 	// game logic
 	gamePaused				= false;
 	startHealth				= 100;
-	hitDamage				= 3; //3; //7;//3;
+	hitDamage				= 3; //7;//3;
 	
 	// debugging
 	debug					= true;
@@ -97,6 +98,10 @@ void Model::resetGame()
 	player1Health			= startHealth;
 	player2Health			= startHealth;	
 	winner					= 0;
+	player1.body			= NULL;
+	player2.body			= NULL;
+	player1.block			= NULL;
+	player2.block			= NULL;
 	
 	// debugging
 	possibleAttacksCounter	= 0;
@@ -143,10 +148,10 @@ void Model::loadData()
 //			counter++;
 //		}
 //	}
-//	
+//	
 //	ofImage imgSaver = *new ofImage();
 //	imgSaver.setFromPixels(grayPixels, videoW, videoH, OF_IMAGE_GRAYSCALE, false);
-//	imgSaver.saveImage("blob.png");
+//	imgSaver.saveImage(backgroundImageURL);
 	
 	grayEmptyImg->setFromPixels(imgLoader->getPixels(), videoW,videoH);
 	grayEmptyCopyImg->setFromPixels(imgLoader->getPixels(), videoW,videoH);
@@ -178,10 +183,21 @@ void Model::parseXML()
 	detectionZone.width		=  xml.getValue("detectionZoneWidth", 1);	
 	detectionZone.height	=  xml.getValue("detectionZoneHeight", 1);	
 	
-	hitDetectionZone.x		=  xml.getValue("hitDetectionZoneX", 1);	
-	hitDetectionZone.y		=  xml.getValue("hitDetectionZoneY", 1);	
-	hitDetectionZone.width	=  xml.getValue("hitDetectionZoneWidth", 1);	
-	hitDetectionZone.height	=  xml.getValue("hitDetectionZoneHeight", 1);	
+	hitDetectionZone.x		=  xml.getValue("hitDetectionZoneX", 1);
+	hitDetectionZone.y		=  xml.getValue("hitDetectionZoneY", 1);
+	hitDetectionZone.width	=  xml.getValue("hitDetectionZoneWidth", 1);
+	hitDetectionZone.height	=  xml.getValue("hitDetectionZoneHeight", 1);
+	
+	player1.area = new ofRectangle();
+	player2.area = new ofRectangle();
+	player1.area->width = player2.area->width = 175;
+	player1.area->height = player2.area->height = 330;
+	player1.area->y = player2.area->y = 50;
+	player1.area->x = centerX-player1.area->width;
+	player2.area->x = centerX;
+	
+//	detectionZone.x			=  0;	
+//	detectionZone.width		=  videoW;
 	
 	if(pixelsSource == CLIP1_DEMO)
 	{
@@ -224,7 +240,8 @@ void Model::parseXML()
 		centerX = 270;
 		detectionZone.x = centerX-detectionZone.width/2;
 		hitDetectionZone.x = centerX-hitDetectionZone.width/2;
-		detectionZone.y = hitDetectionZone.y = 60;
+		detectionZone.y = hitDetectionZone.y = 70;
+		detectionZone.height = hitDetectionZone.height -= 10;
 	}
 	else if(pixelsSource == BLOCK_EXPERIMENTS_DEMO)
 	{
@@ -236,6 +253,18 @@ void Model::parseXML()
 		detectionZone.x = centerX-detectionZone.width/2;
 		hitDetectionZone.x = centerX-hitDetectionZone.width/2;
 		detectionZone.y = hitDetectionZone.y = 60;
+	}
+	else if(pixelsSource == FIGHT2_DEMO)
+	{
+		threshold = 22;
+		hitThreshold = 37;
+		backgroundImageURL = "empty fight2.png";
+		movieURL = "movies/fight2.mov";
+		centerX = 270+53;
+		detectionZone.x = centerX-detectionZone.width/2;
+		hitDetectionZone.x = centerX-hitDetectionZone.width/2;
+		detectionZone.y = hitDetectionZone.y = 55;
+		maxNumHitBlobs = 10;
 	}
 	else 
 	{
@@ -265,21 +294,21 @@ void Model::parseXML()
 void Model::storeValues()
 {	
 	cout << "Model::storeValues\n";
-	if(pixelsSource == CAMERA)
-	{
-		xml.setValue("backgroundImage", backgroundImageURL);
-		xml.setValue("threshold", threshold);
-		xml.setValue("hitThreshold", hitThreshold);
-		
-		xml.setValue("detectionZoneX", detectionZone.x);
-		xml.setValue("detectionZoneY", detectionZone.y);
-		xml.setValue("detectionZoneWidth", detectionZone.width);
-		xml.setValue("detectionZoneHeight", detectionZone.height);
-		xml.setValue("hitDetectionZoneX", hitDetectionZone.x);
-		xml.setValue("hitDetectionZoneY", hitDetectionZone.y);
-		xml.setValue("hitDetectionZoneWidth", hitDetectionZone.width);
-		xml.setValue("hitDetectionZoneHeight", hitDetectionZone.height);
-	}
+	if(pixelsSource != CAMERA) return;
+
+	xml.setValue("backgroundImage", backgroundImageURL);
+	xml.setValue("threshold", threshold);
+	xml.setValue("hitThreshold", hitThreshold);
+	
+	xml.setValue("detectionZoneX", detectionZone.x);
+	xml.setValue("detectionZoneY", detectionZone.y);
+	xml.setValue("detectionZoneWidth", detectionZone.width);
+	xml.setValue("detectionZoneHeight", detectionZone.height);
+	xml.setValue("hitDetectionZoneX", hitDetectionZone.x);
+	xml.setValue("hitDetectionZoneY", hitDetectionZone.y);
+	xml.setValue("hitDetectionZoneWidth", hitDetectionZone.width);
+	xml.setValue("hitDetectionZoneHeight", hitDetectionZone.height);
+	
 	xml.setValue("minBlobArea", minBlobArea);
 	xml.setValue("maxBlobArea", maxBlobArea);
 	xml.setValue("minHitBlobArea", minHitBlobArea);
@@ -292,15 +321,12 @@ void Model::storeValues()
 	
 	xml.saveFile("config.xml");
 }
+
 void Model::start()
 {
 	cout << "Model::start\n";
 	ofAddListener(ofEvents.update, this, &Model::update);
 }
-
-
-
-
 void Model::learnBackground()
 {
 	cout << "Model::learnBackground\n";
@@ -348,6 +374,14 @@ void Model::hit(int type, int area, int victim)
 		setState(STATE_GAME_FINISHED);
 	}
 }
+void Model::block(int type, int area, int victim)
+{
+	cout << "Model::block:\n";
+	if(gamePaused) return;
+	
+	soundController.PlayBlockSound(victim);
+}
+
 void Model::setState(int newValue)
 {
 	cout << "Model::setState:" << newValue << "\n";
@@ -380,6 +414,7 @@ void Model::setState(int newValue)
 		soundController.Reset();
 	}
 	
+	cout << "  notifyEvent(STATE_CHANGE\n";
 	int emptyArg = 0;
 	ofNotifyEvent(STATE_CHANGE,emptyArg,this);
 }
@@ -439,12 +474,34 @@ void Model::checkPlayers()
 		countDownTimer.reset();
 	}
 }
+void Model::checkPlayersPositions()
+{
+	//cout << "Model::checkPlayersPositions\n";
+	
+	if(player1.body == NULL || player2.body == NULL)
+	{
+		soundController.stopToFarWarning();
+	}
+	else 
+	{
+		int player1FrontX = player1.body->x+player1.body->width;
+		int player2FrontX = player2.body->x;
+		
+		if(player1FrontX > centerX) 
+			soundController.startToFarWarning();
+		else if(player2FrontX < centerX) 
+			soundController.startToFarWarning();		
+		else
+			soundController.stopToFarWarning();
+	}
+}
+
 
 void Model::update(ofEventArgs & args)
 { 
 	if(state == STATE_GAME)
 	{
-		//soundController.PlayBGSound(player1Health,player2Health,startHealth);
+		soundController.PlayBGSound(player1Health,player2Health,startHealth);
 	}
 }
 void Model::onCountDownTick(int  & count)

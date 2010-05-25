@@ -18,6 +18,9 @@
 #include <vector>
 #include <iostream>
 #include "Constants.h"
+#include "ofxThreadedImageSaver.h"
+
+
 
 class VideoInputController : public BaseController
 {
@@ -29,7 +32,8 @@ class VideoInputController : public BaseController
 	protected:
 		ofTrueTypeFont		font;
         ofxCvContourFinder	contourFinder;	
-		ofxCvContourFinder	hitContourFinder;	
+		ofxCvContourFinder	hitContourFinder;
+		ofxThreadedImageSaver	imageSaver;
 	
 		void analyze(unsigned char * pixels);
 		void storeBackgroundImage(unsigned char * pixels);
@@ -38,16 +42,17 @@ class VideoInputController : public BaseController
 		void findHitBlobs();
 		void findShadowBlobs();
 		void storeShadowBlobs();
-		void analyzeShadowsForBlocks();
+		void analyzeShadows();
 		void analyseHitBlobsSimple(unsigned char * colorPixels);
 		void analyzeShadowsForPlayers();
 		void analyseHitBlobs();
 		bool hitIsUnique(ofRectangle blobRect);
-		bool hitsBody(ofRectangle hitBlobRect);
+		bool hitsBodyPixels(ofRectangle hitBlobRect);
 		bool isCorrectColor(ofRectangle hitBlobRect, unsigned char * colorPixels);
 		void storeHistory();
 		void storeBlobHistory();
-		
+		bool isBlocked(ofRectangle hitBlobRect,vector<ofRectangle*> blocks);
+
 		// debug
 		void drawBlobsHistory();
 		void drawHitText(string text);
@@ -64,8 +69,8 @@ class VideoInputController : public BaseController
 		bool rectHitTest(ofRectangle rect1,ofRectangle rect2);
 		void colorInImage(ofxCvGrayscaleImage * image, int color, ofRectangle rect);
 		void colorDiff(ofxCvGrayscaleImage * diffImg, ofxCvColorImage * img1, ofxCvColorImage * img2);
-		bool rectsAreTouching(ofRectangle rect1,ofRectangle rect2, int tolerance);
-	
+		ofRectangle * mergeRectangles(ofRectangle *rect1, ofRectangle *rect2);
+		bool rectIsInside(ofRectangle *smallRect, ofRectangle *bigRect, bool completelyInside);
 };
 
 #endif

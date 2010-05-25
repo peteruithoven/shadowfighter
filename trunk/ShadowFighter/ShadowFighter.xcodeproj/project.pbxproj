@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D042306B119831F00062DA6E /* SoundController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0423069119831F00062DA6E /* SoundController.cpp */; };
+		D0347B7211A80BA200BED09E /* ofxThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0347B7011A80BA200BED09E /* ofxThread.cpp */; };
 		D05086DF1174B0DF00DA5FDE /* libcv.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D050869D1174B0DF00DA5FDE /* libcv.a */; };
 		D05086E01174B0DF00DA5FDE /* libcvaux.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D050869E1174B0DF00DA5FDE /* libcvaux.a */; };
 		D05086E11174B0DF00DA5FDE /* libcxcore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D050869F1174B0DF00DA5FDE /* libcxcore.a */; };
@@ -65,6 +65,8 @@
 		D0815C7C11775E4100DFE2D4 /* VisualFeedbackView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0815C7A11775E4100DFE2D4 /* VisualFeedbackView.cpp */; };
 		D0815CA21177682A00DFE2D4 /* HitIndicator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0815CA01177682A00DFE2D4 /* HitIndicator.cpp */; };
 		D0815D2B11776DFA00DFE2D4 /* VisualFeedback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0815D2911776DFA00DFE2D4 /* VisualFeedback.cpp */; };
+		D0A077AC11A5B9AB00DA5663 /* PlayerVO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A077AB11A5B9AB00DA5663 /* PlayerVO.cpp */; };
+		D0B8760C11A191A300F6E4BA /* SoundController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B8760A11A191A300F6E4BA /* SoundController.cpp */; };
 		D0CB78EF1178C99B006933F8 /* ProjectionView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */; };
 		D0CB78F51178CA8C006933F8 /* Projection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0CB78F31178CA8C006933F8 /* Projection.cpp */; };
 		D0CB79281178CBBF006933F8 /* liboscpack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CB79131178CBBF006933F8 /* liboscpack.a */; };
@@ -146,8 +148,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		D0423069119831F00062DA6E /* SoundController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SoundController.cpp; path = /Users/Peter/Downloads/sounds/SoundController.cpp; sourceTree = "<absolute>"; };
-		D042306A119831F00062DA6E /* SoundController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundController.h; path = /Users/Peter/Downloads/sounds/SoundController.h; sourceTree = "<absolute>"; };
+		D0347B5711A80A7100BED09E /* ofxThreadedImageSaver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxThreadedImageSaver.h; path = openFrameworks/apps/projects/ShadowFighter/src/utils/ofxThreadedImageSaver.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		D0347B7011A80BA200BED09E /* ofxThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofxThread.cpp; path = openFrameworks/addons/ofxThread/src/ofxThread.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		D0347B7111A80BA200BED09E /* ofxThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxThread.h; path = openFrameworks/addons/ofxThread/src/ofxThread.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		D050868B1174B0DF00DA5FDE /* cv.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cv.h; path = ../../openFrameworks/addons/ofxOpenCv/libs/opencv/include/cv.h; sourceTree = SDKROOT; };
 		D050868C1174B0DF00DA5FDE /* cv.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = cv.hpp; path = ../../openFrameworks/addons/ofxOpenCv/libs/opencv/include/cv.hpp; sourceTree = SDKROOT; };
 		D050868D1174B0DF00DA5FDE /* cvaux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cvaux.h; path = ../../openFrameworks/addons/ofxOpenCv/libs/opencv/include/cvaux.h; sourceTree = SDKROOT; };
@@ -288,6 +291,10 @@
 		D0815CA11177682A00DFE2D4 /* HitIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HitIndicator.h; path = openFrameworks/apps/projects/ShadowFighter/src/view/components/HitIndicator.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		D0815D2911776DFA00DFE2D4 /* VisualFeedback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VisualFeedback.cpp; path = openFrameworks/apps/projects/ShadowFighter/src/view/components/VisualFeedback.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		D0815D2A11776DFA00DFE2D4 /* VisualFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VisualFeedback.h; path = openFrameworks/apps/projects/ShadowFighter/src/view/components/VisualFeedback.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		D0A077AA11A5B9AB00DA5663 /* PlayerVO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayerVO.h; path = openFrameworks/apps/projects/ShadowFighter/src/model/PlayerVO.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		D0A077AB11A5B9AB00DA5663 /* PlayerVO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlayerVO.cpp; path = openFrameworks/apps/projects/ShadowFighter/src/model/PlayerVO.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		D0B8760A11A191A300F6E4BA /* SoundController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SoundController.cpp; path = openFrameworks/apps/projects/ShadowFighter/src/model/SoundController.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		D0B8760B11A191A300F6E4BA /* SoundController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SoundController.h; path = openFrameworks/apps/projects/ShadowFighter/src/model/SoundController.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		D0CB78ED1178C99B006933F8 /* ProjectionView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ProjectionView.cpp; path = ../../openFrameworks/apps/projects/ShadowFighter/src/view/ProjectionView.cpp; sourceTree = SDKROOT; };
 		D0CB78EE1178C99B006933F8 /* ProjectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProjectionView.h; path = ../../openFrameworks/apps/projects/ShadowFighter/src/view/ProjectionView.h; sourceTree = SDKROOT; };
 		D0CB78F31178CA8C006933F8 /* Projection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Projection.cpp; path = ../../openFrameworks/apps/projects/ShadowFighter/src/view/components/Projection.cpp; sourceTree = SDKROOT; };
@@ -417,9 +424,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D0347B6B11A80BA200BED09E /* ofxThread */ = {
+			isa = PBXGroup;
+			children = (
+				D0347B6F11A80BA200BED09E /* src */,
+			);
+			name = ofxThread;
+			path = openFrameworks/addons/ofxThread;
+			sourceTree = SYSTEM_DEVELOPER_DIR;
+		};
+		D0347B6F11A80BA200BED09E /* src */ = {
+			isa = PBXGroup;
+			children = (
+				D0347B7011A80BA200BED09E /* ofxThread.cpp */,
+				D0347B7111A80BA200BED09E /* ofxThread.h */,
+			);
+			name = src;
+			path = openFrameworks/addons/ofxThread/src;
+			sourceTree = SYSTEM_DEVELOPER_DIR;
+		};
 		D050867F1174B0A200DA5FDE /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				D0347B6B11A80BA200BED09E /* ofxThread */,
 				D0CB78FD1178CBBF006933F8 /* ofxOsc */,
 				D05088A91174DF5A00DA5FDE /* ofxMSAInteractiveObject */,
 				D05086FC1174B1BA00DA5FDE /* ofxSimpleGuiToo */,
@@ -708,8 +735,10 @@
 				D06732E011806AFB006B0C1F /* Blob.h */,
 				D05088741174DF0C00DA5FDE /* Model.cpp */,
 				D05088751174DF0C00DA5FDE /* Model.h */,
-				D0423069119831F00062DA6E /* SoundController.cpp */,
-				D042306A119831F00062DA6E /* SoundController.h */,
+				D0B8760A11A191A300F6E4BA /* SoundController.cpp */,
+				D0B8760B11A191A300F6E4BA /* SoundController.h */,
+				D0A077AA11A5B9AB00DA5663 /* PlayerVO.h */,
+				D0A077AB11A5B9AB00DA5663 /* PlayerVO.cpp */,
 			);
 			name = model;
 			path = src/model;
@@ -723,6 +752,7 @@
 				D050887B1174DF0C00DA5FDE /* mvc */,
 				D05088801174DF0C00DA5FDE /* Timer.cpp */,
 				D05088811174DF0C00DA5FDE /* Timer.h */,
+				D0347B5711A80A7100BED09E /* ofxThreadedImageSaver.h */,
 			);
 			name = utils;
 			path = src/utils;
@@ -749,9 +779,9 @@
 				D050888D1174DF0C00DA5FDE /* MainView.h */,
 				D050888E1174DF0C00DA5FDE /* SettingsView.cpp */,
 				D050888F1174DF0C00DA5FDE /* SettingsView.h */,
-				D05088901174DF0C00DA5FDE /* VideoInputView.cpp */,
 				D0694B1B117541660023D731 /* KeyboardView.cpp */,
 				D0694B1C117541660023D731 /* KeyboardView.h */,
+				D05088901174DF0C00DA5FDE /* VideoInputView.cpp */,
 				D05088911174DF0C00DA5FDE /* VideoInputView.h */,
 				D0815C7A11775E4100DFE2D4 /* VisualFeedbackView.cpp */,
 				D0815C7B11775E4100DFE2D4 /* VisualFeedbackView.h */,
@@ -1364,7 +1394,9 @@
 				D06732E111806AFB006B0C1F /* Blob.cpp in Sources */,
 				D0650575118395DB00FF75CD /* GameInfoView.cpp in Sources */,
 				D06505791183969500FF75CD /* HealthBar.cpp in Sources */,
-				D042306B119831F00062DA6E /* SoundController.cpp in Sources */,
+				D0B8760C11A191A300F6E4BA /* SoundController.cpp in Sources */,
+				D0A077AC11A5B9AB00DA5663 /* PlayerVO.cpp in Sources */,
+				D0347B7211A80BA200BED09E /* ofxThread.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,6 +18,7 @@
 #include "Blob.h"
 #include "Constants.h"
 #include "SoundController.h"
+#include "PlayerVO.h"
 
 class Model
 {
@@ -29,6 +30,7 @@ class Model
 		static int			CLIP6_DEMO;
 		static int			BLOCK_FIGHT_DEMO;
 		static int			BLOCK_EXPERIMENTS_DEMO;
+		static int			FIGHT2_DEMO;
 	
 		ofxXmlSettings		xml;
 		int					videoW;
@@ -73,10 +75,11 @@ class Model
 		ofxCvGrayscaleImage* grayHitDiffImg;
 		ofImage*			imgLoader;
 		
-		vector<ofxCvBlob*>*	prevHitBlobs;
+		vector<ofxCvBlob*>*			prevHitBlobs;
 		vector<Blob*> *				currentBlobs; //TODO remove
 		vector< vector<Blob*>* >*	blobsHistory;
-		
+		vector<ofRectangle*>		bodies;
+		vector<ofRectangle*>		blocks;
 		int					maxBlobsHistoryLength;
 		
 		// game logic
@@ -86,7 +89,9 @@ class Model
 		int					player2Health;
 		int					hitDamage;
 		int					winner;
-	
+		PlayerVO			player1;
+		PlayerVO			player2;
+		
 		// debugging
 		bool				debug;
 		bool				debugDetection;
@@ -115,7 +120,10 @@ class Model
 		void setDetectedPlayer1(bool newValue);
 		void setDetectedPlayer2(bool newValue);
 		void checkPlayers();
+		void checkPlayersPositions();
 		void hit(int type, int area, int victim);
+		void block(int type, int area, int victim);
+
 		
 		ofEvent< int > DATA_LOADED;
 		ofEvent< int > VALUES_UPDATED;

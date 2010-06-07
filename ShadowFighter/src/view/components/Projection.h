@@ -13,6 +13,8 @@
 #include "ofxOsc.h"
 #include "DisplayObject.h"
 #include "Model.h"
+#include "HitVO.h"
+#include "BlockVO.h"
 
 
 class Projection : public DisplayObject 
@@ -23,7 +25,9 @@ class Projection : public DisplayObject
 		Model * model;
 		
 		Projection();
-		void addHit(int x,int y);
+		void addHit(HitVO hitVO);
+		void addBlock(BlockVO blockVO);
+		void addBlocking(BlockVO blockVO);
 		void updateHealth(float player1Health,float player2Health);
 		void updateState(int state);
 		void updateWinner(int winner);

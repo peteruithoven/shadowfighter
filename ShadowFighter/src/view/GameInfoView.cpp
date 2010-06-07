@@ -31,7 +31,7 @@ void GameInfoView::setModel(Model * model)
 	
 	update();
 }
-void GameInfoView::onHit(int & arg)
+void GameInfoView::onHit(HitVO & hitVO)
 {
 	cout << "GameInfoView::onHit\n";
 	update();

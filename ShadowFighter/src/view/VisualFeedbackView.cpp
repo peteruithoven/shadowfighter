@@ -20,9 +20,10 @@ void VisualFeedbackView::setModel(Model * model)
 	this->model = model;
 	ofAddListener(model->HIT,this,&VisualFeedbackView::onHit);
 }
-void VisualFeedbackView::onHit(int & arg)
+void VisualFeedbackView::onHit(HitVO & hitVO)
 {
-	int x = model->hitRect->x+model->hitRect->width/2;
-	int y = model->hitRect->y+model->hitRect->height/2;
+	ofRectangle bounds = hitVO.bounds;
+	int x = bounds.x+bounds.width/2;
+	int y = bounds.y+bounds.height/2;
 	visualFeedback.addHit(x, y);
 }

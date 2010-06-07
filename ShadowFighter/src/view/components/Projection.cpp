@@ -16,19 +16,46 @@
 #define STATE			4
 #define PLAYERS_UPDATE	5
 #define COUNT_DOWN		6
+#define BLOCK			7
+#define BLOCKING		8
 
 Projection::Projection()
 {
 	sender.setup( HOST, PORT );
 	ofAddListener(ofEvents.update, this, &Projection::update);
 }
-void Projection::addHit(int x,int y)
+void Projection::addHit(HitVO hitVO)
 {
 	//cout << "Projection::addHit: "<<x<<"x"<<y<<"\n";
 	ofxOscMessage * message = new ofxOscMessage();
 	message->setAddress(ofToString(HIT_ADDRESS));
-	message->addIntArg(x);
-	message->addIntArg(y);
+	message->addIntArg(hitVO.bounds.x);
+	message->addIntArg(hitVO.bounds.y);
+	message->addIntArg(hitVO.bounds.width);
+	message->addIntArg(hitVO.bounds.height);
+	message->addIntArg(hitVO.type);
+	messagesBundle.addMessage(*message);
+}
+void Projection::addBlock(BlockVO blockVO)
+{
+	ofxOscMessage * message = new ofxOscMessage();
+	message->setAddress(ofToString(BLOCK));
+	message->addIntArg(blockVO.bounds.x);
+	message->addIntArg(blockVO.bounds.y);
+	message->addIntArg(blockVO.bounds.width);
+	message->addIntArg(blockVO.bounds.height);
+	message->addIntArg(blockVO.victim);
+	messagesBundle.addMessage(*message);
+}
+void Projection::addBlocking(BlockVO blockVO)
+{
+	ofxOscMessage * message = new ofxOscMessage();
+	message->setAddress(ofToString(BLOCKING));
+	message->addIntArg(blockVO.bounds.x);
+	message->addIntArg(blockVO.bounds.y);
+	message->addIntArg(blockVO.bounds.width);
+	message->addIntArg(blockVO.bounds.height);
+	message->addIntArg(blockVO.victim);
 	messagesBundle.addMessage(*message);
 }
 void Projection::updateHealth(float player1Health,float player2Health)

@@ -36,6 +36,7 @@ void VideoInputView::onDataLoaded(int & nothing)
 	cout << "  useCamera: " << useCamera << "\n";
 	
 	videoInput.slowMotion = model->slowMotion;
+	videoInput.videoPosition = model->videoPosition;
 	videoInput.init(useCamera,model->movieURL);
 }
 void VideoInputView::onVideoPause(int & nothing)

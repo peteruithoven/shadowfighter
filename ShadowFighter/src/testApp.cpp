@@ -8,14 +8,77 @@ void testApp::setup(){
 	ofBackground(0,0,0);
 	
 	model;
-	projectionView.setModel(&model);
-	mainView.setModel(&model);
-	videoInputView.setModel(&model);
-	displayView.setModel(&model);
-	//settingsView.setModel(&model);
-	keyboardView.setModel(&model);
-	visualFeedbackView.setModel(&model);
-	gameInfoView.setModel(&model);
+	
+	try
+	{
+		projectionView.setModel(&model);
+	}
+	catch(Poco::Exception& e)
+	{
+		std::string what = e.displayText();
+		printf("EXCEPTION: projectionView: %s\n", what.c_str());
+	}
+	try
+	{
+		mainView.setModel(&model);
+	}
+	catch(Poco::Exception& e)
+	{
+		std::string what = e.displayText();
+		printf("EXCEPTION: mainView: %s\n", what.c_str());
+	}
+	
+	try
+	{
+		videoInputView.setModel(&model);
+	}
+	catch(Poco::Exception& e)
+	{
+		std::string what = e.displayText();
+		printf("EXCEPTION: videoInputView: %s\n", what.c_str());
+	}
+	
+	try
+	{
+		displayView.setModel(&model);
+		//settingsView.setModel(&model);
+	}
+	catch(Poco::Exception& e)
+	{
+		std::string what = e.displayText();
+		printf("EXCEPTION: displayView: %s\n", what.c_str());
+	}
+	
+	try
+	{
+		keyboardView.setModel(&model);
+	}
+	catch(Poco::Exception& e)
+	{
+		std::string what = e.displayText();
+		printf("EXCEPTION: keyboardView: %s\n", what.c_str());
+	}
+	
+	try
+	{
+		visualFeedbackView.setModel(&model);
+	}
+	catch(Poco::Exception& e)
+	{
+		std::string what = e.displayText();
+		printf("EXCEPTION: visualFeedbackView: %s\n", what.c_str());
+	}
+	
+	try
+	{
+		gameInfoView.setModel(&model);
+	}
+	catch(Poco::Exception& e)
+	{
+		std::string what = e.displayText();
+		printf("EXCEPTION: gameInfoView: %s\n", what.c_str());
+	}
+	
 	model.loadData();
 	model.start();
 	

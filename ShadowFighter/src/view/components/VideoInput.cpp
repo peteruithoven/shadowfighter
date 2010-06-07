@@ -49,7 +49,7 @@ void VideoInput::start()
 		videoPlayer.setSpeed(0.2);
 	videoPlayer.setVolume(0);
 	videoPlayer.play();
-	//videoPlayer.setPosition(0.12);
+	videoPlayer.setPosition(videoPosition);
 }
 void VideoInput::stop()
 {

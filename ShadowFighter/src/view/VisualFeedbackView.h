@@ -10,7 +10,7 @@
 #ifndef _VisualFeedbackView
 #define _VisualFeedbackView
 
-#include <ofUtils.h>
+#include "ofMain.h"
 #include "Settings.h"
 #include "BaseView.h"
 #include "VisualFeedback.h"
@@ -25,7 +25,7 @@ class VisualFeedbackView : public BaseView
 	
 	protected:
 		VisualFeedback visualFeedback;
-		void onHit(int & arg);
+		void onHit(HitVO & hitVO);
 };
 
 #endif

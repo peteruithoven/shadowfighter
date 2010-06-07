@@ -14,6 +14,7 @@
 #include "projection.h"
 #include "BaseView.h"
 
+
 class ProjectionView : public BaseView
 {
 
@@ -24,7 +25,9 @@ class ProjectionView : public BaseView
 	
 	protected:
 		Projection projection;
-		void onHit(int & arg);
+		void onHit(HitVO & hitVO);
+		void onBlock(BlockVO & blockVO);
+		void onBlocking(BlockVO & blockVO);
 		void onReset(int & arg);
 		void onStateChange(int & arg);
 		void onPlayersChanged(int & arg);

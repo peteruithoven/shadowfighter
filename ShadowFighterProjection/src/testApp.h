@@ -3,6 +3,8 @@
 
 #include "ofMain.h"
 #include "HitIndicator.h"
+#include "BlockIndicator.h"
+#include "BlockingIndicator.h"
 #include "ofxOsc.h"
 #include "ofxXmlSettings.h"
 #include "HealthBar.h"
@@ -53,11 +55,13 @@ class testApp : public ofBaseApp{
 		HealthBar				healthBarPlayer1;
 		HealthBar				healthBarPlayer2;
 		ofImage					img;
-		vector<DisplayObject*>	children;
+		DisplayObjectContainer	effects;
 		vector<ofRectangle*>	boundingBoxes;
 		ofxXmlSettings			xml;
 	
-		void addHit(float hitX,float hitY);
+		void addHit(float hitX,float hitY, float hitW, float HitH, int hitType);
+		void addBlock(float blockX,float blockY, float blockW, float blockH, float blockVictim);
+		void showBlocking(float blockingX,float blockingY, float blockingW, float blockingH, int blockingVictim);
 	
 		bool ofKeyAlt() {
 			return (glutGetModifiers() & GLUT_ACTIVE_ALT);

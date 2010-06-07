@@ -9,6 +9,8 @@
 #define STATE			4
 #define PLAYERS_UPDATE	5
 #define COUNT_DOWN		6
+#define BLOCK			7
+#define BLOCKING		8
 
 //--------------------------------------------------------------
 void testApp::setup()
@@ -24,22 +26,23 @@ void testApp::setup()
 	state				= -1;
 	detectedPlayer1		= false;
 	detectedPlayer2		= false;
+	
 	ofSetFrameRate(31);
 	ofBackground(0,0,0);
 	ofSetCircleResolution(100);
 	
-	children = *new vector<DisplayObject*>;
-	
 	int marginX = (screenW-healthBarPlayer1.width-healthBarPlayer2.width)/3;
 	healthBarPlayer1.x = marginX;
 	healthBarPlayer2.x = screenW-healthBarPlayer2.width-marginX;
-	healthBarPlayer1.y = healthBarPlayer2.y = 10;
-	
+	healthBarPlayer1.y = healthBarPlayer2.y = 20;
+	healthBarPlayer1.mirrorX = false;
+	healthBarPlayer2.mirrorX = true;
 	loadData();
 	
 	setState(STATE_DEMO);
 	
 	receiver.setup(PORT);
+	
 }
 
 void testApp::loadData()
@@ -51,6 +54,7 @@ void testApp::loadData()
 	}
 	parseXML();
 	storeValues();
+	
 }
 void testApp::parseXML()
 {
@@ -77,17 +81,48 @@ void testApp::storeValues()
 }
 
 
-void testApp::addHit(float hitX,float hitY)
+void testApp::addHit(float hitX,float hitY, float hitW, float HitH, int hitType)
 {
-	HitIndicator *hitIndicator = new HitIndicator();
+	hitX = hitX+hitW/2;
+	hitY = hitY+HitH/2;
+	
+	HitIndicator *hitIndicator = new HitIndicator(hitType);
 	hitIndicator->x = hitX/videoW*screenW*scale+x;
 	hitIndicator->y = hitY/videoH*screenH*scale+y;
 	hitIndicator->scale = scale;
 	hitIndicator->alpha = alpha;
-	hitIndicator->start();
-	children.push_back(hitIndicator);
+	effects.addChild(hitIndicator);
 }
-
+void testApp::addBlock(float blockX,float blockY, float blockW, float blockH, float blockVictim)
+{
+	blockX = blockX+blockW/2;
+	blockY = blockY+blockH/2;
+	
+	BlockIndicator *blockIndicator = new BlockIndicator();
+	blockIndicator->x = blockX/videoW*screenW*scale+x;
+	blockIndicator->y = blockY/videoH*screenH*scale+y;
+	blockIndicator->height = blockH;
+	blockIndicator->scale = scale;
+	blockIndicator->alpha = alpha;
+	blockIndicator->mirrorX = (blockVictim == 2);
+	blockIndicator->start();
+	effects.addChild(blockIndicator);
+}
+void testApp::showBlocking(float blockingX,float blockingY, float blockingW, float blockingH, int blockingVictim)
+{
+	blockingX = blockingX+blockingW/2;
+	blockingY = blockingY+blockingH/2;
+	
+	BlockingIndicator *blockingIndicator = new BlockingIndicator();
+	blockingIndicator->x = blockingX/videoW*screenW*scale+x;
+	blockingIndicator->y = blockingY/videoH*screenH*scale+y;
+	blockingIndicator->height = blockingH;
+	blockingIndicator->scale = scale;
+	blockingIndicator->alpha = alpha;
+	blockingIndicator->mirrorX = (blockingVictim == 2);
+	blockingIndicator->start();
+	effects.addChild(blockingIndicator);	
+}
 
 
 
@@ -105,10 +140,35 @@ void testApp::update()
 			case HIT_ADDRESS:
 				{
 				cout << "HIT_ADDRESS\n";
-				int hitX = m.getArgAsInt32(0);
-				int hitY = m.getArgAsInt32(1);
-				addHit(hitX,hitY);
+				int hitX	= m.getArgAsInt32(0);
+				int hitY	= m.getArgAsInt32(1);
+				int hitW	= m.getArgAsInt32(2);
+				int hitH	= m.getArgAsInt32(3);
+				int hitType = m.getArgAsInt32(4);
+				addHit(hitX,hitY,hitW,hitH,hitType);
 				}
+				break;
+			case BLOCK:
+			{
+				cout << "BLOCK\n";
+				int blockX = m.getArgAsInt32(0);
+				int blockY = m.getArgAsInt32(1);
+				int blockW = m.getArgAsInt32(2);
+				int blockH = m.getArgAsInt32(3);
+				int blockVictim = m.getArgAsInt32(4);
+				addBlock(blockX,blockY,blockW,blockH,blockVictim);
+			}
+				break;
+			case BLOCKING:
+			{
+				cout << "BLOCKING\n";
+				int blockX = m.getArgAsInt32(0);
+				int blockY = m.getArgAsInt32(1);
+				int blockW = m.getArgAsInt32(2);
+				int blockH = m.getArgAsInt32(3);
+				int blockVictim = m.getArgAsInt32(4);
+				showBlocking(blockX,blockY,blockW,blockH,blockVictim);
+			}
 				break;
 			case BOUNDING_BOX:
 				if(debug)
@@ -154,13 +214,12 @@ void testApp::update()
 		}
 		m.clear();
 	}
-	for(int i = 0;i<children.size();i++)
+	for(int i = 0;i<effects.size();i++)
 	{
-		DisplayObject* displayObject = children.at(i);
-		HitIndicator* hitIndicator = (HitIndicator*)displayObject;
-		if(!hitIndicator->running)
+		Effect* effect = (Effect*)effects.getChildAt(i);
+		if(!effect->running)
 		{
-			children.erase(children.begin()+i);
+			effects.removeChildAt(i);
 			i--;
 		}
 	}
@@ -220,6 +279,9 @@ void testApp::setState(int state)
 		case STATE_GAME:
 		{
 			cout << "STATE_GAME\n";
+			
+			healthBarPlayer1.percentage = 1;
+			healthBarPlayer2.percentage = 1;
 			
 			Image * bgImg = new Image();
 			bgImg->img.loadImage("images/game.png");
@@ -353,15 +415,15 @@ void testApp::updateCountDown()
 void testApp::draw()
 {
 	ofBackground(0, 0, 0);
+	//ofBackground(125,125,125);
 	
 	if(disableDraw) return;
 	
 	//cout << "testApp::draw\n";
 	//cout << "  state: " << ofToString(state) << "\n";
-	for(int i = 0;i<children.size();i++)
+	for(int i = 0;i<effects.size();i++)
 	{
-		DisplayObject* displayObject = children.at(i);
-		HitIndicator* hitIndicator = (HitIndicator*)displayObject;
+		HitIndicator* hitIndicator = (HitIndicator*)effects.getChildAt(i);
 		hitIndicator->draw();
 	}
 	
@@ -468,12 +530,25 @@ void testApp::keyReleased(int keyCode)
 				lockState = true;
 			}
 			break;
+		case 'q':
+			healthBarPlayer1.percentage -= 0.1;
+			if(healthBarPlayer1.percentage < 0)
+				healthBarPlayer1.percentage = 0;
+			healthBarPlayer2.percentage -= 0.1;
+			if(healthBarPlayer2.percentage < 0)
+				healthBarPlayer2.percentage = 0;
+			break;
+		case 'w':
+			healthBarPlayer1.percentage += 0.01;
+			healthBarPlayer2.percentage += 0.01;
+			break;
+		case OF_KEY_RETURN:
+			setState(STATE_GAME);
+			break;
 	}
 	cout << "x: " << x << " y: " << y << " scale: " << scale << "\n";
 	storeValues();
 }
-
-
 
 //--------------------------------------------------------------
 void testApp::mouseMoved(int x, int y )
@@ -490,7 +565,7 @@ void testApp::mouseDragged(int x, int y, int button)
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button)
 {
-
+	addHit(x,y,10,10,HIT_HEAD);
 }
 
 //--------------------------------------------------------------

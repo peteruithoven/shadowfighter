@@ -16,6 +16,7 @@ class HealthBar : public DisplayObject
 {
 	public:
 		float percentage;
+		bool mirrorX;
 		ofImage bgImg;
 		ofImage barImgOrg;
 		

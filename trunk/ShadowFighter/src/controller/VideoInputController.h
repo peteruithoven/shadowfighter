@@ -19,7 +19,8 @@
 #include <iostream>
 #include "Constants.h"
 #include "ofxThreadedImageSaver.h"
-
+#include "HitVO.h"
+#include "BlockVO.h"
 
 
 class VideoInputController : public BaseController
@@ -43,6 +44,8 @@ class VideoInputController : public BaseController
 		void findShadowBlobs();
 		void storeShadowBlobs();
 		void analyzeShadows();
+		void addBlock(int x, int y, int width, int height);
+		vector<ofRectangle*> mergeBodies(vector<ofRectangle*>bodies, int maxMergeDis);
 		void analyseHitBlobsSimple(unsigned char * colorPixels);
 		void analyzeShadowsForPlayers();
 		void analyseHitBlobs();
@@ -51,7 +54,8 @@ class VideoInputController : public BaseController
 		bool isCorrectColor(ofRectangle hitBlobRect, unsigned char * colorPixels);
 		void storeHistory();
 		void storeBlobHistory();
-		bool isBlocked(ofRectangle hitBlobRect,vector<ofRectangle*> blocks);
+		void detectPlayers();
+		//bool isBlocked(ofRectangle hitBlobRect,vector<ofRectangle*> blocks);
 
 		// debug
 		void drawBlobsHistory();

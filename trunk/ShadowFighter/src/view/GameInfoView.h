@@ -23,7 +23,7 @@ class GameInfoView : public BaseView
 		void setModel(Model * model);
 	
 	private:
-		void onHit(int & arg);
+		void onHit(HitVO & hitVO);
 		void onReset(int & arg);
 		void update();
 	

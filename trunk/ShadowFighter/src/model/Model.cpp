@@ -15,7 +15,9 @@ int Model::CLIP5_DEMO = 2;
 int Model::CLIP6_DEMO = 3;
 int Model::BLOCK_FIGHT_DEMO = 4;
 int Model::BLOCK_EXPERIMENTS_DEMO = 5;
-int Model::FIGHT2_DEMO = 6;
+int Model::FIGHT2_DEMO =  6;
+int Model::FIGHT3_DEMO = 7;
+
 
 Model::Model()
 {
@@ -33,14 +35,12 @@ Model::Model()
 	maxNumBlobs				= 5;
 	cameraIndex				= 0;
 	clip6EmptyCorrection	= 70;
-	movieURL				= "";
-	
 	simpleHitBlobAnalysis	= true;
 	centerX					= videoW/2;
 	
+	movieURL				= "";
 	detectedPlayer1			= false;
-	detectedPlayer2			= false;
-	
+	detectedPlayer2			= false;	
 	grayImg					= new ofxCvGrayscaleImage();
 	grayEmptyImg			= new ofxCvGrayscaleImage();
 	grayEmptyCopyImg		= new ofxCvGrayscaleImage();
@@ -51,17 +51,14 @@ Model::Model()
 	grayEmptyCopyImg->allocate(videoW,videoH);
 	grayDiffImg->allocate(videoW,videoH);
 	grayHitDiffImg->allocate(videoW,videoH);
-	
 	prevHitBlobs			= new vector<ofxCvBlob*>;
 	currentBlobs			= new vector<Blob*>;
 	blobsHistory			= new vector< vector<Blob*>* >;
 	prevGrayDiffImg			= new ofxCvGrayscaleImage();
 	prevGrayDiffImg->allocate(videoW, videoH);
-		
-	hitRect					= new ofRectangle();
 	
-	countDownTimer.setInterval(700);
-	countDownTimer.setRepeatCount(5);
+	countDownTimer.setInterval(1500); //1500//1200//700
+	countDownTimer.setRepeatCount(3); //5
 	ofAddListener(countDownTimer.TICK,this,&Model::onCountDownTick);
 	
 	finishTimer.setInterval(5000);
@@ -70,8 +67,18 @@ Model::Model()
 	
 	// game logic
 	gamePaused				= false;
-	startHealth				= 100;
-	hitDamage				= 3; //7;//3;
+	startHealth				= 200;
+	//hitDamage				= 3; //7;//3;
+	//powerHitDamage			= 10;
+	HitTypeVO *hitTypeVO;
+	hitTypeVO = new HitTypeVO(HIT_HEAD,0.2,8);
+	hitTypes.push_back(hitTypeVO);
+	hitTypeVO = new HitTypeVO(HIT_BODY,(0.2+0.47),5);
+	hitTypes.push_back(hitTypeVO);
+	hitTypeVO = new HitTypeVO(HIT_LEGS,1,3);
+	hitTypes.push_back(hitTypeVO);
+	hitTypeVO = new HitTypeVO(HIT_POWER,0,13);
+	hitTypes.push_back(hitTypeVO);
 	
 	// debugging
 	debug					= true;
@@ -83,6 +90,7 @@ Model::Model()
 	hitsTextY				= 0;
 	attacksTextY			= 0;
 	lineHeight				= 20;
+	videoPosition			= 0;
 	
 	resetGame();
 	
@@ -99,9 +107,13 @@ void Model::resetGame()
 	player2Health			= startHealth;	
 	winner					= 0;
 	player1.body			= NULL;
-	player2.body			= NULL;
 	player1.block			= NULL;
+	player1.powerHit		= false;
+	player2.body			= NULL;
 	player2.block			= NULL;
+	player2.powerHit		= false;
+	
+	gamePaused				= true;
 	
 	// debugging
 	possibleAttacksCounter	= 0;
@@ -148,7 +160,7 @@ void Model::loadData()
 //			counter++;
 //		}
 //	}
-//	
+//	
 //	ofImage imgSaver = *new ofImage();
 //	imgSaver.setFromPixels(grayPixels, videoW, videoH, OF_IMAGE_GRAYSCALE, false);
 //	imgSaver.saveImage(backgroundImageURL);
@@ -199,12 +211,20 @@ void Model::parseXML()
 //	detectionZone.x			=  0;	
 //	detectionZone.width		=  videoW;
 	
+	maxNumHitBlobs = 50;
+	
 	if(pixelsSource == CLIP1_DEMO)
 	{
 		threshold = 35;
 		hitThreshold = 47;
 		backgroundImageURL = "empty clip1.png";
 		movieURL = "movies/clip1.mov";
+		
+		detectionZone.width = hitDetectionZone.width = 440;
+		detectionZone.height= hitDetectionZone.height = 480;
+		detectionZone.x		= centerX-detectionZone.width/2;
+		hitDetectionZone.x	= centerX-hitDetectionZone.width/2;
+		detectionZone.y		= hitDetectionZone.y = videoH/2-detectionZone.height/2;
 		
 		//minBlobArea = 10;
 	}
@@ -215,8 +235,19 @@ void Model::parseXML()
 		backgroundImageURL = "empty clip5.png";
 		movieURL = "movies/clip5.mov";
 		
-		hitDetectionZone.x = 200;
-		hitDetectionZone.width = videoW-hitDetectionZone.x*2;
+		detectionZone.width = hitDetectionZone.width = 500;
+		detectionZone.height= hitDetectionZone.height = 480;
+		detectionZone.x		= centerX-detectionZone.width/2;
+		hitDetectionZone.x	= centerX-hitDetectionZone.width/2;
+		detectionZone.y		= hitDetectionZone.y = videoH/2-detectionZone.height/2;
+		
+		player1.area->width = player2.area->width = detectionZone.width/2;
+		player1.area->height = player2.area->height = detectionZone.height;
+		player1.area->y = player2.area->y = videoH/2-player1.area->height/2;
+		player1.area->x = centerX-player1.area->width;
+		player2.area->x = centerX;
+		
+		videoPosition = 0.2;
 		
 		//hitThreshold = 75;
 		//minBlobArea = 5;
@@ -228,8 +259,14 @@ void Model::parseXML()
 		backgroundImageURL = "empty clip6.png";
 		movieURL = "movies/clip6";
 		//movieURL = "movies/clip1.mov";
-		detectionZone.x = hitDetectionZone.x = 75;
-		centerX = detectionZone.x+detectionZone.width/2;
+		
+		centerX = 300;
+		detectionZone.width = hitDetectionZone.width = 500;
+		detectionZone.height= hitDetectionZone.height = 430;
+		detectionZone.x		= centerX-detectionZone.width/2;
+		hitDetectionZone.x	= centerX-hitDetectionZone.width/2;
+		detectionZone.y		= hitDetectionZone.y = 20;
+		
 	}
 	else if(pixelsSource == BLOCK_FIGHT_DEMO)
 	{
@@ -241,35 +278,68 @@ void Model::parseXML()
 		detectionZone.x = centerX-detectionZone.width/2;
 		hitDetectionZone.x = centerX-hitDetectionZone.width/2;
 		detectionZone.y = hitDetectionZone.y = 70;
-		detectionZone.height = hitDetectionZone.height -= 10;
+		//detectionZone.height = hitDetectionZone.height -= 10;
+		
+//		player1.area->width = player2.area->width = detectionZone.width/2;
+//		player1.area->height = player2.area->height = detectionZone.height;
+//		player1.area->y = player2.area->y = videoH/2-player1.area->height/2;
+//		player1.area->x = centerX-player1.area->width;
+//		player2.area->x = centerX;
 	}
 	else if(pixelsSource == BLOCK_EXPERIMENTS_DEMO)
 	{
-		threshold = 22;
-		hitThreshold = 37;
-		backgroundImageURL = "empty block-experiments2.png";
-		movieURL = "movies/block-experiments.mov";
-		centerX = 270;
-		detectionZone.x = centerX-detectionZone.width/2;
-		hitDetectionZone.x = centerX-hitDetectionZone.width/2;
-		detectionZone.y = hitDetectionZone.y = 60;
+		threshold			= 22;
+		hitThreshold		= 37;
+		backgroundImageURL	= "empty block-experiments2.png";
+		movieURL			= "movies/block-experiments.mov";
+		centerX				= 270;
+		detectionZone.x		= centerX-detectionZone.width/2;
+		hitDetectionZone.x	= centerX-hitDetectionZone.width/2;
+		detectionZone.y		= hitDetectionZone.y = 60;
+		detectionZone.height= hitDetectionZone.height= 290+38;
+		videoPosition		= 0.5; // ducking
 	}
 	else if(pixelsSource == FIGHT2_DEMO)
 	{
-		threshold = 22;
-		hitThreshold = 37;
-		backgroundImageURL = "empty fight2.png";
-		movieURL = "movies/fight2.mov";
-		centerX = 270+53;
-		detectionZone.x = centerX-detectionZone.width/2;
-		hitDetectionZone.x = centerX-hitDetectionZone.width/2;
-		detectionZone.y = hitDetectionZone.y = 55;
-		maxNumHitBlobs = 10;
+		threshold			= 22;
+		hitThreshold		= 37;
+		backgroundImageURL	= "empty fight2.png";
+		movieURL			= "movies/fight2.mov";
+		centerX				= 270+53;
+		detectionZone.x		= centerX-detectionZone.width/2;
+		hitDetectionZone.x	= centerX-hitDetectionZone.width/2;
+		detectionZone.y		= hitDetectionZone.y = 55;
+		detectionZone.height= hitDetectionZone.height= 290+38;
+		maxNumHitBlobs		= 10;
+		//videoPosition		= 0.06; // just faster
+		//videoPosition		= 0.12; // fight right away
+		//videoPosition		= 0.53; // fight right away
+		//setState(STATE_GAME);
+	}
+	else if(pixelsSource == FIGHT3_DEMO)
+	{
+		threshold			= 22;
+		hitThreshold		= 42;
+		backgroundImageURL	= "empty fight3.png";
+		movieURL			= "movies/fight3.mov";
+		centerX				= 270+53;
+		detectionZone.x		= centerX-detectionZone.width/2;
+		hitDetectionZone.x	= centerX-hitDetectionZone.width/2;
+		detectionZone.y		= hitDetectionZone.y = 55;
+		maxNumHitBlobs		= 10;
+		setState(STATE_GAME);
 	}
 	else 
 	{
 		backgroundImageURL = "empty.png";
+		//setState(STATE_GAME);
 	}
+	
+	player1.area->width = player2.area->width = detectionZone.width/2;
+	player1.area->height = player2.area->height = detectionZone.height;
+	player1.area->y = player2.area->y = detectionZone.y; //player2.area->y = videoH/2-player1.area->height/2;
+	player1.area->x = detectionZone.x; //centerX-player1.area->width;
+	player2.area->x = detectionZone.x+detectionZone.width/2;
 	
 	cout << "backgroundImageURL: " << backgroundImageURL << "\n";
 	cout << "threshold: " << threshold << "\n";
@@ -348,44 +418,83 @@ void Model::setHitThreshold(int newValue)
 	ofNotifyEvent(VALUES_UPDATED,emptyArg,this); 
 	storeValues();
 }
-void Model::hit(int type, int area, int victim)
+void Model::hit(HitVO hitVO)
 {
-	cout << "Model::hit:\n";
+	cout << "Model::hit\n";
 	if(gamePaused) return;
 	
-	soundController.PlaySound(victim);
+	PlayerVO *victim = (hitVO.victim == 1)? &player1 : &player2;
+	PlayerVO *attacker = (hitVO.victim == 1)? &player2 : &player1;
 	
-	if(victim == 1)
-		player1Health -= hitDamage;
+	//if(victim->powerHit)
+	//	setVideoPause(true);
+	int bodyPart = 2;
+	soundController.PlayHitSound(SOUND_HIT,bodyPart,attacker->powerHit,hitVO.victim);
+	
+	hitVO.type = int(ofRandom(0, 3));
+	if(attacker->powerHit)
+		hitVO.type = HIT_POWER;
+	
+	int damage = (attacker->powerHit)? powerHitDamage : hitDamage;
+	
+	if(hitVO.victim == 1)
+		player1Health -= damage;
 	else 
-		player2Health -= hitDamage;
+		player2Health -= damage;
 	
 	if(player1Health < 0) player1Health = 0;
 	if(player2Health < 0) player2Health = 0;
 	
 	cout << "  "<<player1Health<<" : "<<player2Health<<"\n";
 	
-	int emptyArg = 0;
-	ofNotifyEvent(HIT,emptyArg,this); 
+	ofNotifyEvent(HIT,hitVO,this); 
+	
 	
 	if(player1Health <= 0 || player2Health <= 0)
 	{
 		winner = (player1Health <= 0)? 2 : 1;
 		setState(STATE_GAME_FINISHED);
 	}
+	attacker->powerHit = false;
 }
-void Model::block(int type, int area, int victim)
+void Model::block(BlockVO *blockVO)
 {
-	cout << "Model::block:\n";
+	cout << "Model::block\n";
+	cout << " victim: " << blockVO->victim << "\n";
+	//setVideoPause(true);
+	
+	if(gamePaused) return;
+
+	PlayerVO *victim = (blockVO->victim == 1)? &player1 : &player2;
+	victim->powerHit = true;
+	
+	soundController.PlayBlockSound(SOUND_BLOCK,blockVO->victim);
+	
+	ofNotifyEvent(BLOCK,*blockVO,this); 
+}
+void Model::checkBlocks()
+{
+	//cout << "Model::checkBlocks:\n";
 	if(gamePaused) return;
 	
-	soundController.PlayBlockSound(victim);
+//	for(int i=0;i<blockVOs.size();i++)
+//	{
+//		BlockVO *blockVO = blockVOs.at(i);
+//		//blockVO->mirrorX = (blockVO->bounds.x > centerX);
+//		ofNotifyEvent(BLOCKING,*blockVO,this); 
+//	}
+	if(player1.blockVO != NULL)
+		ofNotifyEvent(BLOCKING,*player1.blockVO,this); 
+	if(player2.blockVO != NULL)
+		ofNotifyEvent(BLOCKING,*player2.blockVO,this); 
 }
 
 void Model::setState(int newValue)
 {
 	cout << "Model::setState:" << newValue << "\n";
 	state = newValue;
+	
+	gamePaused = true;
 	
 	switch(state)
 	{
@@ -395,14 +504,16 @@ void Model::setState(int newValue)
 			countDownTimer.start();
 			break;
 		case STATE_GAME:
-			if(!gamePaused)
+			//if(!gamePaused)
 				resetGame();
 			gamePaused = false;
+			
 			break;
 		case STATE_WAITING:
 			gamePaused = true;
 			break;
 		case STATE_GAME_FINISHED:
+			soundController.PlaySound(SOUND_WARNING,0);
 			finishTimer.start();
 			detectedPlayer1 = false;
 			detectedPlayer2 = false;
@@ -420,7 +531,6 @@ void Model::setState(int newValue)
 }
 void Model::setVideoPause(bool newValue)
 {
-	cout << "Model::setVideoPause:" << newValue << "\n";
 	videoPaused = newValue;
 	
 	int emptyArg = 0;
@@ -456,6 +566,10 @@ void Model::checkPlayers()
 	cout << "  state: "<<state<<"\n";
 	cout << "  detectedPlayer1: "<<detectedPlayer1<<"\n";
 	cout << "  detectedPlayer2: "<<detectedPlayer2<<"\n";
+	
+//	if(detectedPlayer2 == false || detectedPlayer1 == false)
+//		setVideoPause(true);
+	
 	if(state == STATE_DEMO && detectedPlayer1 && detectedPlayer2)
 	{
 		setState(STATE_COUNT_DOWN);
@@ -468,7 +582,7 @@ void Model::checkPlayers()
 	{
 		setState(STATE_GAME);
 	}
-	else if(state != STATE_GAME  && state != STATE_GAME_FINISHED  && (!detectedPlayer1 || !detectedPlayer2))
+	else if(state != STATE_GAME && state != STATE_GAME_FINISHED  && (!detectedPlayer1 || !detectedPlayer2))
 	{
 		setState(STATE_DEMO);
 		countDownTimer.reset();
@@ -476,23 +590,34 @@ void Model::checkPlayers()
 }
 void Model::checkPlayersPositions()
 {
+	if(gamePaused) return;
 	//cout << "Model::checkPlayersPositions\n";
 	
-	if(player1.body == NULL || player2.body == NULL)
+	int positionTollerance = 5; 
+	
+	if(player1.mainBody == NULL || player2.mainBody == NULL)
 	{
-		soundController.stopToFarWarning();
+		soundController.PlaySound(SOUND_WARNING,1);
 	}
 	else 
 	{
-		int player1FrontX = player1.body->x+player1.body->width;
-		int player2FrontX = player2.body->x;
+		int player1FrontX = player1.mainBody->x+player1.mainBody->width;
+		int player2FrontX = player2.mainBody->x;
 		
-		if(player1FrontX > centerX) 
-			soundController.startToFarWarning();
-		else if(player2FrontX < centerX) 
-			soundController.startToFarWarning();		
+		if(player1FrontX > centerX+positionTollerance) 
+		{
+			soundController.PlaySound(SOUND_WARNING,1);
+			//setVideoPause(true);
+		}
+		else if(player2FrontX < centerX-positionTollerance) 
+		{
+			soundController.PlaySound(SOUND_WARNING,1);	
+			//setVideoPause(true);
+		}
 		else
-			soundController.stopToFarWarning();
+		{
+			soundController.PlaySound(SOUND_WARNING,0);
+		}
 	}
 }
 
@@ -501,7 +626,7 @@ void Model::update(ofEventArgs & args)
 { 
 	if(state == STATE_GAME)
 	{
-		soundController.PlayBGSound(player1Health,player2Health,startHealth);
+		soundController.PlayBGSound(SOUND_BG,player1Health,player2Health,startHealth,state);
 	}
 }
 void Model::onCountDownTick(int  & count)
@@ -511,11 +636,21 @@ void Model::onCountDownTick(int  & count)
 	
 	if(count < countDownTimer.getRepeatCount()-1)
 	{
-		
 		countDown = countDownTimer.getRepeatCount()-2-count;
 		cout << "  countdown: "<<countDown<<"\n";
 		int emptyArg = 0;
 		ofNotifyEvent(COUNT_DOWN,emptyArg,this);
+		
+		
+		if(count >= countDownTimer.getRepeatCount()-2)
+		{
+			//soundController.PlayStartFightSound();
+			soundController.PlayBGSound(SOUND_BG,player1Health,player2Health,startHealth,STATE_GAME);
+		}
+		else
+		{
+			soundController.PlaySound(SOUND_READY);
+		}
 	}
 	else 
 	{

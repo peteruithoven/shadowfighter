@@ -9,16 +9,18 @@
 #define _PlayerVO
 
 #include "ofMain.h"
+#include "BlockVO.h"
 
 class PlayerVO
 {
 	public:
 		
 		ofRectangle *body;
+		ofRectangle *mainBody;
 		ofRectangle *block;
+		BlockVO		*blockVO;
 		ofRectangle *area;
-	
-		PlayerVO();
+		bool powerHit;
 };
 
 #endif

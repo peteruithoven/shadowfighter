@@ -19,26 +19,44 @@ void ProjectionView::setModel(Model * model)
 	cout << "ProjectionView::setModel\n";
 	this->model = model;
 	
-	//if(model->pixelsSource == Model::CAMERA)
-	//{
+//	if(model->pixelsSource == Model::CAMERA)
+//	{
 		ofAddListener(model->HIT,this,&ProjectionView::onHit);
+		ofAddListener(model->BLOCK,this,&ProjectionView::onBlock);
 		ofAddListener(model->RESET,this,&ProjectionView::onReset);
 		ofAddListener(model->STATE_CHANGE,this,&ProjectionView::onStateChange);
 		ofAddListener(model->PLAYERS_CHANGED,this,&ProjectionView::onPlayersChanged);
 		ofAddListener(model->COUNT_DOWN,this,&ProjectionView::onCountDown);
-	//}
+		ofAddListener(model->BLOCKING,this,&ProjectionView::onBlocking);
+//	}
 	projection.model = model;
 	
 	projection.updateState(model->state);
 }
-void ProjectionView::onHit(int & arg)
+void ProjectionView::onHit(HitVO & hitVO)
 {
-	cout << "ProjectionView::onHit\n";
-	int x = model->hitRect->x+model->hitRect->width/2;
-	int y = model->hitRect->y+model->hitRect->height/2;
-	projection.addHit(x, y);
+//	cout << "ProjectionView::onHit\n";
+//	ofRectangle bounds = hitVO.bounds;
+//	int x = bounds.x+bounds.width/2;
+//	int y = bounds.y+bounds.height/2;
+	projection.addHit(hitVO);
 	
 	updateHealth();
+}
+void ProjectionView::onBlock(BlockVO & blockVO)
+{
+	//cout << "ProjectionView::onBlock\n";
+//	ofRectangle bounds = blockVO.bounds;
+//	int x = bounds.x+bounds.width/2;
+//	int y = bounds.y+bounds.height/2;
+	projection.addBlock(blockVO);
+	
+	updateHealth();
+}
+void ProjectionView::onBlocking(BlockVO & blockVO)
+{
+	//cout << "ProjectionView::onBlocking\n";
+	projection.addBlocking(blockVO);
 }
 void ProjectionView::onReset(int & arg)
 {

@@ -24,6 +24,7 @@ class VideoInput : public DisplayObject{
 		ofVideoGrabber	camera;
 		bool			useCamera;
 		bool			slowMotion;
+		float			videoPosition;
 	
 		VideoInput();
 		void init(bool useCamera,string movieURL);

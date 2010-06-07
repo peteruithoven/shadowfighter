@@ -19,6 +19,9 @@
 #include "Constants.h"
 #include "SoundController.h"
 #include "PlayerVO.h"
+#include "HitVO.h"
+#include "BlockVO.h"
+#include "HitTypeVO.h"
 
 class Model
 {
@@ -31,13 +34,13 @@ class Model
 		static int			BLOCK_FIGHT_DEMO;
 		static int			BLOCK_EXPERIMENTS_DEMO;
 		static int			FIGHT2_DEMO;
+		static int			FIGHT3_DEMO;
 	
 		ofxXmlSettings		xml;
 		int					videoW;
 		int					videoH;
 		int					pixelsSource;
 		string				movieURL;
-		ofRectangle*		hitRect;
 		int					cameraIndex;
 		int					state;
 		int					countDown;
@@ -78,8 +81,10 @@ class Model
 		vector<ofxCvBlob*>*			prevHitBlobs;
 		vector<Blob*> *				currentBlobs; //TODO remove
 		vector< vector<Blob*>* >*	blobsHistory;
-		vector<ofRectangle*>		bodies;
+		vector<ofRectangle*>		bodies; 
+		vector<ofRectangle*>		mainBodies; // the highest part of the body
 		vector<ofRectangle*>		blocks;
+		vector<BlockVO*>			blockVOs;
 		int					maxBlobsHistoryLength;
 		
 		// game logic
@@ -88,9 +93,11 @@ class Model
 		int					player1Health;
 		int					player2Health;
 		int					hitDamage;
+		int					powerHitDamage;
 		int					winner;
 		PlayerVO			player1;
 		PlayerVO			player2;
+		vector<HitTypeVO*>	hitTypes;
 		
 		// debugging
 		bool				debug;
@@ -107,6 +114,7 @@ class Model
 		bool				takeHitScreenShots;
 		bool				slowMotion;
 		bool				videoPaused;
+		float					videoPosition;
 		
 		Model();
 		void loadData();
@@ -121,13 +129,15 @@ class Model
 		void setDetectedPlayer2(bool newValue);
 		void checkPlayers();
 		void checkPlayersPositions();
-		void hit(int type, int area, int victim);
-		void block(int type, int area, int victim);
-
+		void hit(HitVO hitVO);
+		void block(BlockVO *blockVO);
+		void checkBlocks();
 		
 		ofEvent< int > DATA_LOADED;
 		ofEvent< int > VALUES_UPDATED;
-		ofEvent< int > HIT;
+		ofEvent< HitVO > HIT;
+		ofEvent< BlockVO > BLOCK;
+		ofEvent< BlockVO > BLOCKING;
 		ofEvent< int > STATE_CHANGE;
 		ofEvent< int > RESET;
 		ofEvent< int > VIDEO_PAUSE;

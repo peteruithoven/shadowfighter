@@ -28,6 +28,8 @@ void ProjectionView::setModel(Model * model)
 		ofAddListener(model->PLAYERS_CHANGED,this,&ProjectionView::onPlayersChanged);
 		ofAddListener(model->COUNT_DOWN,this,&ProjectionView::onCountDown);
 		ofAddListener(model->BLOCKING,this,&ProjectionView::onBlocking);
+		ofAddListener(model->POWERHITS_UPDATE,this,&ProjectionView::onPowerHitsUpdate);
+	
 //	}
 	projection.model = model;
 	
@@ -72,6 +74,8 @@ void ProjectionView::onStateChange(int & arg)
 void ProjectionView::onPlayersChanged(int & arg)
 {
 	cout << "ProjectionView::onPlayersChanged\n";
+	cout << "model->detectedPlayer1: " << model->detectedPlayer1 << "\n";
+	cout << "model->detectedPlayer2: " << model->detectedPlayer2 << "\n";
 	projection.updatePlayers(model->detectedPlayer1, model->detectedPlayer2);
 }
 void ProjectionView::onCountDown(int & arg)
@@ -85,4 +89,9 @@ void ProjectionView::updateHealth()
 	float player1Health = float(model->player1Health)/model->startHealth;
 	float player2Health = float(model->player2Health)/model->startHealth;
 	projection.updateHealth(player1Health, player2Health);
+}
+void ProjectionView::onPowerHitsUpdate(int & arg)
+{
+	cout << "ProjectionView::onPowerHitsUpdate\n";
+	projection.updatePowerhits(model->player1.powerHit,model->player2.powerHit);
 }

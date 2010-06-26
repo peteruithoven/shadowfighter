@@ -33,6 +33,8 @@ class ProjectionView : public BaseView
 		void onPlayersChanged(int & arg);
 		void onCountDown(int & arg);
 		void updateHealth();
+		void onPowerHitsUpdate(int & arg);
+
 };
 
 #endif

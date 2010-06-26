@@ -52,6 +52,8 @@ class VideoInputController : public BaseController
 		bool hitIsUnique(ofRectangle blobRect);
 		bool hitsBodyPixels(ofRectangle hitBlobRect);
 		bool isCorrectColor(ofRectangle hitBlobRect, unsigned char * colorPixels);
+		HitTypeVO* determineHitType(HitVO *hitVO,PlayerVO *victimVO);
+
 		void storeHistory();
 		void storeBlobHistory();
 		void detectPlayers();
@@ -75,6 +77,7 @@ class VideoInputController : public BaseController
 		void colorDiff(ofxCvGrayscaleImage * diffImg, ofxCvColorImage * img1, ofxCvColorImage * img2);
 		ofRectangle * mergeRectangles(ofRectangle *rect1, ofRectangle *rect2);
 		bool rectIsInside(ofRectangle *smallRect, ofRectangle *bigRect, bool completelyInside);
+		ofRectangle * cloneRectangle(ofRectangle * rect);
 };
 
 #endif

@@ -23,6 +23,7 @@ class Display : public DisplayObject
 		Display();
 		int threshold;
 		int hitThreshold;
+		int state;
 		void start();
 	
 	private:

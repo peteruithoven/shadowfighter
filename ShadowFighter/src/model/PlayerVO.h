@@ -16,7 +16,9 @@ class PlayerVO
 	public:
 		
 		ofRectangle *body;
+		int bodyDetectedTime;
 		ofRectangle *mainBody;
+		int mainBodyDetectedTime;
 		ofRectangle *block;
 		BlockVO		*blockVO;
 		ofRectangle *area;

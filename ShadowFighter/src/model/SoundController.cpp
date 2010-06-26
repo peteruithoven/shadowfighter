@@ -11,12 +11,12 @@ void SoundController::setup()
 	hit->setVolume(1.0f);
 	hit->setMultiPlay(true);
 
-	//bg_Demo.loadSound("sounds/bg/demo.wav");
-	bg_Start.loadSound("sounds/bg/game_start.wav");
+	bg_Demo.loadSound("sounds/bg/demo.wav");
 	bg_Battle.loadSound("sounds/bg/game_battle.wav");
 	bg_StartBattle.loadSound("sounds/bg/game_startbattle.wav");
 	bg_Intens.loadSound("sounds/bg/game_intens.wav");
 	bg_StartIntens.loadSound("sounds/bg/game_startintens.wav");
+	bg_Win.loadSound("sounds/bg/win.wav");
 
 	hit_Head.loadSound("sounds/hit/hit_Head.wav");
 	hit_Body.loadSound("sounds/hit/hit_Body.wav");
@@ -24,61 +24,102 @@ void SoundController::setup()
 	hit_Power.loadSound("sounds/hit/hit_Power.wav");
 
 	toFarWarning.loadSound("sounds/warning/to_far.wav");
-	toFarWarning.setVolume(0.5f);
-	toFarWarning.setLoop(true);
+	toFarWarning.setVolume(2.0f);
+	//toFarWarning.setLoop(true);
 	toFarWarning.setMultiPlay(false);
 
 	block.loadSound("sounds/block/block.wav");
+	block.setVolume(10.0);
+	
+	block_pb.loadSound("sounds/block/block_pb.wav");
+	block_pb.setVolume(10.0);
 
 	powerUp.loadSound("sounds/power_up/power_up1.wav");
 
 	ready.loadSound("sounds/ready/ready.wav");
 
-	//start.loadSound("sounds/start/start.wav");
-
 	detectPlayer.loadSound("sounds/detect/detect_player.wav");
 
 	timeUp.loadSound("sounds/time_up/time_up.wav");
 
-	//trans.loadSound("sounds/bg/trans.wav");
-
 	bgSound = &bg_Demo;
+
+	fadeOutTimerSet = 3.0f;
+	fadeOutTimer = fadeOutTimerSet;
 }
+
+
 
 //bg sound
 void SoundController::PlayBGSound(int type, int p1hp, int p2hp, int starthp, int state)
 {
-	//int type must be 0
-	if(type != 0) return;
+	if (fadeOut)
+	{
+		bgSound->setVolume((0.7f / fadeOutTimerSet) * fadeOutTimer);
+		fadeOutTimer -= 1.0f/ ofGetFrameRate();
+	}
+	else fadeOutTimer = fadeOutTimerSet;
+
+	if (fadeOutTimer <= 0.01f)
+	{
+		//if(bgSound == fadeSound)Reset();
+		bgSound->stop();
+		bgSound->setVolume(0.7);
+		fadeOut = false;
+	}
+	//int type must be sound_bg
+	if(type != SOUND_BG) return;
+	
+	if(previousState != state)
+	{
+		if(state != STATE_COUNT_DOWN)
+		{
+			bgSound->stop();
+			bgSound->setVolume(1.0);
+			fadeOut = false;
+		}
+		else fadeOut = true;
+	}
 	switch(state)
 	{
 		case STATE_DEMO:
-			Reset();
+			//if(bgSound != &bg_Demo)bgSound->setVolume(1.0);
+			bgSound = &bg_Demo;
+			PlaySound(SOUND_BG, 1);
 			break;
 		case STATE_WAITING:
 			Reset();
 			break;
 		case STATE_COUNT_DOWN:
-			Reset();
+			//fadeOut = true;
+
+			//if (!bgSound->getIsPlaying())
+			//bgSound = &bg_Demo;
+			//PlaySound(SOUND_BG, 0);
 			break;
 		case STATE_GAME:
+			//bgSound->setVolume(1.0);
+			//if(bgSound != &bg_StartBattle || bgSound != &bg_Battle || bgSound != &bg_Intens || bgSound != &bg_StartIntens)bgSound->stop();
 			PlayGameBGSound(p1hp, p2hp, starthp);
 			break;
 		case STATE_GAME_FINISHED:
-			Reset();
+			//if(bgSound !=  &bg_Win)bgSound->stop();
+			PlaySound(SOUND_BG, 0);
 			break;
 	}
+	previousState = state;
+	//cout << previousState << "\n";
 }
 
 //hit sound
 void SoundController::PlayHitSound(int type, int bodypart, bool power, int player)
 {
-	//int type must be 1
-	if(type != 1) return;
+	//int type must be sound_hit
+	if(type != SOUND_HIT) return;
 	if(!power)
 	{
-		randomHit = ofRandom(1,3);
-		switch (bodypart){
+		randomHit = ofRandom(1,4);
+		switch ((int)randomHit){
 			case 1:
 				hit = &hit_Head;
 				break;
@@ -110,18 +151,21 @@ void SoundController::PlayHitSound(int type, int bodypart, bool power, int playe
 }
 
 //block sound
-void SoundController::PlayBlockSound(int type, int player)
+void SoundController::PlayBlockSound(int type, int player, bool powerHit)
 {
-	//int type must be 3
-	if(type != 3) return;
+	//int type must be sound_block
+	if(type != SOUND_BLOCK) return;
+	
+	ofSoundPlayer *blockSound = (powerHit)? &block_pb : &block;
+	
 	switch (player){
 		case 1:
-			block.setPan(-1.0f);
-			block.play();
+			blockSound->setPan(-1.0f);
+			blockSound->play();
 			break;
 		case 2:
-			block.setPan(1.0f);
-			block.play();
+			blockSound->setPan(1.0f);
+			blockSound->play();
 			break;
 	}
 }
@@ -129,21 +173,47 @@ void SoundController::PlayBlockSound(int type, int player)
 //play sound
 void SoundController::PlaySound(int type, int soundstate)
 {
+	//generalSound->setVolume(1.0);
 	if(type == SOUND_WARNING)
 	{
 		generalSound = &toFarWarning;
-		generalSound->setLoop(true);
+		//generalSound->setLoop(true);
+		generalSound->setVolume(2.0);
+	}
+	else if (type == SOUND_BG)
+	{
+		switch (soundstate)
+		{
+			case 0:
+			if(!bgSound->getIsPlaying() && bgSound != &bg_Win)
+			{
+				bgSound = &bg_Win;
+				bgSound->play();
+				bgSound->setLoop(false);
+			}
+			break;
+			case 1:
+			if(!bgSound->getIsPlaying())
+			{
+				bgSound->play();
+				bgSound->setLoop(true);
+				//bgSound->setVolume(0.7f);
+			}
+			break;
+		}
+		return;
 	}
 	else generalSound->setLoop(false);
 
-	if(soundstate == 1)
+	switch (soundstate)
 	{
-		if(!generalSound->getIsPlaying())
-			generalSound->play();
-	}
-	if(soundstate == 0)
-	{
+		case 0:
 		generalSound->stop();
+		break;
+		case 1:
+		if(!generalSound->getIsPlaying())
+		generalSound->play();
+		break;
 	}
 }
 
@@ -215,12 +285,17 @@ void SoundController::PlayGameBGSound(int player1HP, int player2HP, int starting
 		{
 			nextBGSound = 5;
 			bgSound->stop();
+			bgSound->setLoop(false);
 		}
 		else nextBGSound = 3;
 	}
 	else if (lowestHP > (0.3 * startingHP) && bgSound != &bg_Battle)
 	{
-		if(bgSound != &bg_StartBattle)nextBGSound = 4;
+		if(bgSound != &bg_StartBattle)
+		{
+			nextBGSound = 4;
+			bgSound->setLoop(false);
+		}
 		else nextBGSound = 2;
 	}
 
@@ -229,14 +304,16 @@ void SoundController::PlayGameBGSound(int player1HP, int player2HP, int starting
     {
         switch(nextBGSound)
 		{
-			case 1:
-				bgSound = &bg_Start;
-				break;
+			//case 1:
+				//bgSound = &bg_Start;
+				//break;
 			case 2:
 				bgSound = &bg_Battle;
+				bgSound->setLoop(true);
 				break;
 			case 3:
 				bgSound = &bg_Intens;
+				bgSound->setLoop(true);
 				break;
 			case 4:
 				bgSound = &bg_StartBattle;
@@ -246,7 +323,7 @@ void SoundController::PlayGameBGSound(int player1HP, int player2HP, int starting
 				break;
 		}
         bgSound->setVolume(0.9f);
-		bgSound->setLoop(true);
+		//bgSound->setLoop(true);
         bgSound->setMultiPlay(false);
         bgSound->play();
     }

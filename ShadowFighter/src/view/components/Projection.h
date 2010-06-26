@@ -33,6 +33,7 @@ class Projection : public DisplayObject
 		void updateWinner(int winner);
 		void updatePlayers(bool detectedPlayer1, bool detectedPlayer2);
 		void updateCountDown(int countDown);
+		void updatePowerhits(bool powerHit,bool powerHit);
 	
 	private:
 		ofxOscSender sender;

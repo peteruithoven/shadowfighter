@@ -17,12 +17,17 @@ class HitIndicator : public Effect
 
 	public:
 		int						bangImgY;
-		int						alphaChange;
+		int						alphaVelocity;
+		float					scaleVelocity;
+		float					textScaleVelocity;
 		float					hitOrgW;
 		float					hitOrgH;
 		float					hitScale;
+		float					textScale;
 		float					textX;
 		float					textY;
+		float					minRotation;
+		float					maxRotation;
 		ofImage					bangImg;
 		ofImage					hitImg;
 		ofImage					textImg;

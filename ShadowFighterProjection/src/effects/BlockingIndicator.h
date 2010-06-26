@@ -19,7 +19,7 @@ class BlockingIndicator : public Effect
 		float					scale;
 		bool					mirrorX;
 		ofImage					img;
-	
+		int						imgX;
 		BlockingIndicator();
 		void start();
 		void draw();

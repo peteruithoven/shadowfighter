@@ -44,7 +44,9 @@ class testApp : public ofBaseApp{
 		int		videoH;
 		int		screenW;
 		int		screenH;
-		
+		bool	powerhitPlayer1;
+		bool	powerhitPlayer2;
+	
 		ofxOscReceiver			receiver;
 		Image*					player1Img;
 		Image*					player2Img;
@@ -55,6 +57,8 @@ class testApp : public ofBaseApp{
 		HealthBar				healthBarPlayer1;
 		HealthBar				healthBarPlayer2;
 		ofImage					img;
+		ofImage					powerhit1Img;
+		ofImage					powerhit2Img;
 		DisplayObjectContainer	effects;
 		vector<ofRectangle*>	boundingBoxes;
 		ofxXmlSettings			xml;

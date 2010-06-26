@@ -11,6 +11,7 @@
 #define COUNT_DOWN		6
 #define BLOCK			7
 #define BLOCKING		8
+#define POWERHIT_UPDATE 9
 
 //--------------------------------------------------------------
 void testApp::setup()
@@ -39,10 +40,14 @@ void testApp::setup()
 	healthBarPlayer2.mirrorX = true;
 	loadData();
 	
+	powerhitPlayer1 = false;
+	powerhitPlayer2 = false;
+	powerhit1Img.loadImage("images/powerhit/powerhit1.png");
+	powerhit2Img.loadImage("images/powerhit/powerhit2.png");
+	
 	setState(STATE_DEMO);
 	
 	receiver.setup(PORT);
-	
 }
 
 void testApp::loadData()
@@ -83,6 +88,8 @@ void testApp::storeValues()
 
 void testApp::addHit(float hitX,float hitY, float hitW, float HitH, int hitType)
 {
+	cout << "testApp::addHit\n";
+	cout << "  hitType: "<<hitType<<"\n";
 	hitX = hitX+hitW/2;
 	hitY = hitY+HitH/2;
 	
@@ -145,6 +152,7 @@ void testApp::update()
 				int hitW	= m.getArgAsInt32(2);
 				int hitH	= m.getArgAsInt32(3);
 				int hitType = m.getArgAsInt32(4);
+				cout << "  hitType: "<<hitType<<"\n";
 				addHit(hitX,hitY,hitW,hitH,hitType);
 				}
 				break;
@@ -211,6 +219,11 @@ void testApp::update()
 				cout << "  countDown: " << countDown << "\n";
 				updateCountDown();
 				break;
+			case POWERHIT_UPDATE:
+				cout << "  POWERHIT_UPDATE\n";
+				powerhitPlayer1 = (m.getArgAsInt32(0) == 1)? true : false;
+				powerhitPlayer2 = (m.getArgAsInt32(1) == 1)? true : false;
+				break;
 		}
 		m.clear();
 	}
@@ -241,6 +254,9 @@ void testApp::setState(int state)
 		case STATE_DEMO:
 		{
 			cout << "  STATE_DEMO\n";
+			
+			healthBarPlayer1.percentage = 1;
+			healthBarPlayer2.percentage = 1;
 			
 			Image * bgImg = new Image();
 			bool loaded = bgImg->img.loadImage("images/demo.png");
@@ -279,10 +295,6 @@ void testApp::setState(int state)
 		case STATE_GAME:
 		{
 			cout << "STATE_GAME\n";
-			
-			healthBarPlayer1.percentage = 1;
-			healthBarPlayer2.percentage = 1;
-			
 			Image * bgImg = new Image();
 			bgImg->img.loadImage("images/game.png");
 			images.addChild(bgImg);
@@ -361,14 +373,14 @@ void testApp::updatePlayerImages()
 	string player1ImgURL = "";
 	if(detectedPlayer1)
 	{
-		if(state != STATE_GAME)
+		if(state != STATE_GAME && state != STATE_WAITING)
 			player1ImgURL = "images/detected1.png";
 	}
 	else
 	{
 		if(state == STATE_DEMO)
 			player1ImgURL = "images/demo1.png";
-		else
+		else if(state == STATE_WAITING)
 			player1ImgURL = "images/waiting1.png";
 	}
 	if(player1ImgURL != "")
@@ -378,18 +390,22 @@ void testApp::updatePlayerImages()
 		bool loaded = player1Img->img.loadImage(player1ImgURL);
 		if(!loaded) cout << "Loading player1 image failed (" << player1ImgURL << ")\n";
 	}
+	else 
+	{
+		player1Img->img.clear();
+	}
 	
 	string player2ImgURL = "";
 	if(detectedPlayer2)
 	{
-		if(state != STATE_GAME)
+		if(state != STATE_GAME && state != STATE_WAITING)
 			player2ImgURL = "images/detected2.png";
 	}
 	else
 	{
 		if(state == STATE_DEMO)
 			player2ImgURL = "images/demo2.png";
-		else
+		else if(state == STATE_WAITING)
 			player2ImgURL = "images/waiting2.png";
 	}
 	if(player2ImgURL != "")
@@ -398,6 +414,11 @@ void testApp::updatePlayerImages()
 		bool loaded = player2Img->img.loadImage(player2ImgURL);
 		if(!loaded) cout << "Loading player2 image failed (" << player2ImgURL << ")\n";
 	}
+	else 
+	{
+		player2Img->img.clear();
+	}
+
 	
 }
 void testApp::updateCountDown()
@@ -406,9 +427,13 @@ void testApp::updateCountDown()
 	cout << "  countDown: " << countDown << "\n";
 	string count = ofToString(countDown);
 	cout << "  count: " << count << "\n";
-	string url = "images/countdown"+count+".png";
+	string url = "images/countdown/countdown"+count+".png";
 	cout << "  url: " << url << "\n";
 	countDownImg->img.loadImage(url);
+	
+	if(countDown == 0)
+		countDownImg->y = -40;
+	
 	cout << "  countdown image updated\n";
 }
 //--------------------------------------------------------------
@@ -427,10 +452,27 @@ void testApp::draw()
 		hitIndicator->draw();
 	}
 	
-	if(state == STATE_GAME || state == STATE_GAME_FINISHED)
+	if(state == STATE_GAME || state == STATE_WAITING)
+	{
+		int marginX = (screenW-healthBarPlayer1.width-healthBarPlayer2.width)/3;
+		int marginY = 20;
+		ofEnableAlphaBlending();
+		if(powerhitPlayer1)
+			powerhit1Img.draw(marginX+healthBarPlayer1.width-powerhit1Img.width,marginY+healthBarPlayer1.height);
+		if(powerhitPlayer2)
+			powerhit2Img.draw(healthBarPlayer2.x,marginY+healthBarPlayer2.height);
+		ofDisableAlphaBlending();
+	}
+	if(state == STATE_GAME || state == STATE_GAME_FINISHED || state == STATE_WAITING)
 	{
 		healthBarPlayer1.draw();
 		healthBarPlayer2.draw();
+	}
+	
+	if(state != STATE_GAME && state != STATE_GAME_FINISHED)
+	{
+		ofDisableAlphaBlending();
+		ofSetColor(255,255,255,255);
 	}
 	
 	if(debug && state == STATE_GAME)
@@ -565,7 +607,7 @@ void testApp::mouseDragged(int x, int y, int button)
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button)
 {
-	addHit(x,y,10,10,HIT_HEAD);
+	addHit(x,y,10,10,HIT_LEGS);
 }
 
 //--------------------------------------------------------------

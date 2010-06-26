@@ -18,6 +18,7 @@ class BlockIndicator : public Effect
 		int						alphaChange;
 		float					scale;
 		bool					mirrorX;
+		int						imgX;
 		ofImage					img;
 	
 		BlockIndicator();

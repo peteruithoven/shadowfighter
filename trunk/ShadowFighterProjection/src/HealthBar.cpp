@@ -59,7 +59,7 @@ void HealthBar::draw()
 	barImg.setFromPixels(pixels, width, height, OF_IMAGE_COLOR_ALPHA, true);
 	
 	ofEnableAlphaBlending();
-	ofSetColor(255,255,255,255);
+	ofSetColor(255,255,255,alpha);
 	
 	ofPushMatrix();
 	ofTranslate(x, y, 0);

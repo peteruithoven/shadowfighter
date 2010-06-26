@@ -15,6 +15,7 @@ BlockingIndicator::BlockingIndicator()
 void BlockingIndicator::start()
 {
 	//cout << "BlockingIndicator::start\n";
+	imgX = 30;
 	scale = 1;
 	alpha = 255;
 	running = true;
@@ -34,7 +35,7 @@ void BlockingIndicator::draw()
 	float scaleX = (mirrorX)? -scale : scale;
 	ofScale(scaleX, scale, 1);
 	
-	img.draw(0-img.getWidth()/2+30,0-img.getHeight()/2);
+	img.draw(0-img.getWidth()/2+imgX,0-img.getHeight()/2);
 	
 	ofPopMatrix();
 	

@@ -16,7 +16,9 @@ KeyboardController::KeyboardController()
 
 void KeyboardController::keyPressed(int keyCode)
 {
-	switch (keyCode){
+	cout << "KeyboardController::keyPressed\n";
+	switch (keyCode)
+	{
 		case ' ':
 			model->learnBackground();
 			break;
@@ -54,6 +56,14 @@ void KeyboardController::keyPressed(int keyCode)
 		case 'p':
 			model->setVideoPause(!model->videoPaused);
 			break;
+		case '1':
+			model->overulePlayer1Detected = true;
+			model->setDetectedPlayer1(false);
+			break;
+		case '2':
+			model->overulePlayer2Detected = true;
+			model->setDetectedPlayer2(false);
+			break;
 			
 		/*case 'i':
 			model->setInvert(!model->getInvert());
@@ -69,5 +79,16 @@ void KeyboardController::keyPressed(int keyCode)
 }
 void KeyboardController::keyReleased(int keyCode)
 {
-	
+	cout << "KeyboardController::keyReleased\n";
+	switch (keyCode)
+	{
+		case '1':
+			model->overulePlayer1Detected = false;
+			model->setDetectedPlayer1(true);
+			break;
+		case '2':
+			model->overulePlayer2Detected = false;
+			model->setDetectedPlayer1(true);
+			break;
+	}
 }

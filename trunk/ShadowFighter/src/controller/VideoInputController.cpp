@@ -38,6 +38,7 @@ void VideoInputController::analyze(unsigned char * pixels)
 	// convert color pixels to grayscale pixels
 	unsigned char * grayPixels = toGrayscale(pixels);
 	model->grayImg->setFromPixels(grayPixels, videoW,videoH);
+	model->grayImg->blur(2);
 	// Optionally store empty frame image
 	if (model->willLearnBackground && model->pixelsSource == Model::CAMERA)
 	{
@@ -79,7 +80,7 @@ void VideoInputController::storeBackgroundImage(unsigned char * grayPixels)
 {
 	//cout << "VideoInputController::storeBackgroundImage\n";
 	model->grayEmptyImg->setFromPixels(grayPixels,model->videoW,model->videoH);
-	
+	model->grayEmptyImg->blur(2);
 	ofImage imgSaver = *new ofImage();
 	imgSaver.setFromPixels(grayPixels, model->videoW, model->videoH, OF_IMAGE_GRAYSCALE, false);
 	imgSaver.saveImage("empty.png");
@@ -178,49 +179,6 @@ void VideoInputController::findShadowBlobs()
 	//cout << "VideoInputController::filterProjection\n";
 	int videoW = model->videoW;
 	int videoH = model->videoH;
-	
-	//unsigned char * grayHitDiffPixels = model->grayHitDiffImg->getPixels();
-	//unsigned char * grayDiffPixels = model->grayDiffImg->getPixels();
-	/*for (int i = 0; i < videoH; i++) {
-		for (int j = 0; j < videoW; j++) {
-			
-			int pixelIndex = (i*videoW) + j;
-			
-			if(grayHitDiffPixels[pixelIndex] == 255)
-			{
-				int tPI = ((i-1)*videoW) + j;
-				int bPI = ((i+1)*videoW) + j;
-				int lPI = (i*videoW) + (j-1);
-				int rPI = (i*videoW) + (j+1);
-				
-				if(tPI >= 0) grayHitDiffPixels[tPI] = 200;
-				if(bPI >= 0) grayHitDiffPixels[bPI] = 200;
-				if(lPI >= 0) grayHitDiffPixels[lPI] = 200;
-				if(rPI >= 0) grayHitDiffPixels[rPI] = 200;
-			}
-		}
-	}
-	for (int i = 0; i < videoH; i++) {
-		for (int j = 0; j < videoW; j++) {
-			
-			int pixelIndex = (i*videoW) + j;
-			
-			if(grayHitDiffPixels[pixelIndex] == 200)
-			{
-				grayHitDiffPixels[pixelIndex] = 255;
-			}
-		}
-	}*/
-	/*for (int i = 0; i < videoH; i++) {
-		for (int j = 0; j < videoW; j++) {
-			
-			int pixelIndex = (i*videoW) + j;
-			
-			if(grayHitDiffPixels[pixelIndex] == 255)
-				grayDiffPixels[pixelIndex] = 0;
-		}
-	}
-	model->grayDiffImg->setFromPixels(grayDiffPixels, videoW, videoH);*/
 	
 	/*ofRectangle * hitDetectionZone = &model->hitDetectionZone;
 	int increase = 10;
@@ -378,6 +336,7 @@ void VideoInputController::analyzeShadows()
 		int totalPixelsY = -1;
 		int numPixelsY = 0;
 		int numTotalPixelsY = 0;
+		int pixelsBottom = -1;
 		for (int y = dy; y < dy+dh; y++) 
 		{
 			int blobsPixelIndex = (y*w) + x;
@@ -390,6 +349,8 @@ void VideoInputController::analyzeShadows()
 					totalPixelsY = y;
 				numPixelsY++;
 				numTotalPixelsY++;
+				if(y > pixelsBottom)
+					pixelsBottom = y;
 				
 				// if bottom pixel?
 				if(y == (dy+dh)-1)
@@ -450,6 +411,7 @@ void VideoInputController::analyzeShadows()
 			
 		}
 		
+		// MAIN BODY 
 		// when there are enough vertical pixels for it to be the main body...
 		if(numTotalPixelsY > minMainBodyH && x < dx+dw-1)
 		{
@@ -459,7 +421,7 @@ void VideoInputController::analyzeShadows()
 				mainBody = new ofRectangle();
 				mainBody->x = x;
 				mainBody->y = totalPixelsY;
-				mainBody->height = numTotalPixelsY;
+				mainBody->height = 0;
 			}
 			// update body
 			else 
@@ -481,6 +443,7 @@ void VideoInputController::analyzeShadows()
 			}
 		}
 		
+		// BODY
 		// when there are enough vertical pixels for it to be the body...
 		if(numTotalPixelsY > minBodyH && x < dx+dw-1)
 		{
@@ -490,7 +453,7 @@ void VideoInputController::analyzeShadows()
 				body = new ofRectangle();
 				body->x = x;
 				body->y = totalPixelsY;
-				body->height = numTotalPixelsY; //to lowest pixel
+				body->height = 0;
 			}
 			// update body
 			else 
@@ -500,6 +463,10 @@ void VideoInputController::analyzeShadows()
 				body->width = x-body->x;
 				if(numTotalPixelsY > body->height)
 					body->height = numTotalPixelsY;
+				
+				int pixelsColumnHeight = pixelsBottom-body->y;
+				if(pixelsColumnHeight > body->height)
+					body->height = pixelsColumnHeight;
 			}
 		}
 		// when there aren't
@@ -625,7 +592,7 @@ void VideoInputController::analyzeShadows()
 //	}
 	
 	// merge seperated model->bodies
-	model->mainBodies	= mergeBodies(model->mainBodies,50);
+	model->mainBodies	= mergeBodies(model->mainBodies,30);
 	model->bodies		= mergeBodies(model->bodies,20);
 	
 	
@@ -651,7 +618,9 @@ void VideoInputController::analyzeShadows()
 			continue;
 		}
 	}
-	
+
+	// determine owner's of bodies
+	//cout << "determine owner's of bodies\n";
 	if(model->bodies.size() == 2)
 	{
 		model->player1.body = model->bodies.at(0);
@@ -663,6 +632,115 @@ void VideoInputController::analyzeShadows()
 		model->player1.body = NULL;
 	}
 	
+	// determine owner's of bodies
+//	//cout << "determine owner's of bodies\n";
+//	int maxSameBodyDis = 50;
+//	int maxLostBodyTime = 2000; //milliseconds
+//	ofRectangle *prevBody1 = model->player1.body;
+//	ofRectangle *prevBody2 = model->player2.body;
+//	   
+////	if(prevBody1 != NULL)
+////	   cout << "  prevBody1: x: " << prevBody1->x << " width: " << prevBody1->width << "\n";
+////	if(prevBody2 != NULL)
+////	   cout << "  prevBody2: x: " << prevBody2->x << " width: " << prevBody2->width << "\n";
+//	   
+//	model->player1.body = NULL;
+//	model->player2.body = NULL;
+//	// if nothing to compare, guess players
+//	if(prevBody1 == NULL || prevBody2 == NULL)
+//	{
+//		//cout << "  (prevBody1 == NULL || prevBody2 == NULL)\n";
+//		if(model->bodies.size() == 2)
+//		{
+//			model->player1.body = cloneRectangle(model->bodies.at(0));
+//			model->player2.body = cloneRectangle(model->bodies.at(1));
+//		}
+//	}
+//	else
+//	{
+//		//cout << "  (prevBody1 != NULL && prevBody2 != NULL)\n";
+//		for(int i=0;i<model->bodies.size();i++)
+//		{
+//			ofRectangle *body = model->bodies.at(i);
+//			int bodyCX = body->x+body->width/2;
+//			//cout << "    bodyCX: " << bodyCX << "\n";
+//			ofFill();
+//			ofSetColor(125, 125, 125);
+//			ofRect(model->videoW+bodyCX,model->videoH*2+5,1,10);
+//				
+//			//cout << "    model->player1.body: " << model->player1.body << "\n";
+//			if(model->player1.body == NULL)
+//			{
+//				int prevCX = prevBody1->x+prevBody1->width/2;
+//				//cout << "      prevCX: " << prevCX << "\n";
+//				
+//				int dis = prevCX-bodyCX;
+//				if(dis < 0) dis *= -1;
+//				//cout << "      dis: " << dis << "/" << maxSameBodyDis << "\n";
+//				if(dis < maxSameBodyDis)
+//				{
+//					//cout << "        storing body\n";
+//					model->player1.body = cloneRectangle(body);
+//					model->player1.bodyDetectedTime = ofGetElapsedTimeMillis();
+//				}
+//			}
+//			//cout << "    model->player2.body: " << model->player2.body << "\n";
+//			if(model->player2.body == NULL)
+//			{
+//				int prevCX = prevBody2->x+prevBody2->width/2;
+//				//cout << "      prevCX: " << prevCX << "\n";
+//				
+//				int dis = prevCX-bodyCX;
+//				if(dis < 0) dis *= -1;
+//				//cout << "      dis: " << dis << "/" << maxSameBodyDis << "\n";
+//				if(dis < maxSameBodyDis)
+//				{
+//					//cout << "        storing body\n";
+//					model->player2.body = cloneRectangle(body);
+//					model->player2.bodyDetectedTime = ofGetElapsedTimeMillis();
+//				}
+//			}
+//		}
+//		if(model->player1.body == NULL)
+//		{
+//			int timeDiff = ofGetElapsedTimeMillis()-model->player1.bodyDetectedTime;
+//			if(timeDiff < maxLostBodyTime)
+//				model->player1.body = prevBody1;
+//		}
+//		if(model->player2.body == NULL)
+//		{
+//			int timeDiff = ofGetElapsedTimeMillis()-model->player2.bodyDetectedTime;
+//			if(timeDiff < maxLostBodyTime)
+//				model->player2.body = prevBody2;
+//		}
+//	}
+	
+	
+	
+//	if((model->player2.body == NULL || model->player2.body == NULL) && model->bodies.size() > 0)
+//	{
+//		model->setVideoPause(true);
+//	}
+//	if(model->player1.body != NULL)
+//	   cout << "  body1: x: " << model->player1.body->x << " width: " << model->player1.body->width << "\n";
+//	if(model->player2.body != NULL)
+//	   cout << "  body2: x: " << model->player2.body->x << " width: " << model->player2.body->width << "\n";
+	   
+	
+	if(model->debugDetection)
+	{
+		ofSetColor(0x0000ff);
+		int textY = model->videoH*2+5;
+		ofRectangle *body1 = model->player1.body;
+		ofRectangle *body2 = model->player2.body;
+		if(body1 != NULL)
+			font.drawString("1", model->videoW+body1->x+body1->width/2, textY);
+		if(body2 != NULL)
+			font.drawString("2", model->videoW+body2->x+body2->width/2, textY);
+	}
+	
+	
+	// determine owner's of mainBodies
 	if(model->mainBodies.size() == 2)
 	{
 		model->player1.mainBody = model->mainBodies.at(0);
@@ -673,44 +751,123 @@ void VideoInputController::analyzeShadows()
 		model->player1.mainBody = NULL;
 		model->player1.mainBody = NULL;
 	}
+	
+	// determine owner's of mainBodies
+//	cout << "determine owner's of mainBodies\n";
+//	int maxSameBodyDis = 50;
+//	int maxLostBodyTime = 2000; //milliseconds
+//	ofRectangle *prevMainBody1 = model->player1.mainBody;
+//	ofRectangle *prevMainBody2 = model->player2.mainBody;
+//	
+//	if(prevMainBody1 != NULL)
+//		cout << "  prevMainBody1: x: " << prevMainBody1->x << " width: " << prevMainBody1->width << "\n";
+//	if(prevMainBody2 != NULL)
+//		cout << "  prevMainBody2: x: " << prevMainBody2->x << " width: " << prevMainBody2->width << "\n";
+//	
+//	model->player1.mainBody = NULL;
+//	model->player2.mainBody = NULL;
+//	// if nothing to compare, guess players
+//	if((prevMainBody1 == NULL || prevMainBody2 == NULL) || model->state != STATE_GAME)
+//	{
+//		cout << "  (prevMainBody1 == NULL || prevMainBody2 == NULL)\n";
+//		if(model->mainBodies.size() == 1)
+//		{
+//			ofRectangle *mainBody = model->mainBodies.at(0);
+//			int mainBodyCX = mainBody->x+mainBody->width/2;
+//			if(mainBodyCX < model->centerX)
+//				model->player1.mainBody = cloneRectangle(mainBody);
+//			else 
+//				model->player2.mainBody = cloneRectangle(mainBody);
+//		}
+//		else if(model->mainBodies.size() == 2)
+//		{
+//			model->player1.mainBody = cloneRectangle(model->mainBodies.at(0));
+//			model->player2.mainBody = cloneRectangle(model->mainBodies.at(1));
+//		}
+//
+//	}
+//	else
+//	{
+//		cout << "  (prevBody1 != NULL && prevBody2 != NULL)\n";
+//		for(int i=0;i<model->mainBodies.size();i++)
+//		{
+//			ofRectangle *mainBody = model->mainBodies.at(i);
+//			int mainBodyCX = mainBody->x+mainBody->width/2;
+//			cout << "    mainBodyCX: " << mainBodyCX << "\n";
+//			ofFill();
+//			ofSetColor(125, 125, 125);
+//			ofRect(model->videoW+mainBodyCX,model->videoH*2+5,1,10);
+//			
+//			cout << "    model->player1.mainBody: " << model->player1.mainBody << "\n";
+//			if(model->player1.mainBody == NULL)
+//			{
+//				int prevCX = prevMainBody1->x+prevMainBody1->width/2;
+//				cout << "      prevCX: " << prevCX << "\n";
+//				
+//				int dis = prevCX-mainBodyCX;
+//				if(dis < 0) dis *= -1;
+//				cout << "      dis: " << dis << "/" << maxSameBodyDis << "\n";
+//				if(dis < maxSameBodyDis)
+//				{
+//					cout << "        storing body\n";
+//					model->player1.mainBody = cloneRectangle(mainBody);
+//					model->player1.mainBodyDetectedTime = ofGetElapsedTimeMillis();
+//				}
+//			}
+//			cout << "    model->player2.mainBody: " << model->player2.mainBody << "\n";
+//			if(model->player2.mainBody == NULL)
+//			{
+//				int prevCX = prevMainBody2->x+prevMainBody2->width/2;
+//				cout << "      prevCX: " << prevCX << "\n";
+//				
+//				int dis = prevCX-mainBodyCX;
+//				if(dis < 0) dis *= -1;
+//				cout << "      dis: " << dis << "/" << maxSameBodyDis << "\n";
+//				if(dis < maxSameBodyDis)
+//				{
+//					cout << "        storing body\n";
+//					model->player2.mainBody = cloneRectangle(mainBody);
+//					model->player2.mainBodyDetectedTime = ofGetElapsedTimeMillis();
+//				}
+//			}
+//		}
+//		if(model->player1.mainBody == NULL)
+//		{
+//			int timeDiff = ofGetElapsedTimeMillis()-model->player1.mainBodyDetectedTime;
+//			if(timeDiff < maxLostBodyTime)
+//				model->player1.mainBody = prevMainBody1;
+//		}
+//		if(model->player2.mainBody == NULL)
+//		{
+//			int timeDiff = ofGetElapsedTimeMillis()-model->player2.mainBodyDetectedTime;
+//			if(timeDiff < maxLostBodyTime)
+//				model->player2.mainBody = prevMainBody2;
+//		}
+//	}
 
-	
-	// gather block's data into BlockVO's, filter on distance to players
-//	int maxBlockDisToPlayer = 100;
-//	for(int i=0;i<model->blockVOs.size();i++)
+//	if((model->player2.mainBody == NULL || model->player2.mainBody == NULL) && model->mainBodies.size() > 0)
 //	{
-//		delete model->blockVOs.at(i);
+//		model->setVideoPause(true);
 //	}
-//	model->blockVOs.clear();
-//	for(int i=0;i<model->blocks.size();i++)
-//	{
-//		ofRectangle *block = model->blocks.at(i);
-//		BlockVO *blockVO = new BlockVO();
-//		blockVO->bounds = *block;
-//		
-//		ofRectangle *player1MainBody = model->player1.mainBody;
-//		ofRectangle *player2MainBody = model->player2.mainBody;
-//		
-//		int disToPlayer1 = (player1MainBody == NULL)? 9999 : block->x-(player1MainBody->x+player1MainBody->width);
-//		int disToPlayer2 = (player2MainBody == NULL)? 9999 : player2MainBody->x-(block->x+block->width);
-//		int disToPlayer;
-//		if(disToPlayer1 < disToPlayer2)
-//		{
-//			disToPlayer = disToPlayer1;
-//			blockVO->victim = 1;
-//		}
-//		else 
-//		{
-//			disToPlayer = disToPlayer2;
-//			blockVO->victim = 2;
-//			blockVO->mirrorX = true;
-//		}
-//		if(disToPlayer <= maxBlockDisToPlayer)
-//		{
-//			model->blockVOs.push_back(blockVO);
-//		}
-//	}
+//	cout << "mainBody1: " << model->player1.mainBody << "\n";
+//	if(model->player1.mainBody != NULL)
+//		cout << "  mainBody1: x: " << model->player1.mainBody->x << " width: " << model->player1.mainBody->width << "\n";
+//	cout << "mainBody2: " << model->player2.mainBody << "\n";
+//	if(model->player2.mainBody != NULL)
+//		cout << "  mainBody2: x: " << model->player2.mainBody->x << " width: " << model->player2.mainBody->width << "\n";
 	
+//	if(model->debugDetection)
+//	{
+//		ofSetColor(0xffff00);
+//		int textY = model->videoH*2+5;
+//		ofRectangle *mainBody1 = model->player1.mainBody;
+//		ofRectangle *mainBody2 = model->player2.mainBody;
+//		if(mainBody1 != NULL)
+//			font.drawString("1", model->videoW+mainBody1->x+mainBody1->width/2, textY);
+//		if(mainBody2 != NULL)
+//			font.drawString("2", model->videoW+mainBody2->x+mainBody2->width/2, textY);
+//	}	
+
 	// analyze blocks to find the real blocks
 	// create blocks arrays for 2 players
 	// loop trough blocks
@@ -728,6 +885,9 @@ void VideoInputController::analyzeShadows()
 	}
 	model->blockVOs.clear();
 	
+	model->player1.blockVO = NULL;
+	model->player2.blockVO = NULL;
+	
 	int minBlockDisToPlayer = 0;
 	int maxBlockDisToPlayer = 100;
 	ofRectangle *player1MainBody = model->player1.mainBody;
@@ -741,8 +901,8 @@ void VideoInputController::analyzeShadows()
 	{
 		ofRectangle *block = model->blocks.at(i);
 		
-		int disToPlayer1 = (player1MainBody == NULL)? 9999 : block->x-(player1MainBody->x+player1MainBody->width);
-		int disToPlayer2 = (player2MainBody == NULL)? 9999 : player2MainBody->x-(block->x+block->width);
+		int disToPlayer1 = (player1MainBody == NULL ||  block == NULL)? 9999 : block->x-(player1MainBody->x+player1MainBody->width);
+		int disToPlayer2 = (player2MainBody == NULL ||  block == NULL)? 9999 : player2MainBody->x-(block->x+block->width);
 		//cout << "  disToPlayer1: " << disToPlayer1 << "\n";
 		//cout << "  disToPlayer2: " << disToPlayer2 << "\n";
 		
@@ -853,10 +1013,10 @@ void VideoInputController::analyzeShadows()
 		ofDisableAlphaBlending();
 	}
 	
-	if(model->state != STATE_GAME)
-	{
+//	if(model->state != STATE_GAME )
+//	{
 		detectPlayers();
-	}
+//	}
 	
 	model->checkBlocks();
 	model->checkPlayersPositions();
@@ -922,17 +1082,21 @@ void VideoInputController::detectPlayers()
 	
 	bool detectedPlayer1 = false;
 	bool detectedPlayer2 = false;
-	for (int i = 0; i < model->bodies.size(); i++)
+	for (int i = 0; i < model->mainBodies.size(); i++)
 	{
-		ofRectangle *body = model->bodies.at(i);
+		ofRectangle *mainBody = model->mainBodies.at(i);
 		
 		//cout << "  i: " << i << " blobRect: " << blobRect << "\n";
 		
-		if(rectIsInside(body, model->player1.area, false))
+		if(rectIsInside(mainBody, model->player1.area, false))
 			detectedPlayer1 = true;
-		else if(rectIsInside(body, model->player2.area, false))
+		else if(rectIsInside(mainBody, model->player2.area, false))
 			detectedPlayer2 = true;
 	}
+	
+	//bool detectedPlayer1 = (model->player1.mainBody != NULL)? true : false;
+	//bool detectedPlayer2 = (model->player2.mainBody != NULL)? true : false;;
+	
 	//cout << "  detectedPlayers: " << detectedPlayer1 << " & " << detectedPlayer2 << "\n";
 	
 	model->setDetectedPlayer1(detectedPlayer1);
@@ -1215,6 +1379,7 @@ void VideoInputController::analyseHitBlobsSimple(unsigned char * colorPixels)
 			continue;
 		}
 		int victim = (hittingPlayer1)? 1 : 2; 
+		PlayerVO victimVO = (hittingPlayer1)? model->player1 : model->player2 ;
 		drawHitText("  victim: "+ofToString(victim));
 		
 //		if(!hitsBodyPixels(hitBlobRect)) // still really needed?
@@ -1312,10 +1477,11 @@ void VideoInputController::analyseHitBlobsSimple(unsigned char * colorPixels)
 			// TODO: human shadow hit filter ?
 			// TODO: check hit blob speed (find old, match blobs, check speed) 
 			//			(store if hit blobs are valid, store only valid blobs)
-
+			
 			HitVO hitVO;
 			hitVO.bounds = hitBlobRect; //new ofRectangle();
 			hitVO.victim = victim;
+			hitVO.typeVO = determineHitType(&hitVO,&victimVO);
 			drawHitText("  victim: "+ofToString(victim));		
 			model->hit(hitVO);
 			
@@ -1323,225 +1489,7 @@ void VideoInputController::analyseHitBlobsSimple(unsigned char * colorPixels)
 			takeHitScreenShot("("+ofToString(model->hitCounter)+")");
 		}
 	}
-}
-//void VideoInputController::analyseHitBlobs()
-//{
-//	//cout << "VideoInputController::analyseHitBlobs (frame: "<<model->frameCounter<<")\n";
-//	
-//	if(hitContourFinder.blobs.size() == 0) return;
-//	
-//	int hitBlobDisplayX = 0;
-//	int hitBlobDisplayY = model->videoH;
-//	int attacksDisplayX = model->videoW*2;
-//	int attacksDisplayY = model->videoH;
-//	
-//	model->hitsTextX = hitBlobDisplayX;
-//	model->hitsTextY = hitBlobDisplayY;
-//	
-//	
-//	drawHitText("  Found hit blobs ");
-//	
-//	ofRectangle * detectionZone = &model->hitDetectionZone;
-//	if(model->debugDetection)
-//	{
-//		ofNoFill();
-//		ofSetColor(0xcc0000);
-//		ofRect(detectionZone->x, detectionZone->y, detectionZone->width, detectionZone->height);
-//		ofRect(hitBlobDisplayX+detectionZone->x, hitBlobDisplayY+detectionZone->y, detectionZone->width, detectionZone->height);
-//	}
-//	int validBlobs = 0;
-//	for (int i = 0; i < hitContourFinder.blobs.size(); i++)
-//	{
-//		ofxCvBlob hitBlob = hitContourFinder.blobs[i];
-//		ofRectangle hitBlobRect = hitBlob.boundingRect;
-//		
-//		if(!(hitBlobRect.x >= detectionZone->x &&
-//			 hitBlobRect.y >= detectionZone->y &&
-//			 hitBlobRect.x+hitBlobRect.width <= detectionZone->x+detectionZone->width &&
-//			 hitBlobRect.y+hitBlobRect.height <= detectionZone->y+detectionZone->height))
-//		{
-//			validBlobs++;
-//		}
-//	}
-//	if(validBlobs <= 0)
-//	{
-//		drawHitText("  0 hit blobs inside detection area.");
-//		return;
-//	}
-//	
-//	// if there where not 2 blobs before this frame, we can't check for an attack, so cancel
-//	vector<vector<Blob*> * > * blobsHistory = model->blobsHistory;
-//	int historyLength = blobsHistory->size();
-//	if(blobsHistory->size() < 1) 
-//	{
-//		drawHitText("  There is not enough blob history to detect attacks");
-//		takeHitScreenShot("("+ofToString(model->hitCounter)+")");
-//		return;
-//	}
-//	drawHitText("  There is enough blob history to detect attacks");
-//
-//	vector<Blob*> * prevBlobs = blobsHistory->at(blobsHistory->size()-1);
-//	if(prevBlobs->size() < 2)
-//	{
-//		drawHitText("  There weren't 2 blobs in prev blobs\n");
-//		takeHitScreenShot("("+ofToString(model->hitCounter)+")");
-//		return;
-//	}
-//	drawHitText("  There were 2 blobs in prev blobs\n");
-//	
-//	model->hitCounter = 0;
-//	for (int i = 0; i < hitContourFinder.blobs.size(); i++)
-//	{
-//		ofxCvBlob hitBlob = hitContourFinder.blobs[i];
-//		ofRectangle hitBlobRect = hitBlob.boundingRect;
-//		
-//		model->hitCounter++;
-//		model->attacksTextX = attacksDisplayX;
-//		model->attacksTextY = attacksDisplayY;
-//		
-//		if(model->debugDetection)
-//		{
-//			drawHitText("  Found hit blob");
-//			hitBlob.draw(0,0);
-//			hitBlob.draw(hitBlobDisplayX,hitBlobDisplayY);
-//		}
-//		
-//		if(!(hitBlobRect.x >= detectionZone->x &&
-//			 hitBlobRect.y >= detectionZone->y &&
-//			 hitBlobRect.x+hitBlobRect.width <= detectionZone->x+detectionZone->width &&
-//			 hitBlobRect.y+hitBlobRect.height <= detectionZone->y+detectionZone->height))
-//		{
-//			drawHitText("  Hit blob is outside detectionZone");
-//			continue;
-//		}
-//		drawHitText("  Hit blob is inside detectionZone");
-//		
-//		if(!hitIsUnique(hitBlobRect))
-//		{
-//			drawHitText("  Hit blob isn't a unique hit blob");
-//			takeHitScreenShot("("+ofToString(model->hitCounter)+")");
-//			continue;
-//		}
-//		drawHitText("  Hit blob is a unique hit blob");
-//		
-//		//cout << "VideoInputController::there was an attack? (" << model->possibleAttacksCounter << ")\n";
-//		
-//		// Analyze possible attack
-//		string counters = ofToString(model->hitCounter)+"/"+ofToString(model->possibleAttacksCounter);
-//		
-//		//int blobDiffTolerance = 100;
-//		int minAttackSpeed = model->minAttackSpeed;
-//		//cout << "  minAttackSpeed: " << minAttackSpeed << "\n";
-//		bool isAttack = false;
-//		
-//		drawAttackText("there was an attack? ("+counters+")");
-//		
-//		ofSetColor(0xffffff);
-//		if(model->debugDetection)
-//			model->prevGrayDiffImg->draw(attacksDisplayX,attacksDisplayY);
-//		
-//		int historyLength = model->blobsHistory->size();
-//		if(historyLength < 2) 
-//		{
-//			drawAttackText("  not enough blobs history");
-//			takeHitScreenShot("("+ofToString(model->hitCounter)+")");
-//			return; 
-//		}
-//		drawAttackText("  enough blobs history");
-//		
-//		vector<Blob*> * prevBlobs = model->blobsHistory->at(historyLength-1);
-//		std::sort (prevBlobs->begin(), prevBlobs->end(), &sortBlobsOnX);
-//		
-//		int blobColors[4] = {0xff0000, 0x00ff00, 0x0000ff, 0xffff00};
-//		for (int i = 0; i < prevBlobs->size(); i++)
-//		{
-//			Blob * prevBlob = prevBlobs->at(i);
-//			ofRectangle prevBlobRect = prevBlob->boundingRect;
-//			prevBlob->color = blobColors[i];
-//			
-//			vector<Blob*> * prevPrevBlobs = model->blobsHistory->at(historyLength-2);
-//			if(prevPrevBlobs->size() < 2) 
-//			{
-//				drawAttackText("  not enough prev prev blobs");
-//				takeHitScreenShot("("+ofToString(model->hitCounter)+")");
-//			}
-//			for (int j = 0; j < prevPrevBlobs->size(); j++)
-//			{
-//				Blob * prevPrevBlob = prevPrevBlobs->at(j);
-//				if(matchBlobs(prevBlob, prevPrevBlob))
-//				{
-//					ofRectangle prevPrevBlobRect = prevPrevBlob->boundingRect;
-//					prevPrevBlob->color = prevBlob->color;
-//					drawRect(prevPrevBlob->boundingRect,attacksDisplayX,attacksDisplayY,prevPrevBlob->color,200);
-//					
-//					drawAttackText("  found matching blob to detect speed");
-//					
-//					int attackSpeed;
-//					bool onLeftSide = (prevBlobRect.x+prevBlobRect.width/2 < model->videoW/2);
-//					int player = (onLeftSide)?1:2;
-//					drawAttackText("  player: "+ofToString(player));
-//					if(onLeftSide)
-//						attackSpeed = (prevBlobRect.x+prevBlobRect.width)-(prevPrevBlobRect.x+prevPrevBlobRect.width);
-//					else 
-//						attackSpeed = (prevPrevBlobRect.x-prevBlobRect.x);
-//					
-//					drawAttackText("  attackSpeed: "+ofToString(attackSpeed));
-//					
-//					if(attackSpeed >= minAttackSpeed)
-//					{
-//						drawHitText("  Is attack");
-//						
-//						// analyze who's the victim
-//						
-//						int victim = (onLeftSide)? 2 : 1;
-//						drawAttackText("  victim: "+ofToString(victim));
-//						
-//						Blob * victimBlob = prevBlobs->at(victim-1);
-//						ofRectangle victimBlobRect = victimBlob->boundingRect;
-//						
-//						hitBlob.draw(attacksDisplayX,attacksDisplayY);
-//						
-//						if(rectHitTest(hitBlobRect,victimBlobRect))
-//						{
-//							if(model->debugDetection)
-//								drawRect(victimBlobRect, attacksDisplayX,attacksDisplayY, 0xffff00);	
-//							drawAttackText("  Hit!");
-//							drawHitText("  Hit hits a player");
-//							
-//							model->hitRect->x = hitBlobRect.x;
-//							model->hitRect->y = hitBlobRect.y;
-//							model->hitRect->width = hitBlobRect.width;
-//							model->hitRect->height = hitBlobRect.height;	
-//							
-//							model->hit(0,0,victim);
-//							
-//							drawHitText("  healths: "+ofToString(model->player1Health)+" vs. "+ofToString(model->player2Health));
-//							takeHitScreenShot("("+ofToString(model->hitCounter)+")");
-//						}
-//						else
-//						{
-//							drawAttackText("  no hit");
-//							takeHitScreenShot("("+ofToString(model->hitCounter)+")");
-//						}
-//					}
-//					else 
-//					{
-//						drawHitText("  Is not attack");
-//						takeHitScreenShot("("+ofToString(model->hitCounter)+")");
-//					}
-//
-//				}
-//				else
-//				{
-//					drawAttackText("  not a matching blob to detect speed");	
-//				}
-//			}
-//			drawRect(prevBlob->boundingRect,attacksDisplayX,attacksDisplayY,prevBlob->color,255);
-//		}	
-//		model->possibleAttacksCounter++;
-//	}
-//}
-bool VideoInputController::hitIsUnique(ofRectangle blobRect)
+}bool VideoInputController::hitIsUnique(ofRectangle blobRect)
 {
 	//cout << "VideoInputController::hitIsUnique\n";
 	bool toCloseToPrevHit = false;
@@ -1595,26 +1543,6 @@ bool VideoInputController::hitsBodyPixels(ofRectangle hitBlobRect)
 	
 	return (numWhitePixels >= minNumWhitePixels);
 }
-/*bool VideoInputController::isBlocked(ofRectangle hitBlobRect,vector<ofRectangle*> blocks)
-{
-	int maxBlockDisX = model->maxBlockDisX;
-	//cout << "VideoInputController::isBlocked\n";
-	int hitCY = hitBlobRect.y+hitBlobRect.height/2;
-	int hitCX = hitBlobRect.x+hitBlobRect.width/2;
-	//cout << "hitCY: " << hitCY << "\n";
-	for(int i=0;i<blocks.size();i++)
-	{
-		ofRectangle *block = blocks.at(i);
-		
-		int disX = hitCX - block->x;
-		if(disX < 0) disX *= -1;
-		
-		//cout << "block: " << block->y << " t/m " << block->y+block->height << "\n";
-		if(hitCY > block->y && hitCY < block->y+block->height && disX < maxBlockDisX)
-			return true;
-	}
-	return false;
-}*/
 bool VideoInputController::isCorrectColor(ofRectangle hitBlobRect, unsigned char * colorPixels)
 {
 	int videoW = model->videoW;
@@ -1704,6 +1632,47 @@ bool VideoInputController::isCorrectColor(ofRectangle hitBlobRect, unsigned char
 	}
 	return true;
 }
+HitTypeVO* VideoInputController::determineHitType(HitVO *hitVO,PlayerVO *victimVO)
+{
+	cout << "VideoInputController::determineHitType\n";
+	int hitY = hitVO->bounds.y+hitVO->bounds.height/2;
+	cout << "  hitY: " << hitY << "\n";
+	ofRectangle *body = victimVO->body;
+	cout << "  body: y: " << body->y << ", height: " << body->height << "\n";
+	// where's the hit Y relative compared to body?
+	float relativeHitY = (hitY-body->y)/body->height;
+	cout << "  relativeHitY: " << relativeHitY << "\n";
+	
+	float lowestMaxY = 9999;
+	HitTypeVO *lowestType = NULL;
+	cout << "  loop trough types\n";
+	for(int i=0;i<model->hitTypes.size();i++)	
+	{
+		HitTypeVO *typeVO = model->hitTypes.at(i);
+		cout << "  typeVO->name: " << typeVO->name << "\n";
+		if(typeVO->name != HIT_POWER)
+		{
+			cout << "  typeVO->maxY: " << typeVO->maxY << "\n";
+			if(relativeHitY < typeVO->maxY)
+			{
+				cout << "  inside maxY\n";
+				if(typeVO->maxY <= lowestMaxY)
+				{
+					cout << "  lower maxY\n";
+					lowestMaxY = typeVO->maxY;
+					lowestType = typeVO;
+					cout << "  lowestType->name: " << lowestType->name << "\n";
+				}
+				
+			}
+		}
+	}
+	cout << "  final lowestType->name: " << lowestType->name << "\n";
+	return lowestType;
+}
+
+
+
 void VideoInputController::drawHitText(string text)
 {
 	if(!model->debugDetection) return;
@@ -1717,47 +1686,6 @@ void VideoInputController::drawAttackText(string text)
 	ofSetColor(0x0000ff);
 	font.drawString(text, model->attacksTextX, model->attacksTextY+=model->lineHeight);
 }
-
-//void VideoInputController::analyzeShadowsForPlayers()
-//{
-//	//cout << "VideoInputController::analyzeShadowsForPlayers\n";
-//
-//	if(model->debugDetection)
-//	{
-//		int videoW = model->videoW;
-//		int videoH = model->videoH;
-//		ofRectangle *player1Area = model->player1.area;
-//		ofRectangle *player2Area = model->player2.area;
-//		
-//		ofNoFill();
-//		ofSetColor(0xcccc00);
-//		ofRect(player1Area->x, player1Area->y, player1Area->width, player1Area->height);
-//		ofRect(player2Area->x, player2Area->y, player2Area->width, player2Area->height);
-//		ofRect(videoW+player1Area->x, videoH+player1Area->y, player1Area->width, player1Area->height);
-//		ofRect(videoW+player2Area->x, videoH+player2Area->y, player2Area->width, player2Area->height);
-//	}
-//	
-//	bool detectedPlayer1 = false;
-//	bool detectedPlayer2 = false;
-//    for (int i = 0; i < contourFinder.blobs.size(); i++)
-//	{
-//
-//		ofxCvBlob blob = contourFinder.blobs[i];
-//		ofRectangle * blobRect = &blob.boundingRect;
-//		
-//		//cout << "  i: " << i << " blobRect: " << blobRect << "\n";
-//		
-//		if(rectIsInside(blobRect, model->player1.area, false))
-//			detectedPlayer1 = true;
-//		else if(rectIsInside(blobRect, model->player2.area, false))
-//			detectedPlayer2 = true;
-//	}
-//	//cout << "  detectedPlayers: " << detectedPlayer1 << " & " << detectedPlayer2 << "\n";
-//	
-//	model->setDetectedPlayer1(detectedPlayer1);
-//	model->setDetectedPlayer2(detectedPlayer2);
-//}
-
 // -- utils --
 unsigned char * VideoInputController::toGrayscale(unsigned char * pixels)
 {
@@ -1910,4 +1838,13 @@ bool VideoInputController::rectIsInside(ofRectangle *smallRect, ofRectangle *big
 				 rectCX <= bigRect->x+bigRect->width &&
 				 rectCY <= bigRect->y+bigRect->height));
 	}
+}
+ofRectangle * VideoInputController::cloneRectangle(ofRectangle * rect)
+{
+	ofRectangle * clone = new ofRectangle();
+	clone->x = rect->x;
+	clone->y = rect->y;
+	clone->width = rect->width;
+	clone->height = rect->height;
+	return clone;
 }

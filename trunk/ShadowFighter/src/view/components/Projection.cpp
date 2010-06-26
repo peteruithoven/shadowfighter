@@ -18,6 +18,7 @@
 #define COUNT_DOWN		6
 #define BLOCK			7
 #define BLOCKING		8
+#define POWERHIT_UPDATE 9
 
 Projection::Projection()
 {
@@ -26,14 +27,14 @@ Projection::Projection()
 }
 void Projection::addHit(HitVO hitVO)
 {
-	//cout << "Projection::addHit: "<<x<<"x"<<y<<"\n";
+	//cout << "Projection::addHit: typeVO.name: "<<hitVO.typeVO->name<<"\n";
 	ofxOscMessage * message = new ofxOscMessage();
 	message->setAddress(ofToString(HIT_ADDRESS));
 	message->addIntArg(hitVO.bounds.x);
 	message->addIntArg(hitVO.bounds.y);
 	message->addIntArg(hitVO.bounds.width);
 	message->addIntArg(hitVO.bounds.height);
-	message->addIntArg(hitVO.type);
+	message->addIntArg(hitVO.typeVO->name);
 	messagesBundle.addMessage(*message);
 }
 void Projection::addBlock(BlockVO blockVO)
@@ -96,6 +97,15 @@ void Projection::updateCountDown(int countDown)
 	message->addIntArg(countDown);
 	messagesBundle.addMessage(*message);
 }
+void Projection::updatePowerhits(bool powerHitPlayer1,bool powerHitPlayer2)
+{
+	ofxOscMessage * message = new ofxOscMessage();
+	message->setAddress(ofToString(POWERHIT_UPDATE));
+	message->addIntArg((powerHitPlayer1)? 1 : 0);
+	message->addIntArg((powerHitPlayer2)? 1 : 0);
+	messagesBundle.addMessage(*message);
+}
+
 void Projection::update(ofEventArgs & args)
 {
 	//cout << "Projection::update\n";

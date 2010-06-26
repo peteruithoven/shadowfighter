@@ -9,13 +9,14 @@
 #define _HitVO
 
 #include "ofMain.h"
+#include "HitTypeVO.h"
 
 class HitVO
 {
 	public:
 		ofRectangle bounds;
 		int victim;
-		int type;
+		HitTypeVO *typeVO;
 		int area;
 		int attackType;
 };

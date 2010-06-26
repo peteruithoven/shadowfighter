@@ -22,16 +22,17 @@ Timer::Timer()
 }
 void Timer::update(ofEventArgs & args)
 {
-	//cout << "Timer::update\n";
 	int elapsedTime = ofGetElapsedTimeMillis();
+	if(interval == 3000)
+		cout << "Timer::update: " << elapsedTime << "\n";
 	if(elapsedTime > startTime+interval)
-	 {
+	{
 		tick();
 		if(count < repeatCount || repeatCount == 0)
 			start();
 		else
 			reset();
-	 }
+	}
 }
 void Timer::tick()
 {
@@ -54,6 +55,8 @@ int Timer::getInterval()
 };	
 void Timer::setInterval(int value)
 {
+	cout << "Timer::setInterval: " << value << "\n";
+	
 	interval = value;
 	if(interval < 500)
 		interval = 500;

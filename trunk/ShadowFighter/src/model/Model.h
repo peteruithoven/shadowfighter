@@ -65,6 +65,10 @@ class Model
 		int					centerX;
 		bool				detectedPlayer1;
 		bool				detectedPlayer2;
+
+		bool				overulePlayer1Detected;
+		bool				overulePlayer2Detected;
+	
 		
 		string				backgroundImageURL;
 		ofRectangle			detectionZone;
@@ -92,12 +96,11 @@ class Model
 		int					startHealth;
 		int					player1Health;
 		int					player2Health;
-		int					hitDamage;
-		int					powerHitDamage;
 		int					winner;
 		PlayerVO			player1;
 		PlayerVO			player2;
 		vector<HitTypeVO*>	hitTypes;
+		HitTypeVO*			powerHitTypeVO;
 		
 		// debugging
 		bool				debug;
@@ -114,7 +117,7 @@ class Model
 		bool				takeHitScreenShots;
 		bool				slowMotion;
 		bool				videoPaused;
-		float					videoPosition;
+		float				videoPosition;
 		
 		Model();
 		void loadData();
@@ -144,10 +147,13 @@ class Model
 		ofEvent< int > VIDEO_RESUME;
 		ofEvent< int > PLAYERS_CHANGED;
 		ofEvent< int > COUNT_DOWN;
+		ofEvent< int > POWERHITS_UPDATE;
 		
 	protected:
 		Timer				countDownTimer;
 		Timer				finishTimer;
+		Timer				waitingDelayer;
+		Timer				demoDelayer;
 	
 		void parseXML();
 		void storeValues();
@@ -155,6 +161,8 @@ class Model
 		void update(ofEventArgs & args);
 		void onCountDownTick(int  & count);
 		void onFinishTick(int  & count);	
+		void onWaitingDelayed(int  & count);
+		void onDemoDelayed(int  & count);
 };
 
 #endif

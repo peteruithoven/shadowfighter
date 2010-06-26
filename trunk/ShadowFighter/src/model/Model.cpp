@@ -3,7 +3,6 @@
  *  openFrameworks
  *
  *  Created by Peter Uithoven on 4/27/09.
- *  Copyright 2009 __MyCompanyName__. All rights reserved.
  *
  */
 
@@ -18,11 +17,10 @@ int Model::BLOCK_EXPERIMENTS_DEMO = 5;
 int Model::FIGHT2_DEMO =  6;
 int Model::FIGHT3_DEMO = 7;
 
-
 Model::Model()
 {
 	cout << "Model::Model\n";
-	pixelsSource			= FIGHT2_DEMO;
+	pixelsSource			= CAMERA;
 	videoW					= 640;
 	videoH					= 480;
 	
@@ -55,15 +53,23 @@ Model::Model()
 	currentBlobs			= new vector<Blob*>;
 	blobsHistory			= new vector< vector<Blob*>* >;
 	prevGrayDiffImg			= new ofxCvGrayscaleImage();
-	prevGrayDiffImg->allocate(videoW, videoH);
+	prevGrayDiffImg->allocate(videoW, videoH); 
 	
-	countDownTimer.setInterval(1500); //1500//1200//700
+	countDownTimer.setInterval(1200); //800//1500//1200//700
 	countDownTimer.setRepeatCount(3); //5
 	ofAddListener(countDownTimer.TICK,this,&Model::onCountDownTick);
 	
-	finishTimer.setInterval(5000);
+	finishTimer.setInterval(8000); //5000
 	finishTimer.setRepeatCount(1);
 	ofAddListener(finishTimer.TICK,this,&Model::onFinishTick);
+	
+	waitingDelayer.setInterval(1000);
+	waitingDelayer.setRepeatCount(1);
+	ofAddListener(waitingDelayer.TICK,this,&Model::onWaitingDelayed);
+	
+	demoDelayer.setInterval(3000);
+	demoDelayer.setRepeatCount(1);
+	ofAddListener(demoDelayer.TICK,this,&Model::onDemoDelayed);
 	
 	// game logic
 	gamePaused				= false;
@@ -71,14 +77,14 @@ Model::Model()
 	//hitDamage				= 3; //7;//3;
 	//powerHitDamage			= 10;
 	HitTypeVO *hitTypeVO;
-	hitTypeVO = new HitTypeVO(HIT_HEAD,0.2,8);
+	hitTypeVO = new HitTypeVO(HIT_HEAD,0.2,8); //8
 	hitTypes.push_back(hitTypeVO);
-	hitTypeVO = new HitTypeVO(HIT_BODY,(0.2+0.47),5);
+	hitTypeVO = new HitTypeVO(HIT_BODY,(0.2+0.47),5); //5
 	hitTypes.push_back(hitTypeVO);
-	hitTypeVO = new HitTypeVO(HIT_LEGS,1,3);
+	hitTypeVO = new HitTypeVO(HIT_LEGS,2,3); //3
 	hitTypes.push_back(hitTypeVO);
-	hitTypeVO = new HitTypeVO(HIT_POWER,0,13);
-	hitTypes.push_back(hitTypeVO);
+	powerHitTypeVO = new HitTypeVO(HIT_POWER,0,13); //13
+	hitTypes.push_back(powerHitTypeVO);
 	
 	// debugging
 	debug					= true;
@@ -91,6 +97,8 @@ Model::Model()
 	attacksTextY			= 0;
 	lineHeight				= 20;
 	videoPosition			= 0;
+	overulePlayer1Detected	= false;
+	overulePlayer2Detected	= false;
 	
 	resetGame();
 	
@@ -107,9 +115,11 @@ void Model::resetGame()
 	player2Health			= startHealth;	
 	winner					= 0;
 	player1.body			= NULL;
+	player1.mainBody		= NULL;
 	player1.block			= NULL;
 	player1.powerHit		= false;
 	player2.body			= NULL;
+	player2.mainBody		= NULL;
 	player2.block			= NULL;
 	player2.powerHit		= false;
 	
@@ -122,6 +132,9 @@ void Model::resetGame()
 	
 	int emptyArg = 0;
 	ofNotifyEvent(RESET,emptyArg,this); 
+	
+	int empty = 0;
+	ofNotifyEvent(POWERHITS_UPDATE,empty,this); 
 }
 void Model::loadData()
 {
@@ -166,6 +179,7 @@ void Model::loadData()
 //	imgSaver.saveImage(backgroundImageURL);
 	
 	grayEmptyImg->setFromPixels(imgLoader->getPixels(), videoW,videoH);
+	grayEmptyImg->blur(2);
 	grayEmptyCopyImg->setFromPixels(imgLoader->getPixels(), videoW,videoH);
 	
 	delete imgLoader;
@@ -423,19 +437,28 @@ void Model::hit(HitVO hitVO)
 	cout << "Model::hit\n";
 	if(gamePaused) return;
 	
+	cout << "  victim: " << hitVO.victim << "\n";
+	
 	PlayerVO *victim = (hitVO.victim == 1)? &player1 : &player2;
 	PlayerVO *attacker = (hitVO.victim == 1)? &player2 : &player1;
+	
+	cout << "  attacker->powerHit: " << attacker->powerHit << "\n";
 	
 	//if(victim->powerHit)
 	//	setVideoPause(true);
 	int bodyPart = 2;
 	soundController.PlayHitSound(SOUND_HIT,bodyPart,attacker->powerHit,hitVO.victim);
 	
-	hitVO.type = int(ofRandom(0, 3));
+	//hitVO.type = int(ofRandom(0, 3));
 	if(attacker->powerHit)
-		hitVO.type = HIT_POWER;
+		hitVO.typeVO = powerHitTypeVO;
 	
-	int damage = (attacker->powerHit)? powerHitDamage : hitDamage;
+	cout << "  type: " << hitVO.typeVO->name << "\n";
+	
+	
+	//int damage = (attacker->powerHit)? powerHitDamage : hitDamage;
+	int damage = hitVO.typeVO->damage;
+	cout << "  damage: " << damage << "\n";
 	
 	if(hitVO.victim == 1)
 		player1Health -= damage;
@@ -456,21 +479,30 @@ void Model::hit(HitVO hitVO)
 		setState(STATE_GAME_FINISHED);
 	}
 	attacker->powerHit = false;
+	
+	int empty = 0;
+	ofNotifyEvent(POWERHITS_UPDATE,empty,this); 
 }
 void Model::block(BlockVO *blockVO)
 {
 	cout << "Model::block\n";
+	if(gamePaused) return;
 	cout << " victim: " << blockVO->victim << "\n";
 	//setVideoPause(true);
 	
-	if(gamePaused) return;
-
 	PlayerVO *victim = (blockVO->victim == 1)? &player1 : &player2;
+	bool hadPowerHit = victim->powerHit;
 	victim->powerHit = true;
 	
-	soundController.PlayBlockSound(SOUND_BLOCK,blockVO->victim);
+	soundController.PlayBlockSound(SOUND_BLOCK,blockVO->victim,!hadPowerHit);
 	
 	ofNotifyEvent(BLOCK,*blockVO,this); 
+	
+	if(hadPowerHit != victim->powerHit)
+	{
+		int empty = 0;
+		ofNotifyEvent(POWERHITS_UPDATE,empty,this); 
+	}
 }
 void Model::checkBlocks()
 {
@@ -505,7 +537,7 @@ void Model::setState(int newValue)
 			break;
 		case STATE_GAME:
 			//if(!gamePaused)
-				resetGame();
+			//soundController.Reset();
 			gamePaused = false;
 			
 			break;
@@ -515,15 +547,13 @@ void Model::setState(int newValue)
 		case STATE_GAME_FINISHED:
 			soundController.PlaySound(SOUND_WARNING,0);
 			finishTimer.start();
-			detectedPlayer1 = false;
-			detectedPlayer2 = false;
+			break;
+		case STATE_DEMO:
+			resetGame();
 			break;
 	}
 	
-	if(state != STATE_GAME)
-	{
-		soundController.Reset();
-	}
+	//soundController.PlayBGSound(SOUND_BG,player1Health,player2Health,startHealth,state);
 	
 	cout << "  notifyEvent(STATE_CHANGE\n";
 	int emptyArg = 0;
@@ -531,6 +561,7 @@ void Model::setState(int newValue)
 }
 void Model::setVideoPause(bool newValue)
 {
+
 	videoPaused = newValue;
 	
 	int emptyArg = 0;
@@ -540,9 +571,15 @@ void Model::setVideoPause(bool newValue)
 		ofNotifyEvent(VIDEO_RESUME,emptyArg,this);
 }
 void Model::setDetectedPlayer1(bool newValue)
-{
+{	
+	if(overulePlayer1Detected && newValue == true) return;
 	if(newValue == detectedPlayer1) return;
+	cout << "Model::setDetectedPlayer1: " << newValue << "\n";
+	
 	detectedPlayer1 = newValue;
+	
+	if(overulePlayer1Detected)
+		detectedPlayer1 = false;
 	
 	int emptyArg = 0;
 	ofNotifyEvent(PLAYERS_CHANGED,emptyArg,this);
@@ -551,8 +588,14 @@ void Model::setDetectedPlayer1(bool newValue)
 }
 void Model::setDetectedPlayer2(bool newValue)
 {
-	if(newValue == detectedPlayer2) return;
+	if(overulePlayer2Detected && newValue == true) return;
+	if(newValue == detectedPlayer2) return;	
+	cout << "Model::setDetectedPlayer2: " << newValue << "\n";
+
 	detectedPlayer2 = newValue;
+	
+	if(overulePlayer2Detected)
+		detectedPlayer2 = false;
 	
 	int emptyArg = 0;
 	ofNotifyEvent(PLAYERS_CHANGED,emptyArg,this);
@@ -574,13 +617,45 @@ void Model::checkPlayers()
 	{
 		setState(STATE_COUNT_DOWN);
 	}
-	else if(state == STATE_GAME && !detectedPlayer1 && !detectedPlayer2)
+	else if(state == STATE_GAME)
 	{
-		//setState(STATE_WAITING);
+		if(!detectedPlayer1 && !detectedPlayer2)
+		{
+			cout << "    missing both players\n";
+			waitingDelayer.start();
+			demoDelayer.start();
+		}
+		else if(!detectedPlayer1 || !detectedPlayer2)
+		{
+			cout << "    missing one player\n";
+			waitingDelayer.start();
+			demoDelayer.reset();
+		}
+		else
+		{
+			waitingDelayer.reset();
+			demoDelayer.reset();
+		}
 	}
-	else if(state == STATE_WAITING && detectedPlayer1 && detectedPlayer2)
+	else if(state == STATE_WAITING)
 	{
-		setState(STATE_GAME);
+		if(!detectedPlayer1 && !detectedPlayer2)
+		{
+			cout << "    missing both players\n";
+			demoDelayer.start();
+		}
+		else if(detectedPlayer1 && detectedPlayer2)
+		{
+			setState(STATE_GAME);
+			demoDelayer.reset();
+			waitingDelayer.reset();
+		}
+		else if(detectedPlayer1 || detectedPlayer2)
+		{
+			cout << "    missing one player\n";
+			demoDelayer.reset();
+		}
+		
 	}
 	else if(state != STATE_GAME && state != STATE_GAME_FINISHED  && (!detectedPlayer1 || !detectedPlayer2))
 	{
@@ -590,49 +665,110 @@ void Model::checkPlayers()
 }
 void Model::checkPlayersPositions()
 {
-	if(gamePaused) return;
-	//cout << "Model::checkPlayersPositions\n";
+	return;
+	if(state != STATE_GAME && state != STATE_WAITING) return;
+	cout << "Model::checkPlayersPositions\n";
+
+	int positionTollerance = 10; //5; 
 	
-	int positionTollerance = 5; 
-	
-	if(player1.mainBody == NULL || player2.mainBody == NULL)
-	{
-		soundController.PlaySound(SOUND_WARNING,1);
-	}
-	else 
+	bool detected = false;
+	if(player1.mainBody != NULL && player2.mainBody != NULL)
 	{
 		int player1FrontX = player1.mainBody->x+player1.mainBody->width;
 		int player2FrontX = player2.mainBody->x;
 		
+		cout << "Model::checkPlayersPositions: 1: " << player1FrontX << " 2: " << player2FrontX << " center: " << centerX << "\n";
+		
 		if(player1FrontX > centerX+positionTollerance) 
 		{
-			soundController.PlaySound(SOUND_WARNING,1);
-			//setVideoPause(true);
+			
 		}
 		else if(player2FrontX < centerX-positionTollerance) 
 		{
-			soundController.PlaySound(SOUND_WARNING,1);	
-			//setVideoPause(true);
+			
 		}
 		else
 		{
-			soundController.PlaySound(SOUND_WARNING,0);
+			detected = true;
+			
 		}
 	}
+	
+	
+//	detectedPlayer1 = false;
+//	if(player1.mainBody != NULL)
+//	{
+//		int player1FrontX = player1.mainBody->x+player1.mainBody->width;
+//		if(player1FrontX < centerX+positionTollerance) 
+//		{
+//			detectedPlayer1 = true;
+//		}
+//	}
+//	cout << "  detectedPlayer1: " << detectedPlayer1 << "\n";
+//	detectedPlayer2 = false;
+//	if(player2.mainBody != NULL)
+//	{
+//		int player2FrontX = player2.mainBody->x+player2.mainBody->width;
+//		if(player2FrontX > centerX-positionTollerance) 
+//		{
+//			detectedPlayer2 = true;
+//		}
+//	}
+//	cout << "  detectedPlayer2: " << detectedPlayer2 << "\n";
+	
+	if(detected)
+	{
+		//soundController.PlaySound(SOUND_WARNING,0);
+	}
+	else 
+	{
+		//soundController.PlaySound(SOUND_WARNING,1);
+		//setVideoPause(true);
+		//setState(STATE_WAITING);
+	}
+//	cout << "  state: " << state << "\n";
+//	if(state == STATE_DEMO)
+//	{
+//		int emptyArg = 0;
+//		ofNotifyEvent(PLAYERS_CHANGED,emptyArg,this);
+//	}
+//	
+//	if(state == STATE_DEMO && detectedPlayer1 && detectedPlayer2)
+//	{
+//		setState(STATE_COUNT_DOWN);
+//	}
+//	else if(state == STATE_GAME)
+//	{
+//		if(!detectedPlayer1 || !detectedPlayer2)
+//		{
+//			//setState(STATE_WAITING);
+//			soundController.PlaySound(SOUND_WARNING,1);
+//		}
+//		else 
+//		{
+//			soundController.PlaySound(SOUND_WARNING,0);
+//		}
+//	}
+//	else if(state != STATE_GAME && state != STATE_GAME_FINISHED  && (!detectedPlayer1 || !detectedPlayer2))
+//	{
+//		setState(STATE_DEMO);
+//		countDownTimer.reset();
+//	}
 }
 
 
 void Model::update(ofEventArgs & args)
 { 
-	if(state == STATE_GAME)
+	if(state != STATE_COUNT_DOWN || (state == STATE_COUNT_DOWN && countDown > 0))
 	{
+		//cout << "Model::update checked, state: "<<state<<"\n";
 		soundController.PlayBGSound(SOUND_BG,player1Health,player2Health,startHealth,state);
 	}
 }
 void Model::onCountDownTick(int  & count)
 {
 	cout << "Model::onCountDownTick\n";
-	cout << "  count: "<<count<<"\n";
+	cout << "  count: " << count << "\n";
 	
 	if(count < countDownTimer.getRepeatCount()-1)
 	{
@@ -645,6 +781,7 @@ void Model::onCountDownTick(int  & count)
 		if(count >= countDownTimer.getRepeatCount()-2)
 		{
 			//soundController.PlayStartFightSound();
+			//resetGame();
 			soundController.PlayBGSound(SOUND_BG,player1Health,player2Health,startHealth,STATE_GAME);
 		}
 		else
@@ -661,6 +798,21 @@ void Model::onCountDownTick(int  & count)
 void Model::onFinishTick(int  & count)
 {
 	cout << "Model::onFinishTick\n";
+	cout << "  count: "<<count<<"\n";
+	
+	setState(STATE_DEMO);
+}
+void Model::onWaitingDelayed(int  & count)
+{
+	cout << "Model::onWaitingDelayed\n";
+	cout << "  count: "<<count<<"\n";
+	
+	soundController.PlaySound(SOUND_WARNING, 1);
+	setState(STATE_WAITING);
+}	
+void Model::onDemoDelayed(int  & count)
+{
+	cout << "Model::onDemoDelayed\n";
 	cout << "  count: "<<count<<"\n";
 	
 	setState(STATE_DEMO);

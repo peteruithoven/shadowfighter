@@ -9,15 +9,15 @@ void testApp::setup(){
 	
 	model;
 	
-	try
-	{
+//	try
+//	{
 		projectionView.setModel(&model);
-	}
-	catch(Poco::Exception& e)
-	{
-		std::string what = e.displayText();
-		printf("EXCEPTION: projectionView: %s\n", what.c_str());
-	}
+//	}
+//	catch(Poco::Exception& e)
+//	{
+//		std::string what = e.displayText();
+//		printf("EXCEPTION: projectionView: %s\n", what.c_str());
+//	}
 	try
 	{
 		mainView.setModel(&model);

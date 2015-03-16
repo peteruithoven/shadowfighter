@@ -1,0 +1,1 @@
+ShadowFighter is een game installatie voor twee personen. De spelers vechten met hun schaduw tegen de schaduw van hun tegenstander. Door de spelers ieder met 2 lampen schuin te belichten, vallen hun schaduwen op de muur dichter bij elkaar dan hun zelf. De installatie zal feedback geven via geluid en waarschijnlijk visueel op de muur.
